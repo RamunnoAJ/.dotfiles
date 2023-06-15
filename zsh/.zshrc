@@ -35,6 +35,10 @@ if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # source nvim plugins
-source ~/nvim/.config/nvim/init.lua
+source ~/.config/nvim/init.lua
 
 if [ -e /home/ramunno/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ramunno/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
