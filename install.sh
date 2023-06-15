@@ -27,6 +27,9 @@ nix-env -iA \
 	nixpkgs.nodenv \
 	nixpkgs.zoxide 
 
+# use latest version of node
+nvm alias default node
+
 # stow
 stow git
 stow zsh
@@ -40,5 +43,4 @@ sudo chsh -s $(which zsh) $USER
 
 # bundle zsh plugins
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
-
 
