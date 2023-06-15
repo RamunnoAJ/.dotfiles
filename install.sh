@@ -1,3 +1,9 @@
+# run sudo update
+sudo apt update
+
+# install curl
+sudo apt install curl
+
 # install nix
 curl -L https://nixos.org/nix/install | sh 
 
