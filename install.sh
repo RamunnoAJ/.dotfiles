@@ -22,7 +22,10 @@ nix-env -iA \
 	nixpkgs.fzf \
 	nixpkgs.ripgrep \
 	nixpkgs.bat \
-	nixpkgs.direnv
+	nixpkgs.direnv \
+	nixpkgs.rPackages.npm \
+	nixpkgs.nodenv \
+	nixpkgs.zoxide 
 
 # stow
 stow git
