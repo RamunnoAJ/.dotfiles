@@ -5,9 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Created by newuser for 5.9
-if [ -e /home/agustin/.nix-profile/etc/profile.d/nix.sh ]; then . /home/agustin/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
 # Export nvm completion settings for lukechilds/zsh-nvm plugin
 # Note: This must be exported before the plugin is bundled
 export NVM_DIR=${HOME}/.nvm
@@ -30,6 +27,9 @@ export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/*'"
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --margin=1 --padding=1"
 
 export BAT_THEME="gruvbox-dark"
+
+# Nix
+if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
