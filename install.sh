@@ -27,6 +27,9 @@ nix-env -iA \
 	nixpkgs.nodenv \
 	nixpkgs.zoxide 
 
+# install nvm latest version of node
+nvm install node
+
 # use latest version of node
 nvm alias default node
 
