@@ -22,6 +22,7 @@ alias cat='bat'
 alias gcob='git branch | fzf | xargs git checkout'
 alias vimrc='vim ${HOME}/.dotfiles/nvim/.config/nvim/init.lua'
 alias zshrc='vim ${HOME}/.dotfiles/zsh/.zshrc'
+alias codespace='cd ${HOME}/Documentos/CodeSpace'
 
 # FZF
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/*'"
