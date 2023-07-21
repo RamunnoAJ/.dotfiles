@@ -22,7 +22,7 @@ alias cat='bat'
 alias gcob='git branch | fzf | xargs git checkout'
 alias vimrc='vim ${HOME}/.dotfiles/nvim/.config/nvim/init.lua'
 alias zshrc='vim ${HOME}/.dotfiles/zsh/.zshrc'
-if [ -e /home/Documentos/CodeSpace ]; then alias codespace='cd ${HOME}/Documentos/CodeSpace'; else alias codespace='cd ${HOME}/Documents/CodeSpace'; fi
+if [ -e ~/Documentos/CodeSpace ]; then alias codespace='cd ${HOME}/Documentos/CodeSpace'; else alias codespace='cd ${HOME}/Documents/CodeSpace'; fi
 
 # FZF
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/*'"
