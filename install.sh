@@ -33,10 +33,17 @@ nvm install node
 # use latest version of node
 nvm alias default node
 
+# install eslint and prettier globally
+npm install -g eslint prettier
+
 # stow
 stow git
 stow zsh
 stow nvim
+stow tmux
+
+# source tmux.conf
+tmux source-file ~/.tmux.conf
 
 # add zsh to valid login shells
 command -v zsh | sudo tee -a /etc/shells
