@@ -23,7 +23,6 @@ nix-env -iA \
 	nixpkgs.ripgrep \
 	nixpkgs.bat \
 	nixpkgs.direnv \
-	nixpkgs.rPackages.npm \
 	nixpkgs.nodenv \
 	nixpkgs.zoxide 
 
