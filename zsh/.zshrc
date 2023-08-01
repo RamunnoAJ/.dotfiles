@@ -15,7 +15,7 @@ source ~/.zsh_plugins.sh
 
 # aliases
 alias update-antibody='antibody bundle < $HOME/.zsh_plugins.txt > $HOME/.zsh_plugins.zsh'
-alias list-npm-globals='npm list -g --depth=0'
+alias ls-npm='npm list -g --depth=0'
 alias ls='ls -al --color'
 alias vim='nvim'
 alias cat='bat'
@@ -23,6 +23,7 @@ alias gcob='git branch | fzf | xargs git checkout'
 alias vimrc='vim ${HOME}/.dotfiles/nvim/.config/nvim/init.lua'
 alias zshrc='vim ${HOME}/.dotfiles/zsh/.zshrc'
 alias gst='git status'
+alias mysql='/opt/lampp/bin/mysql -u root'
 if [ -e ~/Documentos/CodeSpace ]; then alias codespace='cd ${HOME}/Documentos/CodeSpace'; else alias codespace='cd ${HOME}/Documents/CodeSpace'; fi
 
 # FZF
@@ -44,3 +45,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 if [ -e /home/agustin/.nix-profile/etc/profile.d/nix.sh ]; then . /home/agustin/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+if [ -d "/usr/local/go/bin" ] ; then
+    export PATH=$PATH:/usr/local/go/bin
+fi
