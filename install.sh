@@ -41,7 +41,7 @@ stow git
 stow zsh
 stow nvim
 stow tmux
-stow oh-my-zsh
+stow .oh-my-zsh
 
 # source tmux.conf
 tmux source-file ~/.tmux.conf
