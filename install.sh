@@ -48,6 +48,9 @@ stow zsh
 stow nvim
 stow tmux
 
+# move .zshrc.example to .zshrc
+mv ~/.zshrc.example ~/.zshrc
+
 # source tmux.conf
 tmux source-file ~/.tmux.conf
 
