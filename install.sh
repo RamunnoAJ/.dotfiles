@@ -13,6 +13,7 @@ curl -L https://nixos.org/nix/install | sh
 # install packages
 nix-env -iA \
 	nixpkgs.zsh \
+	nixpkgs.oh-my-zsh \
 	nixpkgs.antibody \
 	nixpkgs.git \
 	nixpkgs.neovim \
@@ -40,6 +41,7 @@ stow git
 stow zsh
 stow nvim
 stow tmux
+stow oh-my-zsh
 
 # source tmux.conf
 tmux source-file ~/.tmux.conf
@@ -52,4 +54,3 @@ sudo chsh -s $(which zsh) $USER
 
 # bundle zsh plugins
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
-
