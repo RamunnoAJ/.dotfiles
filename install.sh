@@ -4,6 +4,9 @@ sudo apt update
 # install curl
 sudo apt install curl
 
+#install zsh
+sudo apt install zsh
+
 # install nix
 curl -L https://nixos.org/nix/install | sh 
 
@@ -35,6 +38,9 @@ nvm alias default node
 
 # install eslint and prettier globally
 npm install -g eslint prettier
+
+# install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # stow
 stow git
