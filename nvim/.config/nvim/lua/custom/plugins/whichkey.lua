@@ -97,6 +97,7 @@ return {
       ["Q"] = { "<cmd>qall<CR>", "Quit All" },
       ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
       ["p"] = { '<cmd>Telescope neoclip<CR>', 'Clipboard Viewer' },
+      ["e"] = { "<cmd>e .<CR>", "Open File Explorer" },
       ["f"] = {
         function()
           require('telescope.builtin').find_files(require('telescope.themes').get_dropdown { previewer = false })
@@ -118,13 +119,6 @@ return {
         r = { require('dap').repl.open, 'Open Repl' },
         t = { require('dap').terminate, 'Terminate Debug' },
       },
-      e = {
-        name = "Diagnostics",
-        d = { require('telescope.builtin').diagnostics, "Diagnostics" },
-        w = { require('telescope.builtin').diagnostics, "Workspace Diagnostics" },
-        q = { vim.diagnostic.setloclist, "Open diagnostics list" },
-      },
-
       g = {
         name = "Git",
         j = { gitsigns.next_hunk, "Next Hunk" },
