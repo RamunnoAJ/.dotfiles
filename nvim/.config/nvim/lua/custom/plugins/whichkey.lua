@@ -92,11 +92,10 @@ return {
         end,
         "Buffers",
       },
-      ["w"] = { "<cmd>w!<CR>", "Save" },
+      ["w"] = { "<cmd>%!prettierd %<CR><cmd>w!<CR>", "Save" },
       ["q"] = { "<cmd>q!<CR>", "Quit" },
       ["Q"] = { "<cmd>qall<CR>", "Quit All" },
       ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
-      ["p"] = { '<cmd>Telescope neoclip<CR>', 'Clipboard Viewer' },
       ["e"] = { "<cmd>e .<CR>", "Open File Explorer" },
       ["f"] = {
         function()

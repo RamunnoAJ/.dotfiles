@@ -19,7 +19,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-
   require 'kickstart.plugins.autoformat',
   require 'kickstart.plugins.debug',
 
