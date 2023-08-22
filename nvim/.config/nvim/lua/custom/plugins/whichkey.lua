@@ -92,7 +92,11 @@ return {
         end,
         "Buffers",
       },
-      ["w"] = { "<cmd>%!prettierd %<CR><cmd>w!<CR>", "Save" },
+      w = {
+        name = "Save",
+        s = { "<cmd>%!prettierd %<CR><cmd>w!<CR>", "Run prettierd and save" },
+        w = { "<cmd>w!<CR>", "Save" },
+      },
       ["q"] = { "<cmd>q!<CR>", "Quit" },
       ["Q"] = { "<cmd>qall<CR>", "Quit All" },
       ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
@@ -102,6 +106,14 @@ return {
           require('telescope.builtin').find_files(require('telescope.themes').get_dropdown { previewer = false })
         end,
         "Find files",
+      },
+      p = {
+        name = "Quickmark",
+        q = { "<cmd>Quickmark list<CR>", "List" },
+        a = { "<cmd>Quickmark add<CR>", "Add" },
+        r = { "<cmd>Quickmark remove<CR>", "Remove" },
+        c = { "<cmd>Quickmark removeAll<CR>", "Clear" },
+        s = { "<cmd>Quickmark save<CR>", "Save" },
       },
       d = {
         name = 'Debugger',

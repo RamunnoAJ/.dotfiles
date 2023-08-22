@@ -1,0 +1,3 @@
+return {
+  "RamunnoAJ/quickmark.nvim",
+}
