@@ -96,9 +96,8 @@ return {
         name = "Save",
         s = { "<cmd>%!prettierd %<CR><cmd>w!<CR>", "Run prettierd and save" },
         w = { "<cmd>w!<CR>", "Save" },
+        a = { "<cmd>wa<CR>", "Save All" },
       },
-      ["q"] = { "<cmd>q!<CR>", "Quit" },
-      ["Q"] = { "<cmd>qall<CR>", "Quit All" },
       ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
       ["e"] = { "<cmd>e .<CR>", "Open File Explorer" },
       ["f"] = {
@@ -159,8 +158,8 @@ return {
         },
         i = { "<cmd>LspInfo<cr>", "Info" },
         m = { "<cmd>Mason<cr>", "Mason" },
-        --[[ j = { vim.diagnostic.goto_next, "Next Diagnostic", }, ]]
-        --[[ k = { vim.diagnostic.goto_prev, "Prev Diagnostic", }, ]]
+        j = { vim.diagnostic.goto_next, "Next Diagnostic", },
+        k = { vim.diagnostic.goto_prev, "Prev Diagnostic", },
         s = { require('telescope.builtin').lsp_document_symbols, "Document Symbols" },
         S = { require('telescope.builtin').lsp_dynamic_workspace_symbols, "Document Symbols" },
       },
