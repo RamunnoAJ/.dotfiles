@@ -32,8 +32,8 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 --[[ keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts) ]]
 --[[ keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts) ]]
 -- I want move line up/down consinusly, not moving & inserting
-keymap("n", "<A-j>", "<Esc>:m .+1<CR>==", opts)
-keymap("n", "<A-k>", "<Esc>:m .-2<CR>==", opts)
+keymap("n", "[j", "<Esc>:m .+1<CR>==", opts)
+keymap("n", "[k", "<Esc>:m .-2<CR>==", opts)
 
 -- Better paste
 keymap("v", "p", '"_dp', opts)

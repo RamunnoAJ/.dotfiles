@@ -165,7 +165,11 @@ return {
       h = {
         name = "Harpoon",
         a = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "Add File" },
-        h = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "Toggle Menu" },
+        q = { "<cmd>lua require('harpoon.mark').clear_all()<CR>", "Clear All" },
+        h = { "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", "Navigate to file 1" },
+        j = { "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", "Navigate to file 2" },
+        k = { "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", "Navigate to file 3" },
+        l = { "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", "Navigate to file 4" },
       }
     }
 
