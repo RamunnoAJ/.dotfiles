@@ -10,7 +10,19 @@ return {
     vim.opt.termguicolors = true
     bufferline.setup {
       options = {
-        buffer_close_icon = 'X'
+        mode = "buffers",
+        buffer_close_icon = 'X',
+        right_mouse_command = false,
+        diagnostics = "nvim_lsp",
+        offsets = {
+          {
+            filetype = "NvimTree",
+            text = "File Explorer",
+            highlight = "Directory",
+            text_align = "left",
+            separator = false
+          }
+        },
       }
     }
   end

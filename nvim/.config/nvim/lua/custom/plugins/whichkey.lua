@@ -86,33 +86,21 @@ return {
     }
 
     local mappings = {
-      ["b"] = {
-        function()
-          require('telescope.builtin').buffers(require('telescope.themes').get_dropdown { previewer = false })
-        end,
-        "Buffers",
-      },
       w = {
         name = "Save",
-        s = { "<cmd>%!prettierd %<CR><cmd>w!<CR>", "Run prettierd and save" },
+        s = { "<cmd>%!prettierd %<CR><cmd>w!<CR>", "Run prettier and save" },
         w = { "<cmd>w!<CR>", "Save" },
         a = { "<cmd>wa<CR>", "Save All" },
       },
       ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+      ["C"] = { "<cmd>w!|%bd|e#|bd#|'\"<CR>", "Close all Buffers but this one" },
+      ["Q"] = { "<cmd>w!|%bd|e#|bd#|'\"|q!<CR>", "Quit vim" },
       ["e"] = { "<cmd>e .<CR>", "Open File Explorer" },
       ["f"] = {
         function()
           require('telescope.builtin').find_files(require('telescope.themes').get_dropdown { previewer = false })
         end,
         "Find files",
-      },
-      p = {
-        name = "Quickmark",
-        q = { "<cmd>Quickmark list<CR>", "List" },
-        a = { "<cmd>Quickmark add<CR>", "Add" },
-        r = { "<cmd>Quickmark remove<CR>", "Remove" },
-        c = { "<cmd>Quickmark removeAll<CR>", "Clear" },
-        s = { "<cmd>Quickmark save<CR>", "Save" },
       },
       d = {
         name = 'Debugger',
@@ -139,10 +127,10 @@ return {
         R = { gitsigns.reset_buffer, "Reset Buffer" },
         s = { gitsigns.stage_hunk, "Stage Hunk" },
         u = { gitsigns.undo_stage_hunk, "Undo Stage Hunk", },
-        o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
+        o = { require('telescope.builtin').git_status, "Open changed file" },
         b = { require('telescope.builtin').git_branches, "Checkout branch" },
         c = { require('telescope.builtin').git_commits, "Checkout Commits" },
-        d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff", },
+        d = { gitsigns.diffthis, "Diff", },
       },
       l = {
         name = "LSP",
@@ -174,6 +162,11 @@ return {
         R = { require('telescope.builtin').registers, "Registers" },
         k = { require('telescope.builtin').keymaps, "Keymaps" },
       },
+      h = {
+        name = "Harpoon",
+        a = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "Add File" },
+        h = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "Toggle Menu" },
+      }
     }
 
     local vopts = {

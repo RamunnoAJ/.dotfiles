@@ -1,8 +1,7 @@
 return {
-
-  'navarasu/onedark.nvim',
+  'JoosepAlviste/palenightfall.nvim',
   priority = 1000,
   config = function()
-    vim.cmd.colorscheme 'onedark'
+    vim.cmd.colorscheme 'palenightfall'
   end,
 }
