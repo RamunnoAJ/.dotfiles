@@ -19,6 +19,7 @@ nix-env -iA \
 	nixpkgs.oh-my-zsh \
 	nixpkgs.antibody \
 	nixpkgs.git \
+	nixpkgs.lazygit \
 	nixpkgs.neovim \
 	nixpkgs.tmux \
 	nixpkgs.stow \
