@@ -13,8 +13,8 @@ return {
     sections = {
       lualine_a = {
         {
-          'datetime',
-          style = '%H:%M',
+          'mode',
+          icon = nil,
         }
       },
       lualine_x = {
@@ -36,8 +36,8 @@ return {
       },
       lualine_z = {
         {
-          'mode',
-          icon = nil,
+          'datetime',
+          style = '%H:%M',
         }
       }
 
