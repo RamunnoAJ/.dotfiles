@@ -8,7 +8,7 @@ sudo apt install curl
 sudo apt install zsh
 
 # install nix
-curl -L https://nixos.org/nix/install | sh 
+curl -L https://nixos.org/nix/install | sh
 
 # source nix
 . ~/.nix-profile/etc/profile.d/nix.sh
@@ -29,7 +29,10 @@ nix-env -iA \
 	nixpkgs.bat \
 	nixpkgs.direnv \
 	nixpkgs.nodenv \
-	nixpkgs.zoxide 
+	nixpkgs.zoxide
+
+# install tmux plugin manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # install nvm latest version of node
 nvm install node
