@@ -30,5 +30,18 @@ return {
       end,
       opts,
     },
+    {
+      "<M-S>",
+      function()
+        require("harpoon.tmux").sendCommand(1, "npm run start")
+      end,
+      opts,
+    },
+    {
+      "<M-N>",
+      function()
+        require("harpoon.tmux").gotoTerminal(1)
+      end,
+    }
   }
 }
