@@ -86,12 +86,7 @@ return {
     }
 
     local mappings = {
-      w = {
-        name = "Save",
-        s = { "<cmd>%!prettierd %<CR><cmd>w!<CR>", "Run prettier and save" },
-        w = { "<cmd>w!<CR>", "Save" },
-        a = { "<cmd>wa<CR>", "Save All" },
-      },
+      ["w"] = { "<cmd>w!<CR>", "Save" },
       ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
       ["C"] = { "<cmd>w!|%bd|e#|bd#|'\"<CR>", "Close all Buffers but this one" },
       ["Q"] = { "<cmd>w!|%bd|e#|bd#|'\"|q!<CR>", "Quit vim" },
@@ -102,21 +97,7 @@ return {
         end,
         "Find files",
       },
-      d = {
-        name = 'Debugger',
-        b = { require('dap').toggle_breakpoint, 'Toggle Breakpoint' },
-        B = { function()
-          require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))
-        end,
-          'Conditional Breakpoint' },
-        p = { function()
-          require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
-        end,
-          'Print Point'
-        },
-        r = { require('dap').repl.open, 'Open Repl' },
-        t = { require('dap').terminate, 'Terminate Debug' },
-      },
+      ["F"] = { "<cmd>Telescope buffers<CR>", "Find Buffer" },
       g = {
         name = "Git",
         j = { gitsigns.next_hunk, "Next Hunk" },
