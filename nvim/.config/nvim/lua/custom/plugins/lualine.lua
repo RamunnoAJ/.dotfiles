@@ -66,19 +66,7 @@ return {
       },
       lualine_x = {
         {
-          'diagnostics',
-          sources = { 'nvim_diagnostic' },
-          sections = { 'error', 'warn' },
-          symbols = { error = ' ', warn = ' ' },
-          update_in_insert = false,
-          colored = false,
-          always_visible = true
-        },
-        {
-          'filetype',
-          icon_only = false,
-          colored = true,
-          icon = { align = 'right' },
+          'location',
         },
       },
       lualine_z = {
