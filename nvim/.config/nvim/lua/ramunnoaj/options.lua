@@ -47,6 +47,13 @@ vim.wo.number = true
 vim.wo.signcolumn = 'yes'
 vim.wo.relativenumber = true
 
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    vim.opt.formatoptions:remove { "c", "r", "o" } -- Disable auto comment
+  end,
+  desc = "Remove comment characters when joining lines",
+})
+
 
 for k, v in pairs(options) do
   vim.opt[k] = v

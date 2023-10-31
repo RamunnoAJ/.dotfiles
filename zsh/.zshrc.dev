@@ -1,6 +1,6 @@
 # Put files in this folder to add your own custom functionality.
 # See: https://github.com/ohmyzsh/ohmyzsh/wiki/Customization
-# 
+#
 # Files in the custom/ directory will be:
 # - loaded automatically by the init script, in alphabetical order
 # - loaded last, after all built-ins in the lib/ directory, to override them
@@ -26,6 +26,7 @@ alias zshrc='vim ${HOME}/.dotfiles/zsh/.zshrc.dev'
 alias gst='git status'
 alias mysql='/opt/lampp/bin/mysql -u root'
 if [ -e ~/Documentos/CodeSpace ]; then alias codespace='cd ${HOME}/Documentos/CodeSpace'; else alias codespace='cd ${HOME}/Documents/CodeSpace'; fi
+if [ -e ~/Documentos/personal ]; then alias personal='cd ${HOME}/Documentos/CodeSpace'; else alias personal='cd ${HOME}/Documents/personal'; fi
 
 # FZF
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/*'"
@@ -34,7 +35,7 @@ export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --margin=1 --pad
 export BAT_THEME="gruvbox-dark"
 
 # Nix
-if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi 
+if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi
 
 if [ -e /home/ramunno/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ramunno/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
