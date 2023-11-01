@@ -48,3 +48,27 @@ if [ -e /home/agustin/.nix-profile/etc/profile.d/nix.sh ]; then . /home/agustin/
 if [ -d "/usr/local/go/bin" ] ; then
     export PATH=$PATH:/usr/local/go/bin
 fi
+
+function tmux-nvim() {
+    if [ -n "$TMUX" ]; then
+        # Inside a tmux session, check if "nvim" session exists
+        if ! tmux has-session -t "nvim" 2>/dev/null; then
+            tmux new-session -d -s "nvim" "nvim"
+        fi
+        tmux switch-client -t "nvim"
+        echo "Moving to NVIM session"
+    else
+        # Not inside a tmux session, try to attach to "nvim" session
+        if tmux has-session -t "nvim" 2>/dev/null; then
+            tmux attach-session -t "nvim"
+            echo "Attaching to existing NVIM session"
+        else
+            echo "No existing NVIM session to attach to"
+        fi
+    fi
+}
+
+# Functions
+zle -N tmux-nvim
+
+bindkey ^n "tmux-nvim"

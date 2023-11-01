@@ -18,7 +18,7 @@ HIST_STAMPS="dd/mm/yyyy"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.zshrc.dev
+source $HOME/.zshrc_profile
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
