@@ -14,6 +14,10 @@ export NVM_COMPLETION=true
 # source plugins
 source ~/.zsh_plugins.sh
 
+# source scripts
+chmod +x ~/.scripts/tmux-sessionizer
+chmod +x ~/.scripts/tmux-attach
+
 # aliases
 alias update-antibody='antibody bundle < $HOME/.zsh_plugins.txt > $HOME/.zsh_plugins.zsh'
 alias ls-npm='npm list -g --depth=0'
@@ -25,8 +29,11 @@ alias vimrc='vim ${HOME}/.dotfiles/nvim/.config/nvim/init.lua'
 alias zshrc='vim ${HOME}/.dotfiles/zsh/.zshrc.dev'
 alias gst='git status'
 alias mysql='/opt/lampp/bin/mysql -u root'
-if [ -e ~/Documentos/CodeSpace ]; then alias codespace='cd ${HOME}/Documentos/CodeSpace'; else alias codespace='cd ${HOME}/Documents/CodeSpace'; fi
-if [ -e ~/Documentos/personal ]; then alias personal='cd ${HOME}/Documentos/CodeSpace'; else alias personal='cd ${HOME}/Documents/personal'; fi
+alias tcd='~/.scripts/tmux-sessionizer'
+alias tls='tmux list-sessions'
+alias tas='~/.scripts/tmux-attach'
+alias tks='tmux kill-server'
+alias tka='tmux kill-session -a'
 
 # FZF
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/*'"
@@ -48,27 +55,3 @@ if [ -e /home/agustin/.nix-profile/etc/profile.d/nix.sh ]; then . /home/agustin/
 if [ -d "/usr/local/go/bin" ] ; then
     export PATH=$PATH:/usr/local/go/bin
 fi
-
-function tmux-nvim() {
-    if [ -n "$TMUX" ]; then
-        # Inside a tmux session, check if "nvim" session exists
-        if ! tmux has-session -t "nvim" 2>/dev/null; then
-            tmux new-session -d -s "nvim" "nvim"
-        fi
-        tmux switch-client -t "nvim"
-        echo "Moving to NVIM session"
-    else
-        # Not inside a tmux session, try to attach to "nvim" session
-        if tmux has-session -t "nvim" 2>/dev/null; then
-            tmux attach-session -t "nvim"
-            echo "Attaching to existing NVIM session"
-        else
-            echo "No existing NVIM session to attach to"
-        fi
-    fi
-}
-
-# Functions
-zle -N tmux-nvim
-
-bindkey ^n "tmux-nvim"
