@@ -49,9 +49,12 @@ return {
   -- Set lualine as statusline
   'nvim-lualine/lualine.nvim',
   -- See `:help lualine.txt`
+  dependencies = {
+    "arkav/lualine-lsp-progress"
+  },
   opts = {
     options = {
-      icons_enabled = false,
+      icons_enabled = true,
       theme = M.theme(),
       component_separators = '|',
       section_separators = '',
@@ -66,8 +69,21 @@ return {
       },
       lualine_x = {
         {
-          'location',
-        },
+          'lsp_progress',
+          colors = {
+            lsp_client_name = '#c678dd',
+            use             = true,
+          },
+          separators = {
+            component = ' ',
+            percentage = { pre = '', post = '%% ' },
+            lsp_client_name = { pre = '[', post = ']' },
+            spinner = { pre = '', post = '' },
+          },
+          display_components = { 'spinner', 'lsp_client_name' },
+          timer = { spinner = 1000, lsp_client_name_enddelay = 1000 },
+          spinner_symbols = { '🌑 ', '🌒 ', '🌓 ', '🌔 ', '🌕 ', '🌖 ', '🌗 ', '🌘 ' },
+        }
       },
       lualine_z = {
         {
