@@ -35,13 +35,11 @@ nix-env -iA \
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # install nvm latest version of node
-nvm install node
+nvm install 'lts/*'
+nvm install --lts
 
 # use latest version of node
-nvm alias default node
-
-# install latest LTS
-nvm install --lts
+nvm alias default 'lts/*'
 
 # install eslint and prettier globally
 npm install -g eslint prettier
