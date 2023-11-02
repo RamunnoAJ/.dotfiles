@@ -51,6 +51,7 @@ stow git
 stow zsh
 stow nvim
 stow tmux
+stow scripts
 
 # move .zshrc.example to .zshrc
 mv ~/.zshrc.example ~/.zshrc
