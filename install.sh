@@ -36,10 +36,10 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # install nvm latest version of node
 nvm install 'lts/*'
-nvm install --lts
 
 # use latest version of node
 nvm alias default 'lts/*'
+nvm use default
 
 # install eslint and prettier globally
 npm install -g eslint prettier
