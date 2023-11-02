@@ -40,6 +40,9 @@ nvm install node
 # use latest version of node
 nvm alias default node
 
+# install latest LTS
+nvm install --lts
+
 # install eslint and prettier globally
 npm install -g eslint prettier
 
