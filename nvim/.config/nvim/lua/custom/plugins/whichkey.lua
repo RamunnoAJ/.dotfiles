@@ -93,7 +93,7 @@ return {
       ["e"] = { "<cmd>e .<CR>", "Open File Explorer" },
       ["f"] = {
         function()
-          require('telescope.builtin').find_files(require('telescope.themes').get_dropdown { previewer = false })
+          require('telescope.builtin').find_files(require('telescope.themes').get_dropdown { previewer = false, hidden = true, no_ignore = true })
         end,
         "Find files",
       },
