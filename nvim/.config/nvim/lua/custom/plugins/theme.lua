@@ -23,9 +23,6 @@ return {
         functions = 'none',
         strings = 'none',
         variables = 'none'
-      },
-      lualine = {
-        transparent = true
       }
     })
     onedark.load()
