@@ -37,6 +37,10 @@ nix-env -iA \
 mkdir -p ~/projects
 mkdir -p ~/work
 mkdir -p ~/personal
+mkdir -p "$(nodenv root)"/plugins
+
+# install nodenv install plugin
+git clone https://github.com/nodenv/nodenv-build.git "$(nodenv root)"/plugins/nodenv-build
 
 # install tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
