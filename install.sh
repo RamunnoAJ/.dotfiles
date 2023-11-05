@@ -18,6 +18,8 @@ nix-env -iA \
 	nixpkgs.zsh \
 	nixpkgs.oh-my-zsh \
 	nixpkgs.go \
+	nixpkgs.neofetch \
+	nixpkgs.btop \
 	nixpkgs.xclip \
 	nixpkgs.antibody \
 	nixpkgs.git \
@@ -52,8 +54,8 @@ nvm install 'lts/*'
 nvm alias default 'lts/*'
 nvm use default
 
-# install eslint and prettier globally
-npm install -g eslint prettier
+# install npm packages globally
+npm install -g eslint prettier live-server
 
 # install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -80,3 +82,5 @@ sudo chsh -s $(which zsh) $USER
 # bundle zsh plugins
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 
+# source zshrc
+source ~/.zshrc
