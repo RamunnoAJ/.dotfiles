@@ -33,6 +33,11 @@ nix-env -iA \
 	nixpkgs.nodenv \
 	nixpkgs.zoxide
 
+# Creates directories if not exists
+mkdir -p ~/projects
+mkdir -p ~/work
+mkdir -p ~/personal
+
 # install tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
@@ -70,3 +75,4 @@ sudo chsh -s $(which zsh) $USER
 
 # bundle zsh plugins
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
+
