@@ -17,6 +17,7 @@ curl -L https://nixos.org/nix/install | sh
 nix-env -iA \
 	nixpkgs.zsh \
 	nixpkgs.oh-my-zsh \
+	nixpkgs.go \
 	nixpkgs.xclip \
 	nixpkgs.antibody \
 	nixpkgs.git \
