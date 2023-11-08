@@ -81,7 +81,7 @@ keymap('n', '<leader>sk', ':Telescope keymaps<CR>', opts)
 keymap('n', '<leader>sd', ':Telescope diagnostics bfnr=0', opts)
 
 -- LSP
-keymap('n', '<leader>lf', ':lua vim.lsp.buf.format({ async = true })<CR>', opts)
+keymap('n', '<leader>lf', ':Format', opts)
 keymap('n', '<leader>lm', ':Mason<CR>', opts)
 keymap('n', '<leader>li', ':LspInfo<CR>', opts)
 keymap('n', '<leader>lj', ':lua vim.diagnostic.goto_next()<CR>', opts)
