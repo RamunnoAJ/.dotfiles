@@ -8,6 +8,7 @@ local term_opts = { silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 -- Remap <space> to <leader>
+vim.api.nvim_set_keymap("n", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -55,3 +56,36 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+-- Misc
+keymap('n', '<leader>w', ':w!<CR>', opts)
+keymap('n', '<leader>e', ':e .<CR>', opts)
+keymap('n', '<leader>c', ':Bdelete!<CR>', opts)
+keymap('n', '<leader>C', ":w!|%bd|e#|bd#|'\"<CR>", opts)
+keymap('n', '<leader>Q', ":w!|%bd|e#|bd#|'\"|q!<CR>", opts)
+
+-- Harpoon
+keymap('n', '<leader>ha', ':lua require("harpoon.mark").add_file()<CR>', opts)
+keymap('n', '<leader>hh', ':lua require("harpoon.ui").nav_file(1)<CR>', opts)
+keymap('n', '<leader>hj', ':lua require("harpoon.ui").nav_file(2)<CR>', opts)
+keymap('n', '<leader>hk', ':lua require("harpoon.ui").nav_file(3)<CR>', opts)
+keymap('n', '<leader>hl', ':lua require("harpoon.ui").nav_file(4)<CR>', opts)
+
+-- Telescope
+keymap('n', '<leader>f', ':Telescope find_files hidden=true no_ignore=true<CR>', opts)
+keymap('n', '<leader>F', ':Telescope buffers<CR>', opts)
+keymap('n', '<leader>sg', ':Telescope live_grep<CR>', opts)
+keymap('n', '<leader>sh', ':Telescope help_tags<CR>', opts)
+keymap('n', '<leader>sc', ':Telescope commands<CR>', opts)
+keymap('n', '<leader>sk', ':Telescope keymaps<CR>', opts)
+keymap('n', '<leader>sd', ':Telescope diagnostics bfnr=0', opts)
+
+-- LSP
+keymap('n', '<leader>lf', ':lua vim.lsp.buf.format({ async = true })<CR>', opts)
+keymap('n', '<leader>lm', ':Mason<CR>', opts)
+keymap('n', '<leader>li', ':LspInfo<CR>', opts)
+keymap('n', '<leader>lj', ':lua vim.diagnostic.goto_next()<CR>', opts)
+keymap('n', '<leader>lk', ':lua vim.diagnostic.goto_prev()<CR>', opts)
+
+-- Open LazyGit
+keymap('n', '<leader>gg', ':LazyGit<CR>', opts)
