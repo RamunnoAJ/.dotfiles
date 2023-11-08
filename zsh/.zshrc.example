@@ -1,5 +1,4 @@
 export ZSH="$HOME/.oh-my-zsh"
-eval "$(nodenv init - zsh)"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -32,3 +31,5 @@ if [ -e /home/agustin/.nix-profile/etc/profile.d/nix.sh ]; then . /home/agustin/
 export PATH="$HOME/.nodenv/bin:$PATH"
 
 if [ -e /home/popos/.nix-profile/etc/profile.d/nix.sh ]; then . /home/popos/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+if [ -e /home/pop/.nix-profile/etc/profile.d/nix.sh ]; then . /home/pop/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
