@@ -86,8 +86,9 @@ keymap('n', '<leader>sb',
 
 -- LSP
 keymap('n', '<leader>li', ':LspInfo<CR>', opts)
-keymap('n', '<leader>lj', ':lua vim.diagnostic.goto_next()<CR>', opts)
-keymap('n', '<leader>lk', ':lua vim.diagnostic.goto_prev()<CR>', opts)
+keymap('n', '<leader>dj', ':lua vim.diagnostic.goto_next()<CR>', opts)
+keymap('n', '<leader>dk', ':lua vim.diagnostic.goto_prev()<CR>', opts)
+keymap('n', '<leader>r', ':lua vim.lsp.buf.rename()<CR>', opts)
 
 -- Open LazyGit
 keymap('n', '<leader>g', ':LazyGit<CR>', opts)
