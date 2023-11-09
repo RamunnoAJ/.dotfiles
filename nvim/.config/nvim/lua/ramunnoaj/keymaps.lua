@@ -84,7 +84,7 @@ keymap('n', '<leader>sb',
   ':lua require("telescope.builtin").current_buffer_fuzzy_find({sorting_strategy="ascending"})<CR>', opts)
 
 -- LSP
-keymap('n', '<leader>lf', ':Format', opts)
+keymap('n', '<leader>lf', ':Format<CR>', opts)
 keymap('n', '<leader>lm', ':Mason<CR>', opts)
 keymap('n', '<leader>li', ':LspInfo<CR>', opts)
 keymap('n', '<leader>lj', ':lua vim.diagnostic.goto_next()<CR>', opts)
