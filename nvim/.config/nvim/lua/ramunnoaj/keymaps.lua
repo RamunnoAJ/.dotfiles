@@ -72,14 +72,16 @@ keymap('n', '<leader>hk', ':lua require("harpoon.ui").nav_file(3)<CR>', opts)
 keymap('n', '<leader>hl', ':lua require("harpoon.ui").nav_file(4)<CR>', opts)
 
 -- Telescope
-keymap('n', '<leader>f', ':Telescope find_files hidden=true no_ignore=true<CR>', opts)
-keymap('n', '<leader>F', ':Telescope buffers<CR>', opts)
-keymap('n', '<leader>sg', ':Telescope live_grep<CR>', opts)
-keymap('n', '<leader>ss', ':Telescope git_files<CR>', opts)
-keymap('n', '<leader>sh', ':Telescope help_tags<CR>', opts)
-keymap('n', '<leader>sc', ':Telescope commands<CR>', opts)
-keymap('n', '<leader>sk', ':Telescope keymaps<CR>', opts)
-keymap('n', '<leader>sd', ':Telescope diagnostics bfnr=0', opts)
+keymap('n', '<leader>f', ':lua require("telescope.builtin").find_files({hidden=true, no_ignore=true})<CR>', opts)
+keymap('n', '<leader>F', ':lua require("telescope.builtin").buffers<CR>', opts)
+keymap('n', '<leader>sg', ':lua require("telescope.builtin").live_grep<CR>', opts)
+keymap('n', '<leader>ss', ':lua require("telescope.builtin").git_files()<CR>', opts)
+keymap('n', '<leader>sh', ':lua require("telescope.builtin").help_tags()<CR>', opts)
+keymap('n', '<leader>sc', ':lua require("telescope.builtin").commands()<CR>', opts)
+keymap('n', '<leader>sk', ':lua require("telescope.builtin").keymaps()<CR>', opts)
+keymap('n', '<leader>sd', ':lua require("telescope.builtin").diagnostics() bfnr=0<CR>', opts)
+keymap('n', '<leader>sb',
+  ':lua require("telescope.builtin").current_buffer_fuzzy_find({sorting_strategy="ascending"})<CR>', opts)
 
 -- LSP
 keymap('n', '<leader>lf', ':Format', opts)
