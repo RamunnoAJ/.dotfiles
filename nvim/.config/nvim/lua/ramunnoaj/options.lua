@@ -9,6 +9,7 @@ local options = {
   hlsearch = false,                                -- highlight all matches on previous search pattern
   ignorecase = true,                               -- ignore case in search patterns
   inccommand = "split",                            -- display effects while substitute
+  laststatus = 3,
   listchars = 'eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣',
   guifont = { "JetBrainsMono Nerd Font", ":h12" }, -- the font used in graphical neovim applications
   guicursor = "",
@@ -39,6 +40,7 @@ local options = {
   updatetime = 250,     -- faster completion (4000ms default)
   wildmenu = true,      -- Display all matching files when we tab complete
   wrap = true,          -- display lines as one long line
+  winbar = '%=%m %f',
   writebackup = false,  -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 }
 
