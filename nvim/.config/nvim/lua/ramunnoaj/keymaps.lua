@@ -91,4 +91,4 @@ keymap('n', '<leader>lj', ':lua vim.diagnostic.goto_next()<CR>', opts)
 keymap('n', '<leader>lk', ':lua vim.diagnostic.goto_prev()<CR>', opts)
 
 -- Open LazyGit
-keymap('n', '<leader>gg', ':LazyGit<CR>', opts)
+keymap('n', '<leader>g', ':LazyGit<CR>', opts)
