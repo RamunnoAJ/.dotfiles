@@ -63,6 +63,7 @@ keymap('n', '<leader>e', ':e .<CR>', opts)
 keymap('n', '<leader>c', ':Bdelete!<CR>', opts)
 keymap('n', '<leader>C', ":w!|%bd|e#|bd#|'\"<CR>", opts)
 keymap('n', '<leader>Q', ":w!|%bd|e#|bd#|'\"|q!<CR>", opts)
+keymap('n', '<leader>q', ":clo<CR>", opts)
 
 -- Harpoon
 keymap('n', '<leader>ha', ':lua require("harpoon.mark").add_file()<CR>', opts)
@@ -73,8 +74,8 @@ keymap('n', '<leader>hl', ':lua require("harpoon.ui").nav_file(4)<CR>', opts)
 
 -- Telescope
 keymap('n', '<leader>f', ':lua require("telescope.builtin").find_files({hidden=true, no_ignore=true})<CR>', opts)
-keymap('n', '<leader>F', ':lua require("telescope.builtin").buffers<CR>', opts)
-keymap('n', '<leader>sg', ':lua require("telescope.builtin").live_grep<CR>', opts)
+keymap('n', '<leader>F', ':lua require("telescope.builtin").buffers()<CR>', opts)
+keymap('n', '<leader>sg', ':lua require("telescope.builtin").live_grep()<CR>', opts)
 keymap('n', '<leader>ss', ':lua require("telescope.builtin").git_files()<CR>', opts)
 keymap('n', '<leader>sh', ':lua require("telescope.builtin").help_tags()<CR>', opts)
 keymap('n', '<leader>sc', ':lua require("telescope.builtin").commands()<CR>', opts)
