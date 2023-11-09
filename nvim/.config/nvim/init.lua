@@ -98,7 +98,7 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('<C-i>', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-I>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('<M-i>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
