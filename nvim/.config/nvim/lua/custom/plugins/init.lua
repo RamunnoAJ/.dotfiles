@@ -3,10 +3,6 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-  -- Git related plugins
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
-
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x',   dependencies = { 'nvim-lua/plenary.nvim' } },
