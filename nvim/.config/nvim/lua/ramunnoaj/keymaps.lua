@@ -89,5 +89,15 @@ keymap('n', '<leader>dk', ':lua vim.diagnostic.goto_prev()<CR>', opts)
 keymap('n', '<leader>r', ':lua vim.lsp.buf.rename()<CR>', opts)
 keymap('n', '<leader>a', ':lua vim.lsp.buf.code_action()<CR>', opts)
 
+-- Debugging
+keymap('n', '<leader>b', ':lua require("dap").toggle_breakpoint()<CR>', opts)
+keymap('n', '<leader>B', ':lua require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>', opts)
+keymap('n', '<F5>', ':lua require("dap").continue()<CR>', opts)
+keymap('n', '<F10>', ':lua require("dap").step_over()<CR>', opts)
+keymap('n', '<F11>', ':lua require("dap").step_into()<CR>', opts)
+keymap('n', '<F12>', ':lua require("dap").step_out()<CR>', opts)
+keymap('n', '<leader>lp', ':lua require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>', opts)
+keymap('n', '<leader>dr', ':lua require("dap").repl.open()<CR>', opts)
+
 -- Open LazyGit
 keymap('n', '<leader>g', ':LazyGit<CR>', opts)
