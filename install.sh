@@ -6,7 +6,6 @@ sudo apt install curl
 
 #install zsh
 sudo apt install zsh
-
 # install nix
 curl -L https://nixos.org/nix/install | sh
 
@@ -17,6 +16,7 @@ curl -L https://nixos.org/nix/install | sh
 nix-env -iA \
 	nixpkgs.zsh \
 	nixpkgs.oh-my-zsh \
+	nixpkgs.ansible \
 	nixpkgs.go \
 	nixpkgs.neofetch \
 	nixpkgs.btop \
