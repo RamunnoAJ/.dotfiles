@@ -71,7 +71,7 @@ keymap('n', '<leader>hk', ':lua require("harpoon.ui").nav_file(3)<CR>', opts)
 keymap('n', '<leader>hl', ':lua require("harpoon.ui").nav_file(4)<CR>', opts)
 
 -- Telescope
-keymap('n', '<leader>f', ':lua require("telescope.builtin").find_files({hidden=true, no_ignore=true})<CR>', opts)
+keymap('n', '<leader>f', ':lua require("telescope.builtin").find_files({hidden=true})<CR>', opts)
 keymap('n', '<leader>F', ':lua require("telescope.builtin").buffers()<CR>', opts)
 keymap('n', '<leader>sg', ':lua require("telescope.builtin").live_grep()<CR>', opts)
 keymap('n', '<leader>ss', ':lua require("telescope.builtin").git_files()<CR>', opts)
