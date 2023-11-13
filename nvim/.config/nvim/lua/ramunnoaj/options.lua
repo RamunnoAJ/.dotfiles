@@ -63,6 +63,9 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
+vim.g.netrw_list_hide = "^./$"
+vim.g.netrw_hide = 1
+
 vim.cmd "set showmode"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
