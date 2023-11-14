@@ -103,4 +103,5 @@ keymap('n', '<leader>dr', ':lua require("dap").repl.open()<CR>', opts)
 keymap('n', '<leader>g', ':LazyGit<CR>', opts)
 
 -- Open glow
-keymap('n', '<leader>m', ':term glow -a<CR>', opts)
+keymap('n', '<leader>mp', ':term glow %<CR>', opts)
+keymap('n', '<leader>mt', ':term glow ~/.dotfiles/personal/TODO.md<CR>', opts)
