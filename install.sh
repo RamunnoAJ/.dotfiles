@@ -18,6 +18,7 @@ nix-env -iA \
 	nixpkgs.oh-my-zsh \
 	nixpkgs.ansible \
 	nixpkgs.go \
+	nixpkgs.glow \
 	nixpkgs.neofetch \
 	nixpkgs.btop \
 	nixpkgs.xclip \

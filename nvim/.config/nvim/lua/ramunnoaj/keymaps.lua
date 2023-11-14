@@ -101,3 +101,6 @@ keymap('n', '<leader>dr', ':lua require("dap").repl.open()<CR>', opts)
 
 -- Open LazyGit
 keymap('n', '<leader>g', ':LazyGit<CR>', opts)
+
+-- Open glow
+keymap('n', '<leader>m', ':term glow -a<CR>', opts)
