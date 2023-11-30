@@ -117,7 +117,6 @@ local servers = {
   tailwindcss = {},
   emmet_ls = {},
   eslint = {},
-  eslint_d = {},
 
   lua_ls = {
     Lua = {
