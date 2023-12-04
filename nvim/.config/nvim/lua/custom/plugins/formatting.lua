@@ -8,10 +8,10 @@ return {
     conform.setup({
       formatters_by_ft = {
         lua = { "stylua" },
-        javascript = { "prettierd", "eslint_d" },
-        typescript = { "prettierd", "eslint_d" },
-        javascriptreact = { "prettierd", "eslint_d" },
-        typescriptreact = { "prettierd", "eslint_d" },
+        javascript = { "prettierd" },
+        typescript = { "prettierd" },
+        javascriptreact = { "prettierd" },
+        typescriptreact = { "prettierd" },
         css = { "prettier" },
         html = { "prettier" },
         json = { "prettier" },
