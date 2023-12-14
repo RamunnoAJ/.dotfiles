@@ -64,11 +64,11 @@ keymap('n', '<leader>Q', ":w!|%bd|e#|bd#|'\"|q!<CR>", opts)
 keymap('n', '<leader>q', ":clo<CR>", opts)
 
 -- Harpoon
-keymap('n', '<leader>ha', ':lua require("harpoon.mark").add_file()<CR>', opts)
-keymap('n', '<leader>hh', ':lua require("harpoon.ui").nav_file(1)<CR>', opts)
-keymap('n', '<leader>hj', ':lua require("harpoon.ui").nav_file(2)<CR>', opts)
-keymap('n', '<leader>hk', ':lua require("harpoon.ui").nav_file(3)<CR>', opts)
-keymap('n', '<leader>hl', ':lua require("harpoon.ui").nav_file(4)<CR>', opts)
+keymap('n', '<leader>ha', ':lua require("harpoon"):list():append()<CR>', opts)
+keymap('n', '<C-a>', ':lua require("harpoon"):list():select(1)<CR>', opts)
+keymap('n', '<C-s>', ':lua require("harpoon"):list():select(2)<CR>', opts)
+keymap('n', '<C-d>', ':lua require("harpoon"):list():select(3)<CR>', opts)
+keymap('n', '<C-f>', ':lua require("harpoon"):list():select(4)<CR>', opts)
 
 -- Telescope
 keymap('n', '<leader>f', ':lua require("telescope.builtin").find_files({hidden=true})<CR>', opts)
