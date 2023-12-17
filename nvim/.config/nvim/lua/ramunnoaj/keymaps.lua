@@ -33,6 +33,8 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 -- I want move line up/down consinusly, not moving & inserting
 keymap("n", "<M-j>", "<Esc>:m .+1<CR>==", opts)
 keymap("n", "<M-k>", "<Esc>:m .-2<CR>==", opts)
+keymap("i", "<M-j>", "<Esc>:m .+1<CR>==", opts)
+keymap("i", "<M-k>", "<Esc>:m .-2<CR>==", opts)
 
 -- Better paste
 keymap("v", "p", '"_dp', opts)
@@ -67,7 +69,7 @@ keymap('n', '<leader>q', ":clo<CR>", opts)
 keymap('n', '<leader>ha', ':lua require("harpoon"):list():append()<CR>', opts)
 keymap('n', '<C-a>', ':lua require("harpoon"):list():select(1)<CR>', opts)
 keymap('n', '<C-s>', ':lua require("harpoon"):list():select(2)<CR>', opts)
-keymap('n', '<C-d>', ':lua require("harpoon"):list():select(3)<CR>', opts)
+keymap('n', '<C-e>', ':lua require("harpoon"):list():select(3)<CR>', opts)
 keymap('n', '<C-f>', ':lua require("harpoon"):list():select(4)<CR>', opts)
 
 -- Telescope
