@@ -42,9 +42,11 @@ keymap("v", "P", '"_dP', opts)
 keymap('n', ',p', '"0p', opts)
 keymap('n', ',P', '"0P', opts)
 
--- Delete character don't yank
+-- Delete don't yank
 keymap('n', 'x', '"_x', opts)
 keymap('v', 'x', '"_x', opts)
+keymap('n', 'd', '"_d', opts)
+keymap('v', 'd', '"_d', opts)
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
