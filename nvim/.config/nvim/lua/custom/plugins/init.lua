@@ -3,19 +3,6 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
-  { 'nvim-telescope/telescope.nvim', branch = '0.1.x',   dependencies = { 'nvim-lua/plenary.nvim' } },
-
-  {
-    -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = ':TSUpdate',
-  },
-
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -28,7 +15,6 @@ return {
       'folke/neodev.nvim',
     },
   },
-  { 'ferrine/md-img-paste.vim',      ft = { "markdown" } },
   "moll/vim-bbye",
   { "JoosepAlviste/nvim-ts-context-commentstring", event = "BufReadPost", },
 }

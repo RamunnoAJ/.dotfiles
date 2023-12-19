@@ -1,5 +1,10 @@
 return {
   'nvim-treesitter/nvim-treesitter',
+
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+  },
+  build = ':TSUpdate',
   config = function()
     require('nvim-treesitter.configs').setup({
       -- Add languages to be installed here that you want installed for treesitter
@@ -13,10 +18,10 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = '<c-space>',
-          node_incremental = 'v',
-          scope_incremental = '<c-s>',
-          node_decremental = 'o',
+          init_selection = '<Leader>ss',
+          node_incremental = '<Leader>si',
+          scope_incremental = '<Leader>sc',
+          node_decremental = '<Leader>sd',
         },
       },
       textobjects = {
