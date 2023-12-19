@@ -16,14 +16,15 @@ local options = {
   modeline = false,
   mouse = "a",     -- allow the mouse to be used in neovim
   number = true,   -- set numbered lines
-  numberwidth = 4, -- set number column width to 2 {default 4}
+  numberwidth = 2, -- set number column width to 2 {default 4}
   pumheight = 10,  -- pop up menu height
-  scrolloff = 8,   -- is one of my fav
+  rnu = true,      -- set relative number
+  scrolloff = 999, -- is one of my fav
   softtabstop = 2,
   shiftwidth = 2,  -- the number of spaces inserted for each indentation
   showcmd = true,
   showmatch = true,
-  showmode = false,     -- we don't need to see things like -- INSERT -- anymore
+  showmode = true,      -- show current mode like: -- INSERT --
   showtabline = 0,      -- determine if the tab pages line is displayed
   sidescrolloff = 8,
   signcolumn = "yes",   -- always show the sign column, otherwise it would shift the text each time
@@ -38,18 +39,15 @@ local options = {
   timeoutlen = 300,     -- time to wait for a mapped sequence to complete (in milliseconds)
   undofile = true,      -- enable persistent undo
   updatetime = 250,     -- faster completion (4000ms default)
+  virtualedit = "block",
   wildmenu = true,      -- Display all matching files when we tab complete
-  wrap = true,          -- display lines as one long line
-  winbar = '%=%m %f',
+  wrap = false,         -- display lines as one long line
+  winbar = '%=%m %f',   -- sets de status bar of the window to the current file
   writebackup = false,  -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 }
 
 vim.opt.shortmess:append "c"
 vim.opt.path:append "**" -- Provides tab-completion for all file-related tasks
-
-vim.wo.number = true
-vim.wo.signcolumn = 'yes'
-vim.wo.relativenumber = true
 
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
