@@ -3,12 +3,10 @@ local opts = {
   silent = true,
 }
 
-local term_opts = { silent = true }
-
 local keymap = vim.api.nvim_set_keymap
 
 -- Remap <space> to <leader>
-vim.api.nvim_set_keymap("n", "<Space>", "<Nop>", opts)
+keymap("n", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -47,6 +45,10 @@ keymap('n', 'x', '"_x', opts)
 keymap('v', 'x', '"_x', opts)
 keymap('n', 'd', '"_d', opts)
 keymap('v', 'd', '"_d', opts)
+
+-- Change don't yank
+keymap('n', 'c', '"_c', opts)
+keymap('v', 'c', '"_c', opts)
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
