@@ -70,3 +70,11 @@ vim.cmd "set showmode"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
+
+vim.api.nvim_exec2([[
+  augroup BufferView
+    autocmd!
+    autocmd BufWinLeave *.*  mkview
+    autocmd BufWinEnter *.* silent! loadview
+  augroup END
+]], { output = false })
