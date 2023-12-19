@@ -71,6 +71,7 @@ vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
+-- Load and save folders in view when closing and opening
 vim.api.nvim_exec2([[
   augroup BufferView
     autocmd!
