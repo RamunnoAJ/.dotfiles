@@ -22,10 +22,13 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 --   term_mode = "t",
 --   command_mode = "c",
 
--- Normal --
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
+
+-- Indenting
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
 
 -- Move text up and down
 -- I want move line up/down consinusly, not moving & inserting
@@ -65,7 +68,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 keymap('n', '<leader>w', ':w!<CR>', opts)
 keymap('n', '<leader>e', ':e .<CR>', opts)
 keymap('n', '<leader>c', ':Bdelete!<CR>', opts)
-keymap('n', '<leader>C', ":w!|%bd|e#|bd#|'\"<CR>", opts)
+keymap('n', '<leader>C', ":w!|%bd|e#|bd#|'\"<CR> !silent", opts)
 keymap('n', '<leader>Q', ":w!|%bd|e#|bd#|'\"|q!<CR>", opts)
 keymap('n', '<leader>q', ":clo<CR>", opts)
 
