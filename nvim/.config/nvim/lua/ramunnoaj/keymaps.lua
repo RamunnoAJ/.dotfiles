@@ -26,6 +26,9 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
+-- Keep selection after yanking
+keymap("x", "y", "ygv", opts)
+
 -- Indenting
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
