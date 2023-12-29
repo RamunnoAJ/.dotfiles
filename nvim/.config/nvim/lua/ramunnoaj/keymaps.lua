@@ -22,6 +22,11 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 --   term_mode = "t",
 --   command_mode = "c",
 
+-- Surround selection with brackets
+keymap("v", "(", "<esc>`>a)<esc>`<i(<esc>gv", opts)
+keymap("v", "[", "<esc>`>a]<esc>`<i[<esc>gv", opts)
+keymap("v", "{", "<esc>`>a}<esc>`<i{<esc>gv", opts)
+
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
