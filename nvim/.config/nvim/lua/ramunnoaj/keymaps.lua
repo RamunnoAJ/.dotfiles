@@ -22,6 +22,13 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 --   term_mode = "t",
 --   command_mode = "c",
 
+keymap("n", "J", "mzJ`z", opts)
+keymap("n", "n", "nzzzv", opts)
+keymap("n", "N", "Nzzzv", opts)
+
+keymap("n", "<leader>t", "gt", opts)
+keymap("n", "<leader>T", "gT", opts)
+
 -- Exit insert mode
 keymap("i", "<C-c>", "<Esc>", opts)
 
@@ -110,11 +117,15 @@ keymap('n', '<leader>sb',
   ':lua require("telescope.builtin").current_buffer_fuzzy_find({sorting_strategy="ascending"})<CR>', opts)
 
 -- LSP
-keymap('n', '<leader>li', ':LspInfo<CR>', opts)
-keymap('n', '<leader>dj', ':lua vim.diagnostic.goto_next()<CR>', opts)
-keymap('n', '<leader>dk', ':lua vim.diagnostic.goto_prev()<CR>', opts)
-keymap('n', '<leader>r', ':lua vim.lsp.buf.rename()<CR>', opts)
-keymap('n', '<leader>a', ':lua vim.lsp.buf.code_action()<CR>', opts)
+keymap('n', '<leader>vi', ':LspInfo<CR>', opts)
+keymap('n', '<leader>vj', ':lua vim.diagnostic.goto_next()<CR>', opts)
+keymap('n', '<leader>vk', ':lua vim.diagnostic.goto_prev()<CR>', opts)
+keymap('n', '<leader>vd', ':lua vim.diagnostic.open_float()<CR>', opts)
+keymap('n', '<leader>vws', ':lua vim.diagnostic.workspace_symbol()<CR>', opts)
+keymap('n', '<leader>vrn', ':lua vim.lsp.buf.rename()<CR>', opts)
+keymap('n', '<leader>vrr', ':lua vim.lsp.buf.references()<CR>', opts)
+keymap('n', '<leader>vca', ':lua vim.lsp.buf.code_action()<CR>', opts)
+keymap('n', '<leader>vh', ':lua vim.lsp.buf.help()<CR>', opts)
 
 -- Debugging
 keymap('n', '<leader>b', ':lua require("dap").toggle_breakpoint()<CR>', opts)
