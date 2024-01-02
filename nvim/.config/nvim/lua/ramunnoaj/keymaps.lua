@@ -126,8 +126,8 @@ keymap('n', '<F12>', ':lua require("dap").step_out()<CR>', opts)
 keymap('n', '<leader>lp', ':lua require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>', opts)
 keymap('n', '<leader>dr', ':lua require("dap").repl.open()<CR>', opts)
 
--- Open LazyGit
-keymap('n', '<leader>g', ':LazyGit<CR>', opts)
+-- Open Git
+keymap('n', '<leader>gs', ':Git<CR>', opts)
 
 -- Open glow
 keymap('n', '<leader>mp', ':term glow %<CR>', opts)
