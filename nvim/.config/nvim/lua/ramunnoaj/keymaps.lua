@@ -22,6 +22,16 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 --   term_mode = "t",
 --   command_mode = "c",
 
+-- Exit insert mode
+keymap("i", "<C-c>", "<Esc>", opts)
+
+-- Disable Ex mode
+keymap("n", "Q", "<nop>", opts)
+
+-- Better navigation with <C-d> and <C-u>
+keymap("n", "<C-d>", "<C-d>zz", opts)
+keymap("n", "<C-u>", "<C-u>zz", opts)
+
 -- Surround selection with brackets
 keymap("v", "(", "<esc>`>a)<esc>`<i(<esc>gv", opts)
 keymap("v", "[", "<esc>`>a]<esc>`<i[<esc>gv", opts)
@@ -42,8 +52,8 @@ keymap("v", ">", ">gv", opts)
 -- I want move line up/down consinusly, not moving & inserting
 keymap("n", "<M-j>", "<Esc>:m .+1<CR>==", opts)
 keymap("n", "<M-k>", "<Esc>:m .-2<CR>==", opts)
-keymap("i", "<M-j>", "<Esc>:m .+1<CR>==", opts)
-keymap("i", "<M-k>", "<Esc>:m .-2<CR>==", opts)
+keymap("v", "<M-j>", ":m '>+1<CR>gv=gv", opts)
+keymap("v", "<M-k>", ":m '<-2<CR>gv=gv", opts)
 
 -- Better paste
 keymap("v", "p", '"_dp', opts)

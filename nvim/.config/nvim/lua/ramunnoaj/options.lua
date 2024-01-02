@@ -9,6 +9,7 @@ local options = {
   hlsearch = false,                                -- highlight all matches on previous search pattern
   ignorecase = true,                               -- ignore case in search patterns
   inccommand = "split",                            -- display effects while substitute
+  incsearch = true,
   laststatus = 3,
   listchars = 'eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣',
   guifont = { "JetBrainsMono Nerd Font", ":h12" }, -- the font used in graphical neovim applications
