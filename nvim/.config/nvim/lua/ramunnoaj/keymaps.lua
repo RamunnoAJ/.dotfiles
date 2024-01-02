@@ -143,7 +143,7 @@ keymap('n', '<leader>lp', ':lua require("dap").set_breakpoint(nil, nil, vim.fn.i
 keymap('n', '<leader>dr', ':lua require("dap").repl.open()<CR>', opts)
 
 -- Git
-keymap('n', '<leader>gs', ':Git<CR>', opts)
+keymap('n', '<leader>gs', ':vertical Git<CR>', opts)
 keymap('n', '<leader>u', ':UndotreeToggle<CR>', opts)
 
 -- Open glow
