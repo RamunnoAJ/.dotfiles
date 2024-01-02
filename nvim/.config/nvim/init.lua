@@ -38,8 +38,8 @@ local on_attach = function(_, bufnr)
   nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
 
   -- See `:help K` for why this keymap
-  nmap('<C-i>', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<M-i>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -49,14 +49,7 @@ end
 
 local servers = {
   rust_analyzer = {},
-  clangd = {},
-  gopls = {},
   tsserver = {},
-  html = {},
-  cssls = {},
-  tailwindcss = {},
-  emmet_ls = {},
-  eslint = {},
 
   lua_ls = {
     Lua = {
