@@ -24,7 +24,6 @@ nix-env -iA \
 	nixpkgs.xclip \
 	nixpkgs.antibody \
 	nixpkgs.git \
-	nixpkgs.lazygit \
 	nixpkgs.neovim \
 	nixpkgs.tmux \
 	nixpkgs.stow \
