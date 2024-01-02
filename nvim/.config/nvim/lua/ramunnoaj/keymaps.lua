@@ -32,6 +32,9 @@ keymap("n", "<leader>T", "gT", opts)
 -- Exit insert mode
 keymap("i", "<C-c>", "<Esc>", opts)
 
+-- Close buffer
+keymap("n", "<C-c>", ":wq!<CR>", opts)
+
 -- Disable Ex mode
 keymap("n", "Q", "<nop>", opts)
 
@@ -43,6 +46,8 @@ keymap("n", "<C-u>", "<C-u>zz", opts)
 keymap("v", "(", "<esc>`>a)<esc>`<i(<esc>gv", opts)
 keymap("v", "[", "<esc>`>a]<esc>`<i[<esc>gv", opts)
 keymap("v", "{", "<esc>`>a}<esc>`<i{<esc>gv", opts)
+keymap("v", "'", "<esc>`>a'<esc>`<i'<esc>gv", opts)
+keymap("v", '"', '<esc>`>a"<esc>`<i"<esc>gv', opts)
 
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
