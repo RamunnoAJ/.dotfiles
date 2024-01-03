@@ -33,7 +33,7 @@ keymap("n", "<leader>T", "gT", opts)
 keymap("i", "<C-c>", "<Esc>", opts)
 
 -- Close buffer
-keymap("n", "<C-c>", ":wq!<CR>", opts)
+keymap("n", "<C-c>", ":silent q!<CR>", opts)
 
 -- Disable Ex mode
 keymap("n", "Q", "<nop>", opts)
