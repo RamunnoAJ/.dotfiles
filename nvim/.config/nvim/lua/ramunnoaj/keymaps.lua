@@ -32,9 +32,6 @@ keymap("n", "<leader>T", "gT", opts)
 -- Exit insert mode
 keymap("i", "<C-c>", "<Esc>", opts)
 
--- Close buffer
-keymap("n", "<C-c>", ":silent q!<CR>", opts)
-
 -- Disable Ex mode
 keymap("n", "Q", "<nop>", opts)
 
@@ -98,8 +95,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 keymap('n', '<leader>w', ':w!<CR>', opts)
 keymap('n', '<leader>e', ':e .<CR>', opts)
 keymap('n', '<leader>c', ':Bdelete!<CR>', opts)
-keymap('n', '<leader>C', ":w!|%bd|e#|bd#|'\"<CR> !silent", opts)
-keymap('n', '<leader>Q', ":w!|%bd|e#|bd#|'\"|q!<CR>", opts)
+keymap('n', '<leader>C', ":silent w!|%bd|e#|bd#|'\"<CR>", opts)
+keymap('n', '<leader>Q', ":wqa!<CR>", opts)
 keymap('n', '<leader>q', ":clo<CR>", opts)
 
 -- Harpoon
