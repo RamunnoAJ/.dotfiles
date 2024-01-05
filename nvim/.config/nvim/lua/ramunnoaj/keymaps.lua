@@ -114,12 +114,12 @@ keymap('n', '<leader>sk', ':lua require("telescope.builtin").keymaps()<CR>', opt
 
 -- LSP
 keymap('n', '<leader>vi', ':LspInfo<CR>', opts)
-keymap('n', '<leader>[d', ':lua vim.diagnostic.goto_next()<CR>', opts)
-keymap('n', '<leader>]d', ':lua vim.diagnostic.goto_prev()<CR>', opts)
-keymap('n', '<leader>vws', ':lua vim.diagnostic.workspace_symbol()<CR>', opts)
-keymap('n', '<leader>vrn', ':lua vim.lsp.buf.rename()<CR>', opts)
-keymap('n', '<leader>vrr', ':lua vim.lsp.buf.references()<CR>', opts)
-keymap('n', '<leader>vca', ':lua vim.lsp.buf.code_action()<CR>', opts)
+keymap('n', '[d', ':lua vim.diagnostic.goto_next()<CR>', opts)
+keymap('n', ']d', ':lua vim.diagnostic.goto_prev()<CR>', opts)
+keymap('n', '<leader>vw', ':lua vim.diagnostic.workspace_symbol()<CR>', opts)
+keymap('n', '<leader>vc', ':lua vim.lsp.buf.rename()<CR>', opts)
+keymap('n', '<leader>vr', ':lua vim.lsp.buf.references()<CR>', opts)
+keymap('n', '<leader>va', ':lua vim.lsp.buf.code_action()<CR>', opts)
 keymap('n', '<leader>vh', ':lua vim.lsp.buf.help()<CR>', opts)
 
 -- Debugging
