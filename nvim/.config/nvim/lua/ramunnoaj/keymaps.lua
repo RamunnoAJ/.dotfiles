@@ -95,7 +95,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 keymap('n', '<leader>e', ':e .<CR>', opts)
 keymap('n', '<leader>c', ':Bdelete!<CR>', opts)
 keymap('n', '<leader>C', ":silent w!|%bd|e#|bd#|'\"<CR>", opts)
-keymap('n', '<leader>Q', ":wqa!<CR>", opts)
 keymap('n', '<leader>q', ":clo<CR>", opts)
 
 -- Harpoon
