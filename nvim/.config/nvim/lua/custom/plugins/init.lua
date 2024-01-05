@@ -17,4 +17,13 @@ return {
   },
   "moll/vim-bbye",
   { "JoosepAlviste/nvim-ts-context-commentstring", event = "BufReadPost", },
+  'Exafunction/codeium.vim',
+  'mbbill/undotree',
+  {
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  },
+  'christoomey/vim-tmux-navigator',
+  'xiyaowong/transparent.nvim'
 }
