@@ -92,7 +92,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Misc
-keymap('n', '<leader>w', ':w!<CR>', opts)
 keymap('n', '<leader>e', ':e .<CR>', opts)
 keymap('n', '<leader>c', ':Bdelete!<CR>', opts)
 keymap('n', '<leader>C', ":silent w!|%bd|e#|bd#|'\"<CR>", opts)
@@ -100,7 +99,7 @@ keymap('n', '<leader>Q', ":wqa!<CR>", opts)
 keymap('n', '<leader>q', ":clo<CR>", opts)
 
 -- Harpoon
-keymap('n', '<leader>ha', ':lua require("harpoon"):list():append()<CR>', opts)
+keymap('n', '<leader>a', ':lua require("harpoon"):list():append()<CR>', opts)
 keymap('n', '<C-a>', ':lua require("harpoon"):list():select(1)<CR>', opts)
 keymap('n', '<C-s>', ':lua require("harpoon"):list():select(2)<CR>', opts)
 keymap('n', '<C-e>', ':lua require("harpoon"):list():select(3)<CR>', opts)
