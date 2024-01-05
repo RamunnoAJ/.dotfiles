@@ -109,19 +109,13 @@ keymap('n', '<C-f>', ':lua require("harpoon"):list():select(4)<CR>', opts)
 keymap('n', '<leader>f', ':lua require("telescope.builtin").find_files({hidden=true})<CR>', opts)
 keymap('n', '<leader>F', ':lua require("telescope.builtin").buffers()<CR>', opts)
 keymap('n', '<leader>sg', ':lua require("telescope.builtin").live_grep()<CR>', opts)
-keymap('n', '<leader>ss', ':lua require("telescope.builtin").git_files()<CR>', opts)
-keymap('n', '<leader>sh', ':lua require("telescope.builtin").help_tags()<CR>', opts)
 keymap('n', '<leader>sc', ':lua require("telescope.builtin").commands()<CR>', opts)
 keymap('n', '<leader>sk', ':lua require("telescope.builtin").keymaps()<CR>', opts)
-keymap('n', '<leader>sd', ':lua require("telescope.builtin").diagnostics() bfnr=0<CR>', opts)
-keymap('n', '<leader>sb',
-  ':lua require("telescope.builtin").current_buffer_fuzzy_find({sorting_strategy="ascending"})<CR>', opts)
 
 -- LSP
 keymap('n', '<leader>vi', ':LspInfo<CR>', opts)
-keymap('n', '<leader>vj', ':lua vim.diagnostic.goto_next()<CR>', opts)
-keymap('n', '<leader>vk', ':lua vim.diagnostic.goto_prev()<CR>', opts)
-keymap('n', '<leader>vd', ':lua vim.diagnostic.open_float()<CR>', opts)
+keymap('n', '<leader>[d', ':lua vim.diagnostic.goto_next()<CR>', opts)
+keymap('n', '<leader>]d', ':lua vim.diagnostic.goto_prev()<CR>', opts)
 keymap('n', '<leader>vws', ':lua vim.diagnostic.workspace_symbol()<CR>', opts)
 keymap('n', '<leader>vrn', ':lua vim.lsp.buf.rename()<CR>', opts)
 keymap('n', '<leader>vrr', ':lua vim.lsp.buf.references()<CR>', opts)
@@ -136,10 +130,9 @@ keymap('n', '<F10>', ':lua require("dap").step_over()<CR>', opts)
 keymap('n', '<F11>', ':lua require("dap").step_into()<CR>', opts)
 keymap('n', '<F12>', ':lua require("dap").step_out()<CR>', opts)
 keymap('n', '<leader>lp', ':lua require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>', opts)
-keymap('n', '<leader>dr', ':lua require("dap").repl.open()<CR>', opts)
 
 -- Git
-keymap('n', '<leader>gs', ':vertical Git<CR>', opts)
+keymap('n', '<leader>g', ':vertical Git<CR>', opts)
 keymap('n', '<leader>u', ':UndotreeToggle<CR>', opts)
 
 -- Open glow
