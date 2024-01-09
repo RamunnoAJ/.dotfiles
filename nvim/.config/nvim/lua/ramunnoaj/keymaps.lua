@@ -137,3 +137,31 @@ keymap('n', '<leader>u', ':UndotreeToggle<CR>', opts)
 -- Open glow
 keymap('n', '<leader>mp', ':term glow %<CR>', opts)
 keymap('n', '<leader>mt', ':term glow ~/.dotfiles/personal/TODO.md<CR>', opts)
+
+-- Zen mode
+vim.keymap.set("n", "<leader>zz", function()
+    require("zen-mode").setup {
+        window = {
+            width = 90,
+            options = {}
+        },
+    }
+    require("zen-mode").toggle()
+    vim.wo.wrap = false
+    vim.wo.number = true
+    vim.wo.rnu = true
+end)
+
+vim.keymap.set("n", "<leader>zZ", function()
+    require("zen-mode").setup {
+        window = {
+            width = 80,
+            options = {}
+        },
+    }
+    require("zen-mode").toggle()
+    vim.wo.wrap = false
+    vim.wo.number = false
+    vim.wo.rnu = false
+    vim.opt.colorcolumn = "0"
+end)
