@@ -17,8 +17,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-
   { import = 'custom.plugins' },
+  spec = "custom.plugins",
+  change_detection = {
+    notify = false
+  }
 }, {})
 
 -- [[ Configure LSP ]]
