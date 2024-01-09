@@ -30,7 +30,7 @@ local options = {
     numberwidth = 2, -- set number column width to 2 {default 4}
     pumheight = 10,  -- pop up menu height
     rnu = true,      -- set relative number
-    scrolloff = 999, -- is one of my fav
+    scrolloff = 8,   -- is one of my fav
     softtabstop = 4,
     shiftwidth = 4,  -- the number of spaces inserted for each indentation
     showcmd = true,
@@ -44,7 +44,7 @@ local options = {
     splitbelow = true,    -- force all horizontal splits to go below current window
     splitright = true,    -- force all vertical splits to go to the right of current window
     swapfile = false,     -- creates a swapfile
-    tabstop = 2,          -- insert 2 spaces for a tab
+    tabstop = 4,
     termguicolors = true, -- set term gui colors (most terminals support this)
     timeout = true,       -- time to wait for a mapped sequence to complete
     timeoutlen = 300,     -- time to wait for a mapped sequence to complete (in milliseconds)
@@ -57,6 +57,7 @@ local options = {
     writebackup = false,  -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 }
 
+vim.opt.isfname:append("@-@")
 vim.opt.shortmess:append "c"
 vim.opt.path:append "**" -- Provides tab-completion for all file-related tasks
 
