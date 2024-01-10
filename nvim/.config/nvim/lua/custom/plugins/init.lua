@@ -4,8 +4,6 @@
 -- See the kickstart.nvim README for more information
 return {
     "moll/vim-bbye",
-    { "JoosepAlviste/nvim-ts-context-commentstring", event = "BufReadPost", },
-    "Exafunction/codeium.vim",
     "mbbill/undotree",
     {
         "nvim-telescope/telescope.nvim",
