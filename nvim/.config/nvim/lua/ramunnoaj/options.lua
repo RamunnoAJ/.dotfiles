@@ -107,6 +107,26 @@ autocmd({ "BufWritePre" }, {
     command = "%s/\\s\\+$//e",
 })
 
+autocmd({ "LspAttach" }, {
+    group = RamunnoGroup,
+    callback = function(ev)
+        local nmap = function(keys, func, desc)
+            if desc then
+                desc = 'LSP: ' .. desc
+            end
+
+            vim.keymap.set('n', keys, func, { buffer = ev.buf, desc = desc })
+        end
+
+        nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+        nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+        nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+        nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+        nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+        nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+    end
+})
+
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
