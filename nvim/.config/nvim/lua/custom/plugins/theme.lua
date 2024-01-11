@@ -46,7 +46,7 @@ return {
                 GitSignsDelete = { bg = "NONE" },
             }
         })
-        vim.cmd.colorscheme 'rose-pine'
+        vim.cmd.colorscheme('rose-pine')
         vim.cmd 'highlight Search guibg=#E58AC8 guifg=#1D1E2C'
     end,
 
