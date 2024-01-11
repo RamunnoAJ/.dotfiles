@@ -1,5 +1,5 @@
 return {
-    'stevearc/conform.nvim',
+    "stevearc/conform.nvim",
     event = { "BufReadPre", "BufNewFile" },
 
     config = function()
