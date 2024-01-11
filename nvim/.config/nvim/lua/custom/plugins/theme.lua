@@ -1,33 +1,9 @@
 return {
-    --[[ 'navarasu/onedark.nvim', ]]
-    --[[ priority = 1000, ]]
-    --[[]]
-    --[[ config = function() ]]
-    --[[   local onedark = require("onedark") ]]
-    --[[   onedark.setup({ ]]
-    --[[     style = 'cool', ]]
-    --[[     term_colors = true, ]]
-    --[[     transparent = false, ]]
-    --[[     code_style = { ]]
-    --[[       comments = 'italic', ]]
-    --[[       keywords = 'none', ]]
-    --[[       functions = 'none', ]]
-    --[[       strings = 'none', ]]
-    --[[       variables = 'none' ]]
-    --[[     } ]]
-    --[[   }) ]]
-    --[[   onedark.load() ]]
-    --[[]]
-    --[[   vim.cmd.colorscheme 'onedark' ]]
-    --[[ end, ]]
-
     'rose-pine/neovim',
     config = function()
         local rose_pine = require('rose-pine')
         rose_pine.setup({
-            --- @usage 'auto'|'main'|'moon'|'dawn'
             variant = 'main',
-            --- @usage 'dark'|'light'
             dark_variant = 'main',
             bold_vert_split = false,
             dim_nc_background = false,
@@ -35,7 +11,6 @@ return {
             disable_float_background = true,
             disable_italics = true,
 
-            --- @usage string hex value or named color from rosepinetheme.com/palette
             groups = {
                 background = 'base',
                 background_nc = '_experimental_nc',
@@ -59,25 +34,13 @@ return {
                     h5 = 'pine',
                     h6 = 'foam',
                 }
-                -- or set all headings at once
-                -- headings = 'subtle'
             },
 
-            -- Change specific vim highlight groups
-            -- https://github.com/rose-pine/neovim/wiki/Recipes
             highlight_groups = {
                 ColorColumn = { bg = 'rose' },
-
-                -- Blend colours against the "base" background
                 CursorLine = { bg = 'foam', blend = 10 },
                 StatusLine = { fg = 'love', bg = 'love', blend = 10 },
-
-                -- By default each group adds to the existing config.
-                -- If you only want to set what is written in this config exactly,
-                -- you can set the inherit option:
                 Search = { bg = 'gold', inherit = false },
-
-                -- Disable gitsig background by default
                 GitSignsAdd = { bg = "NONE" },
                 GitSignsChange = { bg = "NONE" },
                 GitSignsDelete = { bg = "NONE" },
