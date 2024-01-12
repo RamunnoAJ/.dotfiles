@@ -103,6 +103,7 @@ vim.keymap.set("n", "<leader>F", ":lua require('telescope.builtin').buffers()<CR
 vim.keymap.set("n", "<leader>sg", ":lua require('telescope.builtin').live_grep()<CR>")
 vim.keymap.set("n", "<leader>sc", ":lua require('telescope.builtin').commands()<CR>")
 vim.keymap.set("n", "<leader>sk", ":lua require('telescope.builtin').keymaps()<CR>")
+vim.keymap.set("n", "<leader>sh", ":lua require('telescope.builtin').help_tags()<CR>")
 
 -- LSP
 vim.keymap.set("n", "<leader>vi", ":LspInfo<CR>")
