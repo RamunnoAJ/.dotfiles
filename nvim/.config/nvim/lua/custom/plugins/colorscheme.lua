@@ -6,11 +6,16 @@ return {
         rose_pine.setup {
             variant = "main",
             dark_variant = "main",
-            bold_vert_split = false,
-            dim_nc_background = false,
+            dim_inactive_background = false,
             disable_background = true,
             disable_float_background = true,
-            disable_italics = true,
+            extend_background_behind_borders = true,
+
+            styles = {
+                bold = true,
+                italic = false,
+                transparency = true
+            },
 
             groups = {
                 background = "base",
@@ -41,6 +46,7 @@ return {
                 ColorColumn = { bg = "rose" },
                 CursorLine = { bg = "foam", blend = 10 },
                 StatusLine = { fg = "love", bg = "love", blend = 10 },
+                StatusLineNC = { fg = "subtle", bg = "surface" },
                 Search = { bg = "gold", inherit = false },
                 GitSignsAdd = { bg = "NONE" },
                 GitSignsChange = { bg = "NONE" },
@@ -49,8 +55,5 @@ return {
         }
         vim.cmd.colorscheme("rose-pine")
         vim.cmd "highlight Search guibg=#E58AC8 guifg=#1D1E2C"
-
-        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
     end,
 }
