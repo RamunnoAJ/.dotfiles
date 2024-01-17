@@ -99,7 +99,8 @@ vim.keymap.set("n", "<C-f>", ":lua require('harpoon'):list():select(4)<CR>")
 
 -- Telescope
 vim.keymap.set("n", "<leader>f", ":lua require('telescope.builtin').find_files({hidden=true})<CR>")
-vim.keymap.set("n", "<leader>F", ":lua require('telescope.builtin').git_files()<CR>")
+vim.keymap.set("n", "<leader>F", ":lua require('telescope.builtin').buffers()<CR>")
+vim.keymap.set("n", "<C-p>", ":lua require('telescope.builtin').git_files()<CR>")
 vim.keymap.set("n", "<leader>sg", ":lua require('telescope.builtin').live_grep()<CR>")
 vim.keymap.set("n", "<leader>sc", ":lua require('telescope.builtin').commands()<CR>")
 vim.keymap.set("n", "<leader>sk", ":lua require('telescope.builtin').keymaps()<CR>")
