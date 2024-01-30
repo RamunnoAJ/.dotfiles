@@ -160,3 +160,6 @@ vim.keymap.set("n", "<leader>zZ", function()
     vim.wo.rnu = false
     vim.opt.colorcolumn = "0"
 end)
+
+-- Vim be good
+vim.keymap.set("n", "<leader>vbg", ":VimBeGood<CR>")
