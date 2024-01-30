@@ -54,6 +54,7 @@ local options = {
     wildmenu = true,      -- Display all matching files when we tab complete
     wrap = false,         -- display lines as one long line
     winbar = '%=%m %f',   -- sets de status bar of the window to the current file
+    winblend = 0,
     writebackup = false,  -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 }
 
@@ -125,6 +126,12 @@ autocmd({ "LspAttach" }, {
         nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
         nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
     end
+})
+
+autocmd({ "FileType" }, {
+    group = RamunnoGroup,
+    pattern = { "gitcommit", "gitrebase" },
+    command = "startinsert | 1",
 })
 
 vim.g.netrw_browse_split = 0
