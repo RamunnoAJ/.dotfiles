@@ -15,8 +15,8 @@ export NVM_COMPLETION=true
 source ~/.zsh_plugins.sh
 
 # source scripts
-chmod +x ~/.scripts/tmux-sessionizer
-chmod +x ~/.scripts/tmux-attach
+chmod +x ~/.scripts/tmux-sessionizer.sh
+chmod +x ~/.scripts/tmux-attach.sh
 
 # aliases
 alias update-antibody='antibody bundle < $HOME/.zsh_plugins.txt > $HOME/.zsh_plugins.zsh'
@@ -24,16 +24,12 @@ alias ls-npm='npm list -g --depth=0'
 alias ls='ls -al --color'
 alias vim='nvim'
 alias cat='bat'
-alias gcob='git branch | fzf | xargs git checkout'
 alias vimrc='vim ${HOME}/.dotfiles/nvim/.config/nvim/init.lua'
-alias zshrc='vim ${HOME}/.dotfiles/zsh/.zshrc.dev'
-alias gst='git status'
+alias zshrc='vim ${HOME}/.dotfiles/zsh/.zshrc_profile'
 alias mysql='/opt/lampp/bin/mysql -u root'
-alias tcd='~/.scripts/tmux-sessionizer'
+alias tcd='~/.scripts/tmux-sessionizer.sh'
 alias tls='tmux list-sessions'
-alias tas='~/.scripts/tmux-attach'
-alias tks='tmux kill-server'
-alias tka='tmux kill-session -a'
+alias tas='~/.scripts/tmux-attach.sh'
 
 # FZF
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/*'"
@@ -54,4 +50,8 @@ if [ -e /home/agustin/.nix-profile/etc/profile.d/nix.sh ]; then . /home/agustin/
 
 if [ -d "/usr/local/go/bin" ] ; then
     export PATH=$PATH:/usr/local/go/bin
+fi
+
+if [ -z "$TMUX" ]; then
+  exec tmux new-session -A -s workspace
 fi
