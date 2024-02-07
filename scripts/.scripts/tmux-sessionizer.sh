@@ -2,8 +2,11 @@
 
 if [[ $# -eq 1 ]]; then
     selected=$1
-else
+elif [[ $# -eq 0 ]]; then
     selected=$(find ~/projects ~/ ~/work ~/personal -mindepth 1 -maxdepth 1 -type d | fzf)
+else
+    tmux display-message -d 500 "This script expects zero or one argument."
+    sleep 1
 fi
 
 if [[ -z $selected ]]; then
