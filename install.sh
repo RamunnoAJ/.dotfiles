@@ -41,11 +41,7 @@ mkdir -p ~/work
 mkdir -p ~/personal
 
 # install nvm latest version of node
-nvm install 'lts/*'
-
-# use latest version of node
-nvm alias default 'lts/*'
-nvm use default
+nvm install --lts
 
 # install npm packages globally
 npm install -g eslint prettier live-server
