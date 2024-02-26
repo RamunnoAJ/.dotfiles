@@ -134,6 +134,22 @@ autocmd({ "FileType" }, {
     command = "startinsert | 1",
 })
 
+autocmd({ "BufLeave", "ExitPre", "BufWinLeave" }, {
+    group = RamunnoGroup,
+    pattern = "*",
+    callback = function()
+        local filename = vim.fn.expand("%:p:.")
+        local harpoon_marks = require("harpoon"):list().items
+        for _, mark in ipairs(harpoon_marks) do
+            if mark.value == filename then
+                mark.context.row = vim.fn.line(".")
+                mark.context.col = vim.fn.col(".")
+                return
+            end
+        end
+    end
+})
+
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
