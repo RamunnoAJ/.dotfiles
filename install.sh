@@ -38,6 +38,7 @@ nix-env -iA \
 # Creates directories if not exists
 mkdir -p ~/projects
 mkdir -p ~/work
+mkdir -p ~/study
 mkdir -p ~/personal
 
 # install nvm latest version of node
