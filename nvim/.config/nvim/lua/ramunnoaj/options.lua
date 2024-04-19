@@ -134,8 +134,7 @@ autocmd({ "FileType" }, {
     command = "startinsert | 1",
 })
 
-autocmd({ "BufLeave", "ExitPre", "BufWinLeave" }, {
-    group = RamunnoGroup,
+autocmd({ "BufLeave", "ExitPre" }, {
     pattern = "*",
     callback = function()
         local filename = vim.fn.expand("%:p:.")
