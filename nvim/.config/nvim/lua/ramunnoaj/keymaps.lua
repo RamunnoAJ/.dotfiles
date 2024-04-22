@@ -89,6 +89,7 @@ vim.keymap.set("n", "<leader>e", ":e .<CR>")
 vim.keymap.set("n", "<leader>c", ":Bdelete!<CR>")
 vim.keymap.set("n", "<leader>C", ":silent w!|%bd|e#|bd#|'\"<CR>")
 vim.keymap.set("n", "<leader>q", ":clo<CR>")
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true })
 
 -- Harpoon
 vim.keymap.set("n", "<leader>a", ":lua require('harpoon'):list():append()<CR>")
