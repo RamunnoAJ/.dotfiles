@@ -92,7 +92,7 @@ vim.keymap.set("n", "<leader>q", ":clo<CR>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true })
 
 -- Harpoon
-vim.keymap.set("n", "<leader>a", ":lua require('harpoon'):list():append()<CR>")
+vim.keymap.set("n", "<leader>a", ":lua require('harpoon'):list():add()<CR>")
 vim.keymap.set("n", "<C-a>", ":lua require('harpoon'):list():select(1)<CR>")
 vim.keymap.set("n", "<C-s>", ":lua require('harpoon'):list():select(2)<CR>")
 vim.keymap.set("n", "<C-e>", ":lua require('harpoon'):list():select(3)<CR>")
