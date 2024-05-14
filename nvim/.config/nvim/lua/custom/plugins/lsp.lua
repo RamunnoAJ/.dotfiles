@@ -18,8 +18,8 @@ return {
             {},
             vim.lsp.protocol.make_client_capabilities(),
             cmp_lsp.default_capabilities())
-        local cmp_types = require("cmp.types")
 
+        local cmp_types = require("cmp.types")
         local function deprioritize_snippet(entry1, entry2)
             if entry1:get_kind() == cmp_types.lsp.CompletionItemKind.Snippet then
                 return false
@@ -28,6 +28,13 @@ return {
                 return true
             end
         end
+
+        cmp.setup.filetype({ "sql" }, {
+            sources = {
+                { name = "vim-dadbod-completion" },
+                { name = "buffer" },
+            },
+        })
 
         require("fidget").setup({})
         require("mason").setup()
@@ -59,6 +66,7 @@ return {
                 end
             },
         })
+
 
         local luasnip = require("luasnip")
         luasnip.config.setup({})
