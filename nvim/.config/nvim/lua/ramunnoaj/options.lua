@@ -12,27 +12,29 @@ local options = {
     backup = false,                                  -- creates a backup file
     breakindent = true,
     clipboard = "unnamedplus",                       -- allows neovim to access the system clipboard
+    colorcolumn = "90",
     completeopt = { "menu", "menuone", "noselect" }, -- mostly just for cmp
     cursorline = true,                               -- highlight the current line
     expandtab = true,                                -- convert tabs to spaces
     fileencoding = "utf-8",                          -- the encoding written to a file
+    fillchars = "eob: ",
     hlsearch = true,                                 -- highlight all matches on previous search pattern
     ignorecase = true,                               -- ignore case in search patterns
     inccommand = "split",                            -- display effects while substitute
     incsearch = true,
-    laststatus = 3,
+    jumpoptions = "stack",
+    laststatus = 0,
     listchars = 'eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣',
     guifont = { "JetBrainsMono Nerd Font", ":h12" }, -- the font used in graphical neovim applications
     guicursor = "",
     modeline = false,
-    mouse = "a",     -- allow the mouse to be used in neovim
-    number = true,   -- set numbered lines
-    numberwidth = 2, -- set number column width to 2 {default 4}
-    pumheight = 10,  -- pop up menu height
-    rnu = true,      -- set relative number
-    scrolloff = 8,   -- is one of my fav
+    mouse = "a",    -- allow the mouse to be used in neovim
+    number = true,  -- set numbered lines
+    pumheight = 10, -- pop up menu height
+    rnu = true,     -- set relative number
+    scrolloff = 8,  -- is one of my fav
     softtabstop = 4,
-    shiftwidth = 4,  -- the number of spaces inserted for each indentation
+    shiftwidth = 4, -- the number of spaces inserted for each indentation
     showcmd = true,
     showmatch = true,
     showmode = true,      -- show current mode like: -- INSERT --
@@ -74,8 +76,6 @@ for k, v in pairs(options) do
     vim.opt[k] = v
 end
 
-vim.g.netrw_list_hide = "^./$"
-vim.g.netrw_hide = 1
 
 vim.cmd "set showmode"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
@@ -149,6 +149,23 @@ autocmd({ "BufLeave", "ExitPre" }, {
     end
 })
 
+vim.g.netrw_list_hide = "^./$"
+vim.g.netrw_hide = 1
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
+vim.opt_local.colorcolumn = "0"
+
+
+autocmd({ "FileType" }, {
+    pattern = "netrw",
+    group = RamunnoGroup,
+    desc = "Netrw specific mappings",
+
+    callback = function()
+        vim.keymap.set("n", "<C-c>", ":Rex<CR>", { remap = true, buffer = true })
+        vim.keymap.set("n", "h", "-", { remap = true, buffer = true })
+        vim.keymap.set("n", "l", "<CR>", { remap = true, buffer = true })
+        vim.keymap.set("n", "<C-l>", ":TmuxNavigateRight<CR>", { remap = true, buffer = true })
+    end
+})

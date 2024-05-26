@@ -1,5 +1,5 @@
 -- Remap <space> to <leader>
-vim.keymap.set("n", "<Space>", "<Nop>")
+vim.keymap.set({ "n", "v" }, " ", "<Nop>")
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -15,7 +15,7 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 --   term_mode = "t",
 --   command_mode = "c",
 
-vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "J", "mzJ`z", { silent = true }) -- Don't move the cursor when doing J
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
@@ -68,10 +68,14 @@ vim.keymap.set("n", "x", '"_x')
 vim.keymap.set("v", "x", '"_x')
 vim.keymap.set("n", "d", '"_d')
 vim.keymap.set("v", "d", '"_d')
+vim.keymap.set("n", "D", '"_D')
+vim.keymap.set("v", "D", '"_D')
 
 -- Change don't yank
 vim.keymap.set("n", "c", '"_c')
 vim.keymap.set("v", "c", '"_c')
+vim.keymap.set("n", "C", '"_C')
+vim.keymap.set("v", "C", '"_C')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -85,22 +89,25 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Misc
-vim.keymap.set("n", "<leader>e", ":e .<CR>")
-vim.keymap.set("n", "<leader>c", ":Bdelete!<CR>")
-vim.keymap.set("n", "<leader>C", ":silent w!|%bd|e#|bd#|'\"<CR>")
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true })
+vim.keymap.set("n", "<leader>e", ":Ex<CR>")                       -- Open explorer on cwd
+vim.keymap.set("n", "<leader>c", ":Bdelete!<CR>")                 -- Close buffer
+vim.keymap.set("n", "<leader>C", ":silent w!|%bd|e#|bd#|'\"<CR>") -- Close all buffers except current
+vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>", { silent = true })   -- Remove highlight search
+vim.keymap.set("n", "<Tab>", "<C-6>", { silent = true })          -- Easy alternate files
+vim.keymap.set("n", "Y", "y$")                                    -- Make Y act like C and D
+vim.keymap.set("i", "<C-f>", "<C-x><C-f>", { silent = true })     -- Complete filepath
+vim.keymap.set("i", "<C-j>", "<C-x><C-o>", { silent = true })     -- Lsp completion
+vim.keymap.set("n", "<C-j>", "<C-x><C-o>", { silent = true })     -- Lsp completion
 
 -- Quickfix list
-vim.keymap.set("n", "<leader>qo", ":cope<CR>")
-vim.keymap.set("n", "<leader>qn", ":cnext<CR>")
-vim.keymap.set("n", "<leader>qp", ":cprev<CR>")
+vim.keymap.set("n", "<leader>q", ":cope<CR>")
+vim.keymap.set("n", "[c", ":cnext<CR>")
+vim.keymap.set("n", "]c", ":cprev<CR>")
 
 -- Harpoon
 vim.keymap.set("n", "<leader>a", ":lua require('harpoon'):list():add()<CR>")
-vim.keymap.set("n", "<C-a>", ":lua require('harpoon'):list():select(1)<CR>")
-vim.keymap.set("n", "<C-s>", ":lua require('harpoon'):list():select(2)<CR>")
-vim.keymap.set("n", "<C-e>", ":lua require('harpoon'):list():select(3)<CR>")
-vim.keymap.set("n", "<C-f>", ":lua require('harpoon'):list():select(4)<CR>")
+vim.keymap.set("n", "<C-a>", ":lua require('harpoon'):list():select(1)<CR>", { silent = true })
+vim.keymap.set("n", "<C-s>", ":lua require('harpoon'):list():select(2)<CR>", { silent = true })
 
 -- Telescope
 vim.keymap.set("n", "<leader>f", ":lua require('telescope.builtin').find_files({hidden=true})<CR>")
@@ -115,12 +122,9 @@ vim.keymap.set("n", "<leader>sh", ":lua require('telescope.builtin').help_tags()
 vim.keymap.set("n", "<leader>vi", ":LspInfo<CR>")
 vim.keymap.set("n", "[d", ":lua vim.diagnostic.goto_next()<CR>")
 vim.keymap.set("n", "]d", ":lua vim.diagnostic.goto_prev()<CR>")
-vim.keymap.set("n", "[q", ":lua vim.diagnostic.setqflist()<CR>")
-vim.keymap.set("n", "<leader>vw", ":lua vim.diagnostic.workspace_symbol()<CR>")
 vim.keymap.set("n", "<leader>vc", ":lua vim.lsp.buf.rename()<CR>")
 vim.keymap.set("n", "<leader>vr", ":lua vim.lsp.buf.references()<CR>")
 vim.keymap.set("n", "<leader>va", ":lua vim.lsp.buf.code_action()<CR>")
-vim.keymap.set("n", "<leader>vh", ":lua vim.lsp.buf.help()<CR>")
 
 -- Debugging
 vim.keymap.set("n", "<leader>b", ":lua require('dap').toggle_breakpoint()<CR>")
@@ -138,34 +142,3 @@ vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
 -- Open glow
 vim.keymap.set("n", "<leader>mp", ":term glow %<CR>")
 vim.keymap.set("n", "<leader>mt", ":term glow ~/.dotfiles/personal/TODO.md<CR>")
-
--- Zen mode
-vim.keymap.set("n", "<leader>zz", function()
-    require("zen-mode").setup {
-        window = {
-            width = 90,
-            options = {}
-        },
-    }
-    require("zen-mode").toggle()
-    vim.wo.wrap = false
-    vim.wo.number = true
-    vim.wo.rnu = true
-end)
-
-vim.keymap.set("n", "<leader>zZ", function()
-    require("zen-mode").setup {
-        window = {
-            width = 80,
-            options = {}
-        },
-    }
-    require("zen-mode").toggle()
-    vim.wo.wrap = false
-    vim.wo.number = false
-    vim.wo.rnu = false
-    vim.opt.colorcolumn = "0"
-end)
-
--- Vim be good
-vim.keymap.set("n", "<leader>vbg", ":VimBeGood<CR>")

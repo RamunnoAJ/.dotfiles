@@ -12,7 +12,4 @@ return {
     },
     "christoomey/vim-tmux-navigator",
     "xiyaowong/transparent.nvim",
-    "tpope/vim-dadbod",
-    "kristijanhusak/vim-dadbod-completion",
-    "kristijanhusak/vim-dadbod-ui",
 }
