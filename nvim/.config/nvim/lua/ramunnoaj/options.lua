@@ -40,7 +40,7 @@ local options = {
     showmode = true,      -- show current mode like: -- INSERT --
     showtabline = 0,      -- determine if the tab pages line is displayed
     sidescrolloff = 8,
-    signcolumn = "yes",   -- always show the sign column, otherwise it would shift the text each time
+    signcolumn = "yes:9", -- always show the sign column, otherwise it would shift the text each time
     smartcase = true,     -- smart case
     smartindent = true,   -- make indenting smarter again
     splitbelow = true,    -- force all horizontal splits to go below current window
@@ -167,5 +167,18 @@ autocmd({ "FileType" }, {
         vim.keymap.set("n", "h", "-", { remap = true, buffer = true })
         vim.keymap.set("n", "l", "<CR>", { remap = true, buffer = true })
         vim.keymap.set("n", "<C-l>", ":TmuxNavigateRight<CR>", { remap = true, buffer = true })
+    end
+})
+
+autocmd({ "WinEnter", "WinNew", "BufWinEnter", "BufWinLeave" }, {
+    group = RamunnoGroup,
+    desc = "Set signcolumn if only one window open",
+    pattern = "*",
+    callback = function()
+        if #vim.api.nvim_tabpage_list_wins(0) == 1 then
+            vim.wo.signcolumn = "yes:9"
+        else
+            vim.wo.signcolumn = "yes"
+        end
     end
 })
