@@ -29,13 +29,6 @@ return {
             end
         end
 
-        cmp.setup.filetype({ "sql" }, {
-            sources = {
-                { name = "vim-dadbod-completion" },
-                { name = "buffer" },
-            },
-        })
-
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({

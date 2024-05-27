@@ -40,7 +40,6 @@ local options = {
     showmode = true,      -- show current mode like: -- INSERT --
     showtabline = 0,      -- determine if the tab pages line is displayed
     sidescrolloff = 8,
-    signcolumn = "yes:9", -- always show the sign column, otherwise it would shift the text each time
     smartcase = true,     -- smart case
     smartindent = true,   -- make indenting smarter again
     splitbelow = true,    -- force all horizontal splits to go below current window
@@ -71,11 +70,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
     desc = "Remove comment characters when joining lines",
 })
 
-
 for k, v in pairs(options) do
     vim.opt[k] = v
 end
-
 
 vim.cmd "set showmode"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
@@ -84,12 +81,12 @@ vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
 -- Load and save folders in view when closing and opening
 vim.api.nvim_exec2([[
-  augroup BufferView
-    autocmd!
-    autocmd BufWinLeave *.*  mkview
-    autocmd BufWinEnter *.* silent! loadview
-  augroup END
-]], { output = false })
+            augroup BufferView
+              autocmd!
+              autocmd BufWinLeave *.*  mkview
+              autocmd BufWinEnter *.* silent! loadview
+            augroup END
+          ]], { output = false })
 
 autocmd('TextYankPost', {
     group = yank_group,
@@ -131,7 +128,15 @@ autocmd({ "LspAttach" }, {
 autocmd({ "FileType" }, {
     group = RamunnoGroup,
     pattern = { "gitcommit", "gitrebase" },
-    command = "startinsert | 1",
+    command = "startinsert | 1"
+})
+
+autocmd({ "FileType" }, {
+    group = RamunnoGroup,
+    pattern = { "gitcommit", "gitrebase", "fugitive" }, -- Disable sign column for these file types
+    callback = function()
+        vim.o.signcolumn = "no"
+    end
 })
 
 autocmd({ "BufLeave", "ExitPre" }, {
@@ -156,7 +161,6 @@ vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 vim.opt_local.colorcolumn = "0"
 
-
 autocmd({ "FileType" }, {
     pattern = "netrw",
     group = RamunnoGroup,
@@ -170,15 +174,34 @@ autocmd({ "FileType" }, {
     end
 })
 
-autocmd({ "WinEnter", "WinNew", "BufWinEnter", "BufWinLeave" }, {
+function print_filetype()
+    local filetype = vim.bo.filetype
+
+    print("Filetype: " .. filetype)
+end
+
+vim.api.nvim_create_user_command("FileType", print_filetype, {})
+
+
+local function set_signcolumn()
+    local win_count = #vim.api.nvim_tabpage_list_wins(0) -- Get the number of windows in the current tab
+    if win_count > 1 then
+        vim.wo.signcolumn = "yes"
+    else
+        vim.wo.signcolumn = "yes:9"
+    end
+end
+
+autocmd({ "WinEnter", "BufWinEnter" }, {
     group = RamunnoGroup,
-    desc = "Set signcolumn if only one window open",
+    pattern = "*",
+    callback = set_signcolumn
+})
+
+autocmd({ "WinNew", "WinClosed" }, {
+    group = RamunnoGroup,
     pattern = "*",
     callback = function()
-        if #vim.api.nvim_tabpage_list_wins(0) == 1 then
-            vim.wo.signcolumn = "yes:9"
-        else
-            vim.wo.signcolumn = "yes"
-        end
+        vim.defer_fn(set_signcolumn, 10)
     end
 })

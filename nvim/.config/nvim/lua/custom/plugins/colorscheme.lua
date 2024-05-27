@@ -4,7 +4,7 @@ return {
     config = function()
         local neofusion = require("neofusion")
         neofusion.setup({
-            terminal_colors = false,
+            terminal_colors = true,
             undercurl = false,
             underline = false,
             striketrough = false,
@@ -18,14 +18,15 @@ return {
             bold = false,
             invert = false,
             transparent_mode = true,
-            dim_inactive = true,
+            dim_inactive = false,
             overrides = {
                 Comment = { fg = "#797593" },
             }
         })
 
-        vim.cmd "highlight Search guibg=#E58AC8 guifg=#1D1E2C"
         vim.cmd.colorscheme("neofusion")
+        vim.o.background = "dark"
+        vim.cmd "highlight Search guibg=#E58AC8 guifg=#1D1E2C"
     end
 
     --"rose-pine/neovim",
