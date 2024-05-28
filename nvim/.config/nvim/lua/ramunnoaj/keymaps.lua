@@ -142,3 +142,6 @@ vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
 -- Open glow
 vim.keymap.set("n", "<leader>mp", ":term glow %<CR>")
 vim.keymap.set("n", "<leader>mt", ":term glow ~/.dotfiles/personal/TODO.md<CR>")
+
+-- Toggle AI autocomplete
+vim.keymap.set("n", "<leader>h", ":CodeiumToggle<CR>")
