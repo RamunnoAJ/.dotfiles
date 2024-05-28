@@ -174,13 +174,11 @@ autocmd({ "FileType" }, {
     end
 })
 
-function print_filetype()
+vim.api.nvim_create_user_command("FileType", function()
     local filetype = vim.bo.filetype
 
     print("Filetype: " .. filetype)
-end
-
-vim.api.nvim_create_user_command("FileType", print_filetype, {})
+end, {})
 
 
 local function set_signcolumn()

@@ -11,4 +11,8 @@ return {
         dependencies = { "nvim-lua/plenary.nvim" },
     },
     "christoomey/vim-tmux-navigator",
+    change_detection = {
+        enabled = false,
+        notify = false
+    }
 }
