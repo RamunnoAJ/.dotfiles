@@ -17,7 +17,6 @@ return {
                 json = { "prettier" },
                 rust = { "rust-analyzer" },
                 markdown = { "prettier" },
-                c = { "clang_format" },
                 ["*"] = { "codespell" },
                 ["_"] = { "trim_whitespace" },
             },

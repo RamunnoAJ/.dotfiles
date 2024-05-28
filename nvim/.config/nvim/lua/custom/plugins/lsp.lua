@@ -35,7 +35,8 @@ return {
             ensure_installed = {
                 "rust_analyzer",
                 "tsserver",
-                "lua_ls"
+                "lua_ls",
+                "clangd"
             },
 
             handlers = {
