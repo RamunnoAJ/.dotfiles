@@ -37,9 +37,10 @@ local options = {
     shiftwidth = 4, -- the number of spaces inserted for each indentation
     showcmd = true,
     showmatch = true,
-    showmode = true,      -- show current mode like: -- INSERT --
-    showtabline = 0,      -- determine if the tab pages line is displayed
+    showmode = true, -- show current mode like: -- INSERT --
+    showtabline = 0, -- determine if the tab pages line is displayed
     sidescrolloff = 8,
+    signcolumn = "yes:9",
     smartcase = true,     -- smart case
     smartindent = true,   -- make indenting smarter again
     splitbelow = true,    -- force all horizontal splits to go below current window
@@ -179,27 +180,3 @@ vim.api.nvim_create_user_command("FileType", function()
 
     print("Filetype: " .. filetype)
 end, {})
-
-
-local function set_signcolumn()
-    local win_count = #vim.api.nvim_tabpage_list_wins(0) -- Get the number of windows in the current tab
-    if win_count > 1 then
-        vim.wo.signcolumn = "yes"
-    else
-        vim.wo.signcolumn = "yes:9"
-    end
-end
-
-autocmd({ "WinEnter", "BufWinEnter" }, {
-    group = RamunnoGroup,
-    pattern = "*",
-    callback = set_signcolumn
-})
-
-autocmd({ "WinNew", "WinClosed" }, {
-    group = RamunnoGroup,
-    pattern = "*",
-    callback = function()
-        vim.defer_fn(set_signcolumn, 10)
-    end
-})

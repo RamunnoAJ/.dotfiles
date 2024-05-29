@@ -137,3 +137,13 @@ vim.keymap.set("n", "<leader>mt", ":term glow ~/.dotfiles/personal/TODO.md<CR>")
 
 -- Toggle AI autocomplete
 vim.keymap.set("n", "<leader>h", ":CodeiumToggle<CR>")
+
+-- Toggle signcolumn
+vim.keymap.set("n", "<leader>z", function()
+    local win_count = #vim.api.nvim_tabpage_list_wins(0) -- Get the number of windows in the current tab
+    if win_count > 1 then
+        vim.wo.signcolumn = "yes"
+    else
+        vim.wo.signcolumn = "yes:9"
+    end
+end)
