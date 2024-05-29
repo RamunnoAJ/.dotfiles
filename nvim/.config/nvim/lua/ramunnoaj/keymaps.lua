@@ -101,6 +101,7 @@ vim.keymap.set("n", "<C-j>", "<C-x><C-o>", { silent = true })     -- Lsp complet
 
 -- Quickfix list
 vim.keymap.set("n", "<leader>q", ":cope<CR>")
+vim.keymap.set("n", "<leader>Q", ":call setqflist([], 'r')<CR>")
 vim.keymap.set("n", "[c", ":cnext<CR>")
 vim.keymap.set("n", "]c", ":cprev<CR>")
 
