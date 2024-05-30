@@ -140,10 +140,11 @@ vim.keymap.set("n", "<leader>h", ":CodeiumToggle<CR>")
 
 -- Toggle signcolumn
 vim.keymap.set("n", "<leader>z", function()
-    local win_count = #vim.api.nvim_tabpage_list_wins(0) -- Get the number of windows in the current tab
-    if win_count > 1 then
-        vim.wo.signcolumn = "yes"
-    else
+    local signcolumn = vim.wo.signcolumn
+
+    if signcolumn == "yes" then
         vim.wo.signcolumn = "yes:9"
+    else
+        vim.wo.signcolumn = "yes"
     end
 end)
