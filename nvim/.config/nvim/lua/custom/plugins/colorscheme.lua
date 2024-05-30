@@ -43,11 +43,11 @@ return {
             },
 
             highlight_groups = {
-                ColorColumn = { bg = "rose" },
+                ColorColumn = { bg = "love", blend = 75 },
                 CursorLine = { bg = "love", blend = 10 },
                 StatusLine = { fg = "love", bg = "love", blend = 10 },
                 StatusLineNC = { fg = "subtle", bg = "surface" },
-                Search = { bg = "gold", inherit = false },
+                Search = { bg = "subtle", inherit = false, blend = 50 },
                 GitSignsAdd = { bg = "NONE" },
                 GitSignsChange = { bg = "NONE" },
                 GitSignsDelete = { bg = "NONE" },
@@ -56,7 +56,6 @@ return {
         }
 
         vim.cmd "colorscheme rose-pine"
-        vim.cmd "highlight Search guibg=#E58AC8 guifg=#1D1E2C"
         vim.o.background = "dark"
     end,
 }
