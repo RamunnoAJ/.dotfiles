@@ -134,7 +134,7 @@ autocmd({ "FileType" }, {
 
 autocmd({ "FileType" }, {
     group = RamunnoGroup,
-    pattern = { "gitcommit", "gitrebase", "fugitive" }, -- Disable sign column for these file types
+    pattern = { "gitcommit", "gitrebase", "fugitive", "undotree", "diff" }, -- Disable sign column for these file types
     callback = function()
         vim.o.signcolumn = "no"
     end
