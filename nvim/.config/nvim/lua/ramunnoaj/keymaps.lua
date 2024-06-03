@@ -90,7 +90,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Misc
 vim.keymap.set("n", "<leader>e", ":Ex<CR>")                       -- Open explorer on cwd
-vim.keymap.set("n", "<leader>c", ":Bdelete!<CR>")                 -- Close buffer
+vim.keymap.set("n", "<leader>c", ":bw!<CR>")                      -- Close buffer
 vim.keymap.set("n", "<leader>C", ":silent w!|%bd|e#|bd#|'\"<CR>") -- Close all buffers except current
 vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>", { silent = true })   -- Remove highlight search
 vim.keymap.set("n", "<Tab>", "<C-6>", { silent = true })          -- Easy alternate files

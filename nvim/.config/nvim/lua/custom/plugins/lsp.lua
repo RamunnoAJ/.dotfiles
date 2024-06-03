@@ -5,8 +5,6 @@ return {
         "williamboman/mason-lspconfig.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/nvim-cmp",
-        "saadparwaiz1/cmp_luasnip",
-        "L3MON4D3/LuaSnip",
         "Exafunction/codeium.vim",
     },
 
@@ -62,15 +60,7 @@ return {
         })
 
 
-        local luasnip = require("luasnip")
-        luasnip.config.setup({})
-
         cmp.setup({
-            snippet = {
-                expand = function(args)
-                    luasnip.lsp_expand(args.body)
-                end,
-            },
             sorting = {
                 priority_weight = 2,
                 comparators = {
@@ -99,7 +89,6 @@ return {
             },
             sources = {
                 { name = "nvim_lsp" },
-                { name = "luasnip" },
             },
         })
 
