@@ -9,6 +9,7 @@ function R(name)
 end
 
 local options = {
+    autoindent = true,
     backup = false,                                  -- creates a backup file
     breakindent = true,
     clipboard = "unnamedplus",                       -- allows neovim to access the system clipboard
@@ -180,3 +181,8 @@ vim.api.nvim_create_user_command("FileType", function()
 
     print("Filetype: " .. filetype)
 end, {})
+
+-- rebind W and Q to w and q
+vim.cmd "command! Wq wq"
+vim.cmd "command! W w"
+vim.cmd "command! Q q"

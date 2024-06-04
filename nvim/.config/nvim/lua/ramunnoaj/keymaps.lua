@@ -51,7 +51,7 @@ vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
 -- Move text up and down
--- I want move line up/down consinusly, not moving & inserting
+-- I want move line up/down consistenly, not moving & inserting
 vim.keymap.set("n", "<M-j>", "<Esc>:m .+1<CR>==")
 vim.keymap.set("n", "<M-k>", "<Esc>:m .-2<CR>==")
 vim.keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv")
@@ -89,15 +89,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Misc
-vim.keymap.set("n", "<leader>e", ":Ex<CR>")                       -- Open explorer on cwd
-vim.keymap.set("n", "<leader>c", ":bw!<CR>")                      -- Close buffer
-vim.keymap.set("n", "<leader>C", ":silent w!|%bd|e#|bd#|'\"<CR>") -- Close all buffers except current
-vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>", { silent = true })   -- Remove highlight search
-vim.keymap.set("n", "<Tab>", "<C-6>", { silent = true })          -- Easy alternate files
-vim.keymap.set("n", "Y", "y$")                                    -- Make Y act like C and D
-vim.keymap.set("i", "<C-f>", "<C-x><C-f>", { silent = true })     -- Complete filepath
-vim.keymap.set("i", "<C-j>", "<C-x><C-o>", { silent = true })     -- Lsp completion
-vim.keymap.set("n", "<C-j>", "<C-x><C-o>", { silent = true })     -- Lsp completion
+vim.keymap.set("n", "<leader>e", ":Ex<CR>")                                          -- Open explorer on cwd
+vim.keymap.set("n", "<leader>c", ":bw!<CR>", { silent = true })                      -- Close buffer
+vim.keymap.set("n", "<leader>C", ":silent w!|%bd|e#|bd#|'\"<CR>", { silent = true }) -- Close all buffers except current
+vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>", { silent = true })                      -- Remove highlight search
+vim.keymap.set("n", "<Tab>", "<C-6>", { silent = true })                             -- Easy alternate files
+vim.keymap.set("n", "Y", "y$")                                                       -- Make Y act like C and D
+vim.keymap.set("i", "<C-f>", "<C-x><C-f>", { silent = true })                        -- Complete filepath
+vim.keymap.set("i", "<C-j>", "<C-x><C-o>", { silent = true })                        -- Lsp completion
+vim.keymap.set("n", "<C-j>", "<C-x><C-o>", { silent = true })                        -- Lsp completion
 
 -- Quickfix list
 vim.keymap.set("n", "<leader>q", ":cope<CR>")
@@ -121,6 +121,8 @@ vim.keymap.set("n", "<leader>sh", ":lua require('telescope.builtin').help_tags()
 
 -- LSP
 vim.keymap.set("n", "<leader>vi", ":LspInfo<CR>")
+vim.keymap.set("n", "<leader><leader>",
+    ":lua vim.diagnostic.open_float()<CR>:lua vim.diagnostic.open_float()<CR>")
 vim.keymap.set("n", "[d", ":lua vim.diagnostic.goto_next()<CR>")
 vim.keymap.set("n", "]d", ":lua vim.diagnostic.goto_prev()<CR>")
 vim.keymap.set("n", "<leader>vc", ":lua vim.lsp.buf.rename()<CR>")
