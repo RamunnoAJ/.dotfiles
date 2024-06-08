@@ -38,6 +38,7 @@ vim.keymap.set("v", "[", "<esc>`>a]<esc>`<i[<esc>gv")
 vim.keymap.set("v", "{", "<esc>`>a}<esc>`<i{<esc>gv")
 vim.keymap.set("v", "'", "<esc>`>a'<esc>`<i'<esc>gv")
 vim.keymap.set("v", '"', '<esc>`>a"<esc>`<i"<esc>gv')
+vim.keymap.set("v", '`', '<esc>`>a`<esc>`<i`<esc>gv')
 
 -- Navigate buffers
 vim.keymap.set("n", "<S-l>", ":bnext<CR>")
@@ -46,7 +47,7 @@ vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
 -- Keep selection after yanking
 vim.keymap.set("x", "y", "ygv")
 
--- Indenting
+-- Keep selection after Indenting
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
