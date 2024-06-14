@@ -148,3 +148,6 @@ vim.keymap.set("n", "<leader>z", function()
         vim.wo.signcolumn = "yes"
     end
 end)
+
+-- if err != nil
+vim.keymap.set("n", "<leader>ne", "oif err != nil {<CR>  return<CR>}<CR><C-c>V4k=<CR><C-c>")
