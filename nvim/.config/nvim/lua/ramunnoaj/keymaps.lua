@@ -3,10 +3,6 @@ vim.keymap.set({ "n", "v" }, " ", "<Nop>")
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Remap for dealing with word wrap
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
 -- Modes
 --   normal_mode = "n",
 --   insert_mode = "i",
@@ -14,6 +10,10 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 --   visual_block_mode = "x",
 --   term_mode = "t",
 --   command_mode = "c",
+
+-- Remap for dealing with word wrap
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 vim.keymap.set("n", "J", "mzJ`z", { silent = true }) -- Don't move the cursor when doing J
 vim.keymap.set("n", "n", "nzzzv")
@@ -52,7 +52,6 @@ vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
 -- Move text up and down
--- I want move line up/down consistenly, not moving & inserting
 vim.keymap.set("n", "<M-j>", "<Esc>:m .+1<CR>==")
 vim.keymap.set("n", "<M-k>", "<Esc>:m .-2<CR>==")
 vim.keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv")
@@ -99,6 +98,7 @@ vim.keymap.set("n", "Y", "y$")                                                  
 vim.keymap.set("i", "<C-f>", "<C-x><C-f>", { silent = true })                        -- Complete filepath
 vim.keymap.set("i", "<C-j>", "<C-x><C-o>", { silent = true })                        -- Lsp completion
 vim.keymap.set("n", "<C-j>", "<C-x><C-o>", { silent = true })                        -- Lsp completion
+vim.keymap.set("n", "<leader>r", ":%s/<C-r><C-w>//g<Left><Left>")                    -- Replace current word
 
 -- Quickfix list
 vim.keymap.set("n", "<leader>q", ":cope<CR>")
