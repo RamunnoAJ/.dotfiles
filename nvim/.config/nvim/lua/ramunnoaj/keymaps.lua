@@ -110,6 +110,8 @@ vim.keymap.set("n", "]c", ":cprev<CR>")
 vim.keymap.set("n", "<leader>a", ":lua require('harpoon'):list():add()<CR>")
 vim.keymap.set("n", "<C-a>", ":lua require('harpoon'):list():select(1)<CR>", { silent = true })
 vim.keymap.set("n", "<C-s>", ":lua require('harpoon'):list():select(2)<CR>", { silent = true })
+vim.keymap.set("n", "<C-f>", ":lua require('harpoon'):list():select(3)<CR>", { silent = true })
+vim.keymap.set("n", "<C-t>", ":lua require('harpoon'):list():select(4)<CR>", { silent = true })
 
 -- Telescope
 vim.keymap.set("n", "<leader>f", ":lua require('telescope.builtin').find_files({hidden=true})<CR>")
