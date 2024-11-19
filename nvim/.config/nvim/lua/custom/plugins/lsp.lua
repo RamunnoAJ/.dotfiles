@@ -14,11 +14,19 @@ return {
             cmp_lsp.default_capabilities())
 
         require("fidget").setup({})
-        require("mason").setup()
+        require("mason").setup({
+            ui = {
+                icons = {
+                    package_installed = "✓",
+                    package_pending = "➜",
+                    package_uninstalled = "✗"
+                }
+            }
+        })
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "rust_analyzer",
-                "tsserver",
+                "ts_ls",
                 "lua_ls",
                 "clangd",
                 "gopls"
