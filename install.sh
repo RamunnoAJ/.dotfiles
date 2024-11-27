@@ -3,11 +3,12 @@ sudo apt update
 
 # install curl
 sudo apt install curl
-
 #install zsh
 sudo apt install zsh
 # install nix
 curl -L https://nixos.org/nix/install | sh
+# install nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
 # source nix
 . ~/.nix-profile/etc/profile.d/nix.sh
@@ -42,7 +43,9 @@ mkdir -p ~/study
 mkdir -p ~/personal
 
 # install nvm latest version of node
+nvm install node
 nvm install --lts
+node --version
 
 # install npm packages globally
 npm install -g eslint prettier live-server
