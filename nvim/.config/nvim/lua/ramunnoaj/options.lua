@@ -26,7 +26,6 @@ local options = {
     jumpoptions = "stack",
     laststatus = 0,
     listchars = 'eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣',
-    guifont = { "JetBrainsMono Nerd Font", ":h12" }, -- the font used in graphical neovim applications
     guicursor = "",
     modeline = false,
     mouse = "a",    -- allow the mouse to be used in neovim

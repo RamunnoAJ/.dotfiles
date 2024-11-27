@@ -29,7 +29,8 @@ return {
                 "ts_ls",
                 "lua_ls",
                 "clangd",
-                "gopls"
+                "gopls",
+                "prettier"
             },
 
             handlers = {
