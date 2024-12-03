@@ -158,7 +158,7 @@ autocmd({ "BufLeave", "ExitPre" }, {
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 vim.g.netrw_liststyle = 0
-vim.g.netrw_list_hide = "^./$"
+vim.g.netrw_list_hide = ".*\\.swp$,.DS_Store,*/tmp/*,*.so,*.swp,*.zip,*.git,^\\.\\.\\=/\\=$"
 vim.g.netrw_browse_split = 0
 vim.g.netrw_browsex_viewer = "open -a chrome"
 
