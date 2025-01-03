@@ -93,15 +93,13 @@ vim.keymap.set("n", "<leader>e", ":Ex<CR>")                                     
 vim.keymap.set("n", "<leader>c", ":bw!<CR>", { silent = true })                      -- Close buffer
 vim.keymap.set("n", "<leader>C", ":silent w!|%bd|e#|bd#|'\"<CR>", { silent = true }) -- Close all buffers except current
 vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>", { silent = true })                      -- Remove highlight search
-vim.keymap.set("n", "<Tab>", "<C-6>", { silent = true })                             -- Easy alternate files
 vim.keymap.set("n", "Y", "y$")                                                       -- Make Y act like C and D
 vim.keymap.set("i", "<C-f>", "<C-x><C-f>", { silent = true })                        -- Complete filepath
 vim.keymap.set("i", "<C-j>", "<C-x><C-o>", { silent = true })                        -- Lsp completion
-vim.keymap.set("n", "<C-j>", "<C-x><C-o>", { silent = true })                        -- Lsp completion
 vim.keymap.set("n", "<leader>r", ":%s/<C-r><C-w>//g<Left><Left>")                    -- Replace current word
 
 -- Quickfix list
-vim.keymap.set("n", "<leader>q", ":cope<CR>")
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 vim.keymap.set("n", "<leader>Q", ":call setqflist([], 'r')<CR>")
 vim.keymap.set("n", "[c", ":cnext<CR>")
 vim.keymap.set("n", "]c", ":cprev<CR>")
@@ -133,7 +131,7 @@ vim.keymap.set("n", "<leader>vr", ":lua vim.lsp.buf.references()<CR>")
 vim.keymap.set("n", "<leader>va", ":lua vim.lsp.buf.code_action()<CR>")
 
 -- Git
-vim.keymap.set("n", "<leader>g", ":vertical Git<CR>")
+vim.keymap.set("n", "<leader>g", ":vertical Git<CR>:vertical resize 60<CR>")
 vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
 
 -- Open glow
