@@ -42,14 +42,6 @@ mkdir -p ~/work
 mkdir -p ~/study
 mkdir -p ~/personal
 
-# install nvm latest version of node
-nvm install node
-nvm install --lts
-node --version
-
-# install npm packages globally
-npm install -g eslint prettier live-server
-
 # install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
@@ -80,3 +72,7 @@ antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 
 # source zshrc
 source ~/.zshrc
+
+# install nvm latest version of node
+nvm install --lts
+nvm alias defaul node
