@@ -35,3 +35,11 @@ if [ -e /home/popos/.nix-profile/etc/profile.d/nix.sh ]; then . /home/popos/.nix
 if [ -e /home/pop/.nix-profile/etc/profile.d/nix.sh ]; then . /home/pop/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 export XDG_RUNTIME_DIR=/tmp
+
+# bun completions
+[ -s "/home/pop/.bun/_bun" ] && source "/home/pop/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH=$HOME/.local/bin:$PATH

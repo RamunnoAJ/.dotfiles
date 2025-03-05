@@ -16,6 +16,7 @@ source ~/.zsh_plugins.sh
 
 # source scripts
 chmod +x ~/.scripts/tmux-sessionizer.sh
+chmod +x ~/.scripts/tmux-session.sh
 chmod +x ~/.scripts/tmux-attach.sh
 
 # aliases
