@@ -12,7 +12,7 @@
 [credential]
 	helper = cache
 [core]
-	pager = delta
+	pager = cat -
 	editor = nvim
 	excludesfile = /Users/charlie/.config/git/gitignore_global
 [diff]

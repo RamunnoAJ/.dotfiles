@@ -26,7 +26,7 @@ return {
             end
         })
 
-        vim.keymap.set("n", "<M-e>",
+        vim.keymap.set("n", "<leader>h",
             function()
                 harpoon.ui:toggle_quick_menu(harpoon:list(),
                     { border = "rounded", ui_width_ratio = 0.3, ui_fallback_width = 0.25 })

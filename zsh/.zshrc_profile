@@ -59,3 +59,9 @@ fi
 
 # Bind C-z to reopen suspended session
 bindkey -s "^z" "fg\n"
+
+export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+export ANDROID_HOME=$HOME/Android/Sdk
+export JAVA_HOME=/usr/lib/jvm/java-18-openjdk-amd64/
+
