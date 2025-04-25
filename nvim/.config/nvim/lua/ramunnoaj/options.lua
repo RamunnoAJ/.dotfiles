@@ -13,7 +13,7 @@ local options = {
     backup = false,                                  -- creates a backup file
     breakindent = true,
     clipboard = "unnamedplus",                       -- allows neovim to access the system clipboard
-    colorcolumn = "100",
+    colorcolumn = "80",
     completeopt = { "menu", "menuone", "noselect" }, -- mostly just for cmp
     cursorline = true,                               -- highlight the current line
     expandtab = true,                                -- convert tabs to spaces
@@ -49,7 +49,7 @@ local options = {
     tabstop = 4,
     termguicolors = true, -- set term gui colors (most terminals support this)
     timeout = true,       -- time to wait for a mapped sequence to complete
-    timeoutlen = 300,     -- time to wait for a mapped sequence to complete (in milliseconds)
+    timeoutlen = 100,     -- time to wait for a mapped sequence to complete (in milliseconds)
     undofile = true,      -- enable persistent undo
     updatetime = 50,      -- faster completion (4000ms default)
     virtualedit = "block",
@@ -64,13 +64,6 @@ vim.opt.isfname:append("@-@")
 vim.opt.shortmess:append "c"
 vim.opt.path:append "**" -- Provides tab-completion for all file-related tasks
 
-vim.api.nvim_create_autocmd("BufEnter", {
-    callback = function()
-        vim.opt.formatoptions:remove { "c", "r", "o" } -- Disable auto comment
-    end,
-    desc = "Remove comment characters when joining lines",
-})
-
 for k, v in pairs(options) do
     vim.opt[k] = v
 end
@@ -78,7 +71,6 @@ end
 vim.cmd "set showmode"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
-vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
 -- Load and save folders in view when closing and opening
 vim.api.nvim_exec2([[
@@ -174,7 +166,6 @@ autocmd({ "FileType" }, {
         vim.keymap.set("n", "<C-c>", ":Rex<CR>", { remap = true, buffer = true })
         vim.keymap.set("n", "h", "-", { remap = true, buffer = true })
         vim.keymap.set("n", "l", "<CR>", { remap = true, buffer = true })
-        vim.keymap.set("n", "<C-l>", ":TmuxNavigateRight<CR>", { remap = true, buffer = true })
     end
 })
 
@@ -183,8 +174,3 @@ vim.api.nvim_create_user_command("FileType", function()
 
     print("Filetype: " .. filetype)
 end, {})
-
--- rebind W and Q to w and q
-vim.cmd "command! Wq wq"
-vim.cmd "command! W w"
-vim.cmd "command! Q q"
