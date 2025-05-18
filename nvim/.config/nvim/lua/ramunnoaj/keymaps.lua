@@ -108,8 +108,6 @@ vim.keymap.set("n", "]d", ":lua vim.diagnostic.goto_prev()<CR>")
 vim.keymap.set("n", "<leader>r", ":lua vim.lsp.buf.rename()<CR>")
 vim.keymap.set("n", "<leader>a", ":lua vim.lsp.buf.code_action()<CR>")
 
--- Git
-vim.keymap.set("n", "<leader>g", ":vertical Git<CR>:vertical resize 60<CR>")
 vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
 
 -- Open glow
