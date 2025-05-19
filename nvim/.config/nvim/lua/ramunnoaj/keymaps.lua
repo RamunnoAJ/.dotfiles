@@ -106,7 +106,7 @@ vim.keymap.set("n", "<leader><leader>",
 vim.keymap.set("n", "[d", ":lua vim.diagnostic.goto_next()<CR>")
 vim.keymap.set("n", "]d", ":lua vim.diagnostic.goto_prev()<CR>")
 vim.keymap.set("n", "<leader>r", ":lua vim.lsp.buf.rename()<CR>")
-vim.keymap.set("n", "<leader>a", ":lua vim.lsp.buf.code_action()<CR>")
+vim.keymap.set("n", "<leader>s", ":lua vim.lsp.buf.code_action()<CR>")
 
 vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
 
