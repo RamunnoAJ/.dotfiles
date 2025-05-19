@@ -16,7 +16,6 @@ return {
                 css = { "prettier" },
                 html = { "prettier" },
                 json = { "prettier" },
-                rust = { "rust-analyzer" },
                 markdown = { "prettier" },
                 ["*"] = { "codespell" },
                 ["_"] = { "trim_whitespace" },

@@ -49,7 +49,7 @@ local options = {
     tabstop = 4,
     termguicolors = true, -- set term gui colors (most terminals support this)
     timeout = true,       -- time to wait for a mapped sequence to complete
-    timeoutlen = 100,     -- time to wait for a mapped sequence to complete (in milliseconds)
+    timeoutlen = 500,     -- time to wait for a mapped sequence to complete (in milliseconds)
     undofile = true,      -- enable persistent undo
     updatetime = 50,      -- faster completion (4000ms default)
     virtualedit = "block",
@@ -71,15 +71,6 @@ end
 vim.cmd "set showmode"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
-
--- Load and save folders in view when closing and opening
-vim.api.nvim_exec2([[
-            augroup BufferView
-              autocmd!
-              autocmd BufWinLeave *.*  mkview
-              autocmd BufWinEnter *.* silent! loadview
-            augroup END
-          ]], { output = false })
 
 autocmd('TextYankPost', {
     group = yank_group,
@@ -113,22 +104,16 @@ autocmd({ "LspAttach" }, {
         nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
         nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
         nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+        nmap('gt', vim.lsp.buf.type_definition, '[G]oto [T]ype')
         nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
         nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-    end
-})
+        nmap('<leader>r', vim.lsp.buf.rename, 'Rename action')
+        nmap('<leader>s', vim.lsp.buf.code_action, 'Code action')
+        nmap('[d', vim.diagnostic.goto_next, 'Go to next diagnostic')
+        nmap(']d', vim.diagnostic.goto_prev, 'Go to previous diagnostic')
 
-autocmd({ "FileType" }, {
-    group = RamunnoGroup,
-    pattern = { "gitcommit", "gitrebase" },
-    command = "startinsert | 1"
-})
-
-autocmd({ "FileType" }, {
-    group = RamunnoGroup,
-    pattern = { "gitcommit", "gitrebase", "fugitive", "undotree", "diff" }, -- Disable sign column for these file types
-    callback = function()
-        vim.o.signcolumn = "no"
+        vim.keymap.set('n', '<leader><leader>',
+            ':lua vim.diagnostic.open_float()<CR>:lua vim.diagnostic.open_float()<CR>')
     end
 })
 
@@ -169,8 +154,10 @@ autocmd({ "FileType" }, {
     end
 })
 
-vim.api.nvim_create_user_command("FileType", function()
-    local filetype = vim.bo.filetype
-
-    print("Filetype: " .. filetype)
-end, {})
+autocmd({ "FileType" }, {
+    group = RamunnoGroup,
+    pattern = { "gitcommit", "gitrebase", "fugitive", "undotree", "diff" }, -- Disable sign column for these file types
+    callback = function()
+        vim.o.signcolumn = "no"
+    end
+})
