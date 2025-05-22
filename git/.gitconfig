@@ -27,3 +27,11 @@
 [mergetool "nvimdiff4"]
 	cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J' -c 'set diffopt&' -c 'set diffopt+=algorithm:patience'
 	keepBackup = false
+[status]
+    branch = true
+    showStash = true
+    showUntrackedFiles = all
+[url "git@github.com:RamunnoAJ/"]
+    insteadOf = "ar:"
+[url "git@github.com:"]
+    insteadOf = "gh:"
