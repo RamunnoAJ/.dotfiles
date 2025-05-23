@@ -8,7 +8,9 @@ return {
         conform.setup({
             formatters_by_ft = {
                 c = { "clangd" },
+                cpp = { "clangd" },
                 lua = { "stylua" },
+                go = { "gopls" },
                 javascript = { "prettierd" },
                 typescript = { "prettierd" },
                 javascriptreact = { "prettierd" },
