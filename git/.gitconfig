@@ -2,6 +2,7 @@
 	name = RamunnoAJ
     username = RamunnoAJ
 	email = ramunnoagustin@gmail.com
+	signingkey = /home/pop/.ssh/id_ed25519.pub
 [init]
 	defaultBranch = master
 [filter "lfs"]
@@ -35,3 +36,5 @@
     insteadOf = "ar:"
 [url "git@github.com:"]
     insteadOf = "gh:"
+[gpg]
+	format = ssh

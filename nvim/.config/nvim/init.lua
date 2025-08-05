@@ -1,29 +1,217 @@
-require('ramunnoaj.options')
-require('ramunnoaj.keymaps')
-require('ramunnoaj.telescope')
+vim.opt.autoindent = true
+vim.opt.clipboard = "unnamedplus"
+vim.opt.completeopt = { "menu", "menuone", "noselect" } -- mostly just for cmp
+vim.opt.cursorcolumn = false
+vim.opt.cursorline = true
+vim.opt.hlsearch = true
+vim.opt.ignorecase = true
+vim.opt.incsearch = true
+vim.opt.guicursor = ""
+vim.opt.number = true
+vim.opt.laststatus = 0
+vim.opt.relativenumber = true
+vim.opt.scrolloff = 8
+vim.opt.shiftwidth = 4
+vim.opt.signcolumn = "yes:9"
+vim.opt.smartindent = true
+vim.opt.swapfile = false
+vim.opt.tabstop = 4
+vim.opt.termguicolors = true
+vim.opt.timeoutlen = 500
+vim.opt.undofile = true
+vim.opt.updatetime = 50
+vim.opt.winbar = '%=%m %f'
+vim.opt.winborder = "rounded"
+vim.opt.wrap = false
 
--- Install package manager
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system {
-        'git',
-        'clone',
-        '--filter=blob:none',
-        'https://github.com/folke/lazy.nvim.git',
-        '--branch=stable', -- latest stable release
-        lazypath,
-    }
-end
-vim.opt.rtp:prepend(lazypath)
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
+vim.g.netrw_liststyle = 0
+vim.g.netrw_list_hide = ".*\\.swp$,.DS_Store,*/tmp/*,*.so,*.swp,*.zip,*.git,^\\.\\.\\=/\\=$"
+vim.g.netrw_browse_split = 0
 
-require('lazy').setup("custom.plugins", {
-    change_detection = {
-        notify = false
-    },
-    ui = {
-        border = "rounded",
-    }
+vim.pack.add({
+	{ src = "https://github.com/rose-pine/neovim" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
+	{ src = "https://github.com/j-hui/fidget.nvim" },
+	{ src = "https://github.com/stevearc/conform.nvim" },
 })
 
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+
+require "mason".setup()
+require "telescope".setup()
+require "fidget".setup({
+	notification = {
+		window = {
+			winblend = 0
+		}
+	}
+})
+require "nvim-treesitter.configs".setup({
+	modules = {},
+	sync_install = false,
+	ignore_install = {},
+	auto_install = true,
+	indent = { enable = true },
+	ensure_installed = { "typescript", "javascript" },
+	highlight = { enable = true }
+})
+require "conform".setup({
+	formatters_by_ft = {
+		javascript = { "prettierd" },
+		typescript = { "prettierd" },
+		javascriptreact = { "prettierd" },
+		typescriptreact = { "prettierd" },
+	},
+})
+
+local map = vim.keymap.set
+local augroup = vim.api.nvim_create_augroup
+local RamunnoGroup = augroup('Ramunno', {})
+local autocmd = vim.api.nvim_create_autocmd
+
+autocmd("BufWritePre", {
+	pattern = "*",
+	callback = function(args)
+		require("conform").format({ bufnr = args.buf })
+	end,
+})
+
+autocmd({ "FileType" }, {
+	pattern = "netrw",
+	group = RamunnoGroup,
+	desc = "Netrw specific mappings",
+
+	callback = function()
+		vim.keymap.set("n", "<C-c>", ":Rex<CR>", { remap = true, buffer = true })
+		vim.keymap.set("n", "h", "-", { remap = true, buffer = true })
+		vim.keymap.set("n", "l", "<CR>", { remap = true, buffer = true })
+	end
+})
+
+vim.g.mapleader = " "
+map('n', '<leader>o', ':update<CR> :source<CR>')
+
+map('n', '<M-j>', '<Esc>:m .+1<CR>==')
+map('n', '<M-k>', '<Esc>:m .-2<CR>==')
+map('v', '<M-j>', ":m '>+1<CR>gv=gv")
+map('v', '<M-k>', ":m '<-2<CR>gv=gv")
+map('i', '<C-c>', '<Esc>')
+map('n', 'J', 'mzJ`z', { silent = true }) -- Don't move the cursor when doing J
+
+-- Navigate buffers
+map("n", "<S-l>", ":bnext<CR>")
+map("n", "<S-h>", ":bprevious<CR>")
+
+-- Better navigation with <C-d> and <C-u>
+map('n', '<C-d>', '<C-d>zz')
+map('n', '<C-u>', '<C-u>zz')
+
+-- Remap for dealing with word wrap
+map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- Surround selection with brackets
+map('v', '(', '<esc>`>a)<esc>`<i(<esc>gv')
+map('v', '[', '<esc>`>a]<esc>`<i[<esc>gv')
+map('v', '{', '<esc>`>a}<esc>`<i{<esc>gv')
+map('v', "'", "<esc>`>a'<esc>`<i'<esc>gv")
+map('v', '"', '<esc>`>a"<esc>`<i"<esc>gv')
+map('v', '`', '<esc>`>a`<esc>`<i`<esc>gv')
+
+-- Keep selection after yanking
+map('x', 'y', 'ygv')
+
+-- Keep selection after Indenting
+map('v', '<', '<gv')
+map('v', '>', '>gv')
+
+map('n', '<leader>c', ':bw!<CR>', { silent = true })                      -- Close buffer
+map('n', '<leader>C', ':silent w!|%bd|e#|bd#|\'"<CR>', { silent = true }) -- Close all buffers except current
+map('n', '<Esc>', '<cmd>noh<CR>', { silent = true })                      -- Remove highlight search
+map('n', '<leader>e', '<cmd>:Ex<CR>')
+
+
+autocmd('LspAttach', {
+	callback = function(ev)
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		if client then
+			if client:supports_method('textDocument/completion') then
+				vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+			end
+		end
+	end,
+})
+vim.cmd("set completeopt+=noselect")
+
+map('n', 'gd', vim.lsp.buf.definition)
+map('n', 'gD', vim.lsp.buf.declaration)
+map('n', 'gr', require('telescope.builtin').lsp_references)
+map('n', 'gi', vim.lsp.buf.implementation)
+map('n', 'gt', vim.lsp.buf.type_definition)
+map('n', 'K', vim.lsp.buf.hover)
+map('n', '<C-k>', vim.lsp.buf.signature_help)
+map('n', '<leader>r', vim.lsp.buf.rename)
+map('n', '<leader>s', vim.lsp.buf.code_action)
+map('n', '<leader>lf', vim.lsp.buf.format)
+map('n', '[d', function()
+	vim.diagnostic.jump({ count = -1 })
+	vim.diagnostic.open_float(nil, { focus = false })
+end)
+map('n', ']d', function()
+	vim.diagnostic.jump({ count = 1 })
+	vim.diagnostic.open_float(nil, { focus = false })
+end)
+
+vim.keymap.set('n', '<leader><leader>', function()
+	vim.diagnostic.jump({ count = 1 })
+	vim.diagnostic.open_float(nil, { focus = true })
+end)
+
+
+-- Telescope
+map('n', '<leader>f', ":lua require('telescope.builtin').find_files({hidden=true})<CR>")
+map('n', '<C-p>', function()
+	local ok = pcall(require("telescope.builtin").git_files)
+	if not ok then
+		require("telescope.builtin").find_files()
+	end
+end)
+map('n', '<leader>g', ":lua require('telescope.builtin').live_grep()<CR>")
+map('n', '<leader>d', ":lua require('telescope.builtin').diagnostics()<CR>")
+
+
+-- Toggle signcolumn
+map('n', '<leader>z', function()
+	local signcolumn = vim.wo.signcolumn
+
+	if signcolumn == 'yes' then
+		vim.wo.signcolumn = 'yes:9'
+	else
+		vim.wo.signcolumn = 'yes'
+	end
+end)
+
+-- Show signature help on insert mode to see function's parameters
+map('i', '<C-k>', function()
+	vim.lsp.buf.signature_help()
+end, { desc = 'Signature Help' })
+
+
+vim.lsp.enable({ "lua_ls", "ts_ls" })
+
+
+-- colors
+require "rose-pine".setup({
+	styles = {
+		bold = true,
+		italic = false,
+		transparency = true,
+	}
+})
+vim.cmd("colorscheme rose-pine")
+vim.cmd(":hi statusline guibg=NONE")
+vim.o.background = "dark"

@@ -23,7 +23,7 @@ chmod +x ~/.scripts/tmux-attach.sh
 alias update-antibody='antibody bundle < $HOME/.zsh_plugins.txt > $HOME/.zsh_plugins.zsh'
 alias ls-npm='npm list -g --depth=0'
 alias ls='ls -al --color'
-alias vim='nvim'
+alias vim='/usr/bin/nvim-linux-x86_64.appimage'
 alias cat='bat'
 alias vimrc='vim ${HOME}/.dotfiles/nvim/.config/nvim/init.lua'
 alias zshrc='vim ${HOME}/.dotfiles/zsh/.zshrc_profile'
