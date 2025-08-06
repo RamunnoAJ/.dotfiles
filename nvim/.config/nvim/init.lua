@@ -41,6 +41,9 @@ vim.pack.add({
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 })
 
+-- Manually install harpoon 
+-- git clone -b harpoon2 https://github.com/ThePrimeagen/harpoon ~/.local/share/nvim/site/pack/nvim/opt/harpoon
+vim.cmd.packadd("harpoon")
 
 require "mason".setup()
 require "telescope".setup()
@@ -81,6 +84,12 @@ require "gitsigns".setup({
 	linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
 	word_diff = false,
 })
+require "harpoon":setup({
+	settings = {
+		save_on_toggle = true,
+		sync_on_ui_close = true,
+	}
+})
 
 local map = vim.keymap.set
 local augroup = vim.api.nvim_create_augroup
@@ -106,9 +115,22 @@ autocmd({ "FileType" }, {
 	end
 })
 
+local harpoon = require "harpoon"
+
 vim.g.mapleader = " "
 map('n', '<leader>o', ':update<CR> :source<CR>')
 
+-- harpoon
+map('n', '<leader>a', function() harpoon:list():add() end)
+map('n', '<C-e>',
+	function()
+		harpoon.ui:toggle_quick_menu(harpoon:list(),
+			{ border = 'rounded', ui_width_ratio = 0.3, ui_fallback_width = 0.25 })
+	end)
+map('n', '<C-h>', function() harpoon:list():select(1) end)
+map('n', '<C-l>', function() harpoon:list():select(2) end)
+
+-- Move text with Alt + movement
 map('n', '<M-j>', '<Esc>:m .+1<CR>==')
 map('n', '<M-k>', '<Esc>:m .-2<CR>==')
 map('v', '<M-j>', ":m '>+1<CR>gv=gv")
