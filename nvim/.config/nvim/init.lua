@@ -96,6 +96,15 @@ local augroup = vim.api.nvim_create_augroup
 local RamunnoGroup = augroup('Ramunno', {})
 local autocmd = vim.api.nvim_create_autocmd
 
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+autocmd('TextYankPost', {
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = highlight_group,
+    pattern = '*',
+})
+
 autocmd("BufWritePre", {
 	pattern = "*",
 	callback = function(args)
@@ -128,19 +137,32 @@ map('n', '<C-e>',
 map('n', '<C-h>', function() require "harpoon":list():select(1) end)
 map('n', '<C-l>', function() require "harpoon":list():select(2) end)
 
--- Move text with Alt + movement
+-- Move text with <up/down>
 map('n', '<M-j>', '<Esc>:m .+1<CR>==')
 map('n', '<M-k>', '<Esc>:m .-2<CR>==')
 map('v', '<M-j>', ":m '>+1<CR>gv=gv")
 map('v', '<M-k>', ":m '<-2<CR>gv=gv")
+
 map('i', '<C-c>', '<Esc>')
 map('n', 'J', 'mzJ`z', { silent = true }) -- Don't move the cursor when doing J
 
--- Delete not yanking
+-- Better paste
+map('v', 'p', '"_dp')
+map('v', 'P', '"_dP')
+map('n', ',p', '"0p')
+map('n', ',P', '"0P')
+
+-- Actions not yanking
 map('n', 'd', '"_d')
 map('v', 'd', '"_d')
+map('n', 'D', '"_D')
+map('v', 'D', '"_D')
 map('n', 'x', '"_x')
 map('v', 'x', '"_x')
+map('n', 'c', '"_c')
+map('v', 'c', '"_c')
+map('n', 'C', '"_C')
+map('v', 'C', '"_C')
 
 -- Navigate buffers
 map("n", "<S-l>", ":bnext<CR>")
@@ -172,8 +194,7 @@ map('v', '>', '>gv')
 map('n', '<leader>c', ':bw!<CR>', { silent = true })                      -- Close buffer
 map('n', '<leader>C', ':silent w!|%bd|e#|bd#|\'"<CR>', { silent = true }) -- Close all buffers except current
 map('n', '<Esc>', '<cmd>noh<CR>', { silent = true })                      -- Remove highlight search
-map('n', '<leader>e', '<cmd>:Ex<CR>')
-
+map('n', '<leader>e', '<cmd>:Ex<CR>')                                     -- Explore netrw
 
 autocmd('LspAttach', {
 	callback = function(ev)
@@ -211,7 +232,6 @@ map('n', '<leader><leader>', function()
 	vim.diagnostic.open_float(nil, { focus = true })
 end)
 
-
 -- Telescope
 map('n', '<leader>f', ":lua require('telescope.builtin').find_files({hidden=true})<CR>")
 map('n', '<C-p>', function()
@@ -222,7 +242,6 @@ map('n', '<C-p>', function()
 end)
 map('n', '<leader>g', ":lua require('telescope.builtin').live_grep()<CR>")
 map('n', '<leader>d', ":lua require('telescope.builtin').diagnostics()<CR>")
-
 
 -- Toggle signcolumn
 map('n', '<leader>z', function()
@@ -240,9 +259,7 @@ map('i', '<C-k>', function()
 	vim.lsp.buf.signature_help()
 end, { desc = 'Signature Help' })
 
-
 vim.lsp.enable({ "lua_ls", "ts_ls" })
-
 
 -- colors
 require "rose-pine".setup({
