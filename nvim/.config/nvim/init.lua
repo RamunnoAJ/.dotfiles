@@ -41,7 +41,7 @@ vim.pack.add({
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 })
 
--- Manually install harpoon 
+-- Manually install harpoon
 -- git clone -b harpoon2 https://github.com/ThePrimeagen/harpoon ~/.local/share/nvim/site/pack/nvim/opt/harpoon
 vim.cmd.packadd("harpoon")
 
@@ -79,9 +79,9 @@ require "gitsigns".setup({
 		topdelete = { text = "-" },
 		changedelete = { text = "~" }
 	},
-	signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-	numhl = false,  -- Toggle with `:Gitsigns toggle_numhl`
-	linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+	signcolumn = true,
+	numhl = false,
+	linehl = false,
 	word_diff = false,
 })
 require "harpoon":setup({
@@ -109,26 +109,24 @@ autocmd({ "FileType" }, {
 	desc = "Netrw specific mappings",
 
 	callback = function()
-		vim.keymap.set("n", "<C-c>", ":Rex<CR>", { remap = true, buffer = true })
-		vim.keymap.set("n", "h", "-", { remap = true, buffer = true })
-		vim.keymap.set("n", "l", "<CR>", { remap = true, buffer = true })
+		map("n", "<C-c>", ":Rex<CR>", { remap = true, buffer = true })
+		map("n", "h", "-", { remap = true, buffer = true })
+		map("n", "l", "<CR>", { remap = true, buffer = true })
 	end
 })
-
-local harpoon = require "harpoon"
 
 vim.g.mapleader = " "
 map('n', '<leader>o', ':update<CR> :source<CR>')
 
 -- harpoon
-map('n', '<leader>a', function() harpoon:list():add() end)
+map('n', '<leader>a', function() require "harpoon":list():add() end)
 map('n', '<C-e>',
 	function()
-		harpoon.ui:toggle_quick_menu(harpoon:list(),
+		require "harpoon".ui:toggle_quick_menu(require "harpoon":list(),
 			{ border = 'rounded', ui_width_ratio = 0.3, ui_fallback_width = 0.25 })
 	end)
-map('n', '<C-h>', function() harpoon:list():select(1) end)
-map('n', '<C-l>', function() harpoon:list():select(2) end)
+map('n', '<C-h>', function() require "harpoon":list():select(1) end)
+map('n', '<C-l>', function() require "harpoon":list():select(2) end)
 
 -- Move text with Alt + movement
 map('n', '<M-j>', '<Esc>:m .+1<CR>==')
@@ -208,7 +206,7 @@ map('n', ']d', function()
 	vim.diagnostic.open_float(nil, { focus = false })
 end)
 
-vim.keymap.set('n', '<leader><leader>', function()
+map('n', '<leader><leader>', function()
 	vim.diagnostic.jump({ count = 1 })
 	vim.diagnostic.open_float(nil, { focus = true })
 end)
