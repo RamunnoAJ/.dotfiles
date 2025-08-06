@@ -38,6 +38,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 	{ src = "https://github.com/j-hui/fidget.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
+	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 })
 
 
@@ -66,6 +67,19 @@ require "conform".setup({
 		javascriptreact = { "prettierd" },
 		typescriptreact = { "prettierd" },
 	},
+})
+require "gitsigns".setup({
+	signs = {
+		add = { text = "+" },
+		change = { text = "~" },
+		delete = { text = "_" },
+		topdelete = { text = "-" },
+		changedelete = { text = "~" }
+	},
+	signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+	numhl = false,  -- Toggle with `:Gitsigns toggle_numhl`
+	linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+	word_diff = false,
 })
 
 local map = vim.keymap.set
@@ -101,6 +115,12 @@ map('v', '<M-j>', ":m '>+1<CR>gv=gv")
 map('v', '<M-k>', ":m '<-2<CR>gv=gv")
 map('i', '<C-c>', '<Esc>')
 map('n', 'J', 'mzJ`z', { silent = true }) -- Don't move the cursor when doing J
+
+-- Delete not yanking
+map('n', 'd', '"_d')
+map('v', 'd', '"_d')
+map('n', 'x', '"_x')
+map('v', 'x', '"_x')
 
 -- Navigate buffers
 map("n", "<S-l>", ":bnext<CR>")
