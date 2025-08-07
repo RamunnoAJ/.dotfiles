@@ -137,6 +137,21 @@ map('n', '<C-e>',
 map('n', '<C-h>', function() require "harpoon":list():select(1) end)
 map('n', '<C-l>', function() require "harpoon":list():select(2) end)
 
+autocmd({ "BufLeave", "ExitPre" }, {
+    pattern = "*",
+    callback = function()
+        local filename = vim.fn.expand("%:p:.")
+        local harpoon_marks = require("harpoon"):list().items
+        for _, mark in ipairs(harpoon_marks) do
+            if mark.value == filename then
+                mark.context.row = vim.fn.line(".")
+                mark.context.col = vim.fn.col(".")
+                return
+            end
+        end
+    end
+})
+
 -- Move text with <up/down>
 map('n', '<M-j>', '<Esc>:m .+1<CR>==')
 map('n', '<M-k>', '<Esc>:m .-2<CR>==')
