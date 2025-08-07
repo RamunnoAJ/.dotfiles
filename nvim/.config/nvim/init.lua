@@ -9,10 +9,13 @@ vim.opt.incsearch = true
 vim.opt.guicursor = ""
 vim.opt.number = true
 vim.opt.laststatus = 0
+vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 8
 vim.opt.shiftwidth = 4
+vim.opt.showmatch = true
 vim.opt.signcolumn = "yes:9"
+vim.opt.smartcase = true
 vim.opt.smartindent = true
 vim.opt.swapfile = false
 vim.opt.tabstop = 4
@@ -20,7 +23,9 @@ vim.opt.termguicolors = true
 vim.opt.timeoutlen = 500
 vim.opt.undofile = true
 vim.opt.updatetime = 50
+vim.opt.virtualedit = "block"
 vim.opt.winbar = '%=%m %f'
+vim.opt.winblend = 0
 vim.opt.winborder = "rounded"
 vim.opt.wrap = false
 
@@ -213,6 +218,7 @@ map('n', '<leader>e', '<cmd>:Ex<CR>')                                     -- Exp
 
 autocmd('LspAttach', {
 	callback = function(ev)
+		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
 		if client then
 			if client:supports_method('textDocument/completion') then
@@ -222,6 +228,11 @@ autocmd('LspAttach', {
 	end,
 })
 vim.cmd("set completeopt+=noselect")
+vim.cmd("set iskeyword+=-")
+-- Trigger the autocompletion after writing a dot
+vim.cmd([[
+  autocmd InsertCharPre * if getline('.')[col('.')-2] == '.' | call feedkeys("\<C-x>\<C-o>") | endif
+]])
 
 map('n', 'gd', vim.lsp.buf.definition)
 map('n', 'gD', vim.lsp.buf.declaration)
