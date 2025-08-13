@@ -1,9 +1,9 @@
 vim.opt.autoindent = true
 vim.opt.clipboard = "unnamedplus"
-vim.opt.completeopt = { "menu", "menuone", "noselect" } -- mostly just for cmp
+vim.opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
 vim.opt.cursorcolumn = false
 vim.opt.cursorline = true
-vim.opt.hlsearch = true
+vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.incsearch = true
 vim.opt.guicursor = ""
@@ -43,19 +43,12 @@ vim.pack.add({
 	{ src = "https://github.com/j-hui/fidget.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
-	{ src = "https://github.com/hrsh7th/nvim-cmp" },
-	{ src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
+	{ src = "https://github.com/Saghen/blink.cmp", version = "1.*" },
 })
 
 require "mason".setup()
 require "telescope".setup()
-require "fidget".setup({
-	notification = {
-		window = {
-			winblend = 0
-		}
-	}
-})
+require "fidget".setup({})
 require "nvim-treesitter.configs".setup({
 	modules = {},
 	sync_install = false,
@@ -86,13 +79,18 @@ require "gitsigns".setup({
 	linehl = false,
 	word_diff = false,
 })
-require "cmp".setup({
-	mapping = require "cmp".mapping.preset.insert({
-		['<C-y>'] = require "cmp".mapping.confirm({ select = true }),
-		['<C-Space>'] = require "cmp".mapping.complete(),
-	}),
-	sources = {
-		{ name = 'nvim-lsp' },
+require "blink.cmp".setup({
+	signature = { enabled = true },
+	fuzzy = { implementation = "lua" },
+	completion = {
+		documentation = { auto_show = true, auto_show_delay_ms = 500 },
+		menu = {
+			auto_show = true,
+			draw = {
+				treesitter = { "lsp" },
+				columns = { { "label", "label_description", gap = 1 } },
+			}
+		}
 	}
 })
 
@@ -130,7 +128,7 @@ autocmd({ "FileType" }, {
 })
 
 vim.g.mapleader = " "
-map('n', '<leader>o', ':update<CR> :source<CR>')
+map('n', '<leader>o', ':source ~/.config/nvim/init.lua<CR>')
 
 -- Move text with <up/down>
 map('n', '<M-j>', '<Esc>:m .+1<CR>==')
@@ -191,18 +189,6 @@ map('n', '<leader>C', ':silent w!|%bd|e#|bd#|\'"<CR>', { silent = true }) -- Clo
 map('n', '<Esc>', '<cmd>noh<CR>', { silent = true })                      -- Remove highlight search
 map('n', '<leader>e', '<cmd>:Ex<CR>')                                     -- Explore netrw
 
-autocmd('LspAttach', {
-	callback = function(ev)
-		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-		if client then
-			if client:supports_method('textDocument/completion') then
-				vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-			end
-		end
-	end,
-})
-vim.cmd("set completeopt+=noselect")
 vim.cmd("set iskeyword+=-")
 
 map('n', 'gd', vim.lsp.buf.definition)
@@ -255,9 +241,7 @@ map('i', '<C-k>', function()
 	vim.lsp.buf.signature_help()
 end, { desc = 'Signature Help' })
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
--- Aca añadir cualquier lsp que quiera utilizar
-vim.lsp.enable({ "lua_ls", "ts_ls", "gopls", capabilities = capabilities })
+vim.lsp.enable({ "lua_ls", "ts_ls", "gopls" })
 
 -- colors
 require "rose-pine".setup({
