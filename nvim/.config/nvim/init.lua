@@ -9,7 +9,6 @@ vim.opt.incsearch = true
 vim.opt.guicursor = ""
 vim.opt.number = true
 vim.opt.laststatus = 0
-vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 8
 vim.opt.shiftwidth = 4
@@ -44,11 +43,9 @@ vim.pack.add({
 	{ src = "https://github.com/j-hui/fidget.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
+	{ src = "https://github.com/hrsh7th/nvim-cmp" },
+	{ src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
 })
-
--- Manually install harpoon
--- git clone -b harpoon2 https://github.com/ThePrimeagen/harpoon ~/.local/share/nvim/site/pack/nvim/opt/harpoon
-vim.cmd.packadd("harpoon")
 
 require "mason".setup()
 require "telescope".setup()
@@ -89,10 +86,13 @@ require "gitsigns".setup({
 	linehl = false,
 	word_diff = false,
 })
-require "harpoon":setup({
-	settings = {
-		save_on_toggle = true,
-		sync_on_ui_close = true,
+require "cmp".setup({
+	mapping = require "cmp".mapping.preset.insert({
+		['<C-y>'] = require "cmp".mapping.confirm({ select = true }),
+		['<C-Space>'] = require "cmp".mapping.complete(),
+	}),
+	sources = {
+		{ name = 'nvim-lsp' },
 	}
 })
 
@@ -103,11 +103,11 @@ local autocmd = vim.api.nvim_create_autocmd
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 autocmd('TextYankPost', {
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-    group = highlight_group,
-    pattern = '*',
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+	group = highlight_group,
+	pattern = '*',
 })
 
 autocmd("BufWritePre", {
@@ -131,31 +131,6 @@ autocmd({ "FileType" }, {
 
 vim.g.mapleader = " "
 map('n', '<leader>o', ':update<CR> :source<CR>')
-
--- harpoon
-map('n', '<leader>a', function() require "harpoon":list():add() end)
-map('n', '<C-e>',
-	function()
-		require "harpoon".ui:toggle_quick_menu(require "harpoon":list(),
-			{ border = 'rounded', ui_width_ratio = 0.3, ui_fallback_width = 0.25 })
-	end)
-map('n', '<C-h>', function() require "harpoon":list():select(1) end)
-map('n', '<C-l>', function() require "harpoon":list():select(2) end)
-
-autocmd({ "BufLeave", "ExitPre" }, {
-    pattern = "*",
-    callback = function()
-        local filename = vim.fn.expand("%:p:.")
-        local harpoon_marks = require("harpoon"):list().items
-        for _, mark in ipairs(harpoon_marks) do
-            if mark.value == filename then
-                mark.context.row = vim.fn.line(".")
-                mark.context.col = vim.fn.col(".")
-                return
-            end
-        end
-    end
-})
 
 -- Move text with <up/down>
 map('n', '<M-j>', '<Esc>:m .+1<CR>==')
@@ -229,10 +204,6 @@ autocmd('LspAttach', {
 })
 vim.cmd("set completeopt+=noselect")
 vim.cmd("set iskeyword+=-")
--- Trigger the autocompletion after writing a dot
-vim.cmd([[
-  autocmd InsertCharPre * if getline('.')[col('.')-2] == '.' | call feedkeys("\<C-x>\<C-o>") | endif
-]])
 
 map('n', 'gd', vim.lsp.buf.definition)
 map('n', 'gD', vim.lsp.buf.declaration)
@@ -254,7 +225,6 @@ map('n', ']d', function()
 end)
 
 map('n', '<leader><leader>', function()
-	vim.diagnostic.jump({ count = 1 })
 	vim.diagnostic.open_float(nil, { focus = true })
 end)
 
@@ -285,7 +255,9 @@ map('i', '<C-k>', function()
 	vim.lsp.buf.signature_help()
 end, { desc = 'Signature Help' })
 
-vim.lsp.enable({ "lua_ls", "ts_ls" })
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- Aca añadir cualquier lsp que quiera utilizar
+vim.lsp.enable({ "lua_ls", "ts_ls", "gopls", capabilities = capabilities })
 
 -- colors
 require "rose-pine".setup({
