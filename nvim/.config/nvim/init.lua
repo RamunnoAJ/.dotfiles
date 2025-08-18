@@ -99,20 +99,35 @@ local augroup = vim.api.nvim_create_augroup
 local RamunnoGroup = augroup('Ramunno', {})
 local autocmd = vim.api.nvim_create_autocmd
 
+
 autocmd("LspAttach", {
+	pattern = "*",
 	callback = function(args)
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		if not client then return end
 
-		if client:supports_method('textDocument/formatting') then
-			autocmd('BufWritePre', {
+		if client:supports_method("textDocument/formatting") then
+			autocmd("BufWritePre", {
 				buffer = args.buf,
 				callback = function()
+					local conform_formatting = {
+						javascript = true,
+						typescript = true,
+						typescriptreact = true,
+						javascriptreact = true,
+					}
+
+					local ft = vim.bo[args.buf].filetype
+					if conform_formatting[ft] then
+						require "conform".format({ bufnr = args.buf })
+						return
+					end
+
 					vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
-				end
+				end,
 			})
 		end
-	end
+	end,
 })
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -122,13 +137,6 @@ autocmd('TextYankPost', {
 	end,
 	group = highlight_group,
 	pattern = '*',
-})
-
-autocmd("BufWritePre", {
-	pattern = "*",
-	callback = function(args)
-		require("conform").format({ bufnr = args.buf })
-	end,
 })
 
 autocmd({ "FileType" }, {
