@@ -200,10 +200,10 @@ map('x', 'y', 'ygv')
 map('v', '<', '<gv')
 map('v', '>', '>gv')
 
-map('n', '<leader>c', ':bw!<CR>', { silent = true })                      -- Close buffer
-map('n', '<leader>C', ':silent w!|%bd|e#|bd#|\'"<CR>', { silent = true }) -- Close all buffers except current
-map('n', '<Esc>', '<cmd>noh<CR>', { silent = true })                      -- Remove highlight search
-map('n', '<leader>e', '<cmd>:Ex<CR>')                                     -- Explore netrw
+map('n', '<leader>c', ':bw!<CR>', { silent = true })                        -- Close buffer
+map('n', '<leader>C', ':silent wall|%bd|e#|bd#|\'"<CR>', { silent = true }) -- Close all buffers except current
+map('n', '<Esc>', '<cmd>noh<CR>', { silent = true })                        -- Remove highlight search
+map('n', '<leader>e', '<cmd>:Ex<CR>')                                       -- Explore netrw
 
 vim.cmd("set iskeyword+=-")
 
