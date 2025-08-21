@@ -99,7 +99,6 @@ local augroup = vim.api.nvim_create_augroup
 local RamunnoGroup = augroup('Ramunno', {})
 local autocmd = vim.api.nvim_create_autocmd
 
-
 autocmd("LspAttach", {
 	pattern = "*",
 	callback = function(args)
