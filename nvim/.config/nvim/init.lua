@@ -25,7 +25,6 @@ vim.opt.updatetime = 50
 vim.opt.virtualedit = "block"
 vim.opt.winbar = '%=%m %f'
 vim.opt.winblend = 0
-vim.opt.winborder = "rounded"
 vim.opt.wrap = false
 
 vim.g.netrw_banner = 0
