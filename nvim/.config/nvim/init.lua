@@ -33,6 +33,22 @@ vim.g.netrw_liststyle = 0
 vim.g.netrw_list_hide = ".*\\.swp$,.DS_Store,*/tmp/*,*.so,*.swp,*.zip,*.git,^\\.\\.\\=/\\=$"
 vim.g.netrw_browse_split = 0
 
+vim.diagnostic.config({
+	virtual_text = true,
+	signs = false,
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
+	float = {
+		border = "rounded",
+		source = "if_many",
+		scope = "cursor",
+		focusable = true,
+		max_width = 80,
+		wrap = true,
+	}
+})
+
 vim.pack.add({
 	{ src = "https://github.com/rose-pine/neovim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
@@ -225,11 +241,9 @@ map('n', '<leader>s', vim.lsp.buf.code_action)
 map('n', '<leader>lf', vim.lsp.buf.format)
 map('n', '[d', function()
 	vim.diagnostic.jump({ count = -1 })
-	vim.diagnostic.open_float(nil, { focus = false })
 end)
 map('n', ']d', function()
 	vim.diagnostic.jump({ count = 1 })
-	vim.diagnostic.open_float(nil, { focus = false })
 end)
 
 map('n', '<leader><leader>', function()

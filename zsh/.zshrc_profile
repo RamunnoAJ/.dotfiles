@@ -65,3 +65,4 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 export ANDROID_HOME=$HOME/Android/Sdk
 export JAVA_HOME=/usr/lib/jvm/java-18-openjdk-amd64/
 
+export ZVM_VI_ESCAPE_BINDKEY=^C
