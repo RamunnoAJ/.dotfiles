@@ -234,8 +234,8 @@ map('n', 'gD', vim.lsp.buf.declaration)
 map('n', 'gr', require('telescope.builtin').lsp_references)
 map('n', 'gi', vim.lsp.buf.implementation)
 map('n', 'gt', vim.lsp.buf.type_definition)
-map('n', 'K', vim.lsp.buf.hover)
-map('n', '<C-k>', vim.lsp.buf.signature_help)
+map('n', 'K', function() vim.lsp.buf.hover({ border = "rounded" }) end)
+map('n', '<C-k>', function() vim.lsp.buf.signature_help({ border = "rounded" }) end)
 map('n', '<leader>r', vim.lsp.buf.rename)
 map('n', '<leader>s', vim.lsp.buf.code_action)
 map('n', '<leader>lf', vim.lsp.buf.format)
@@ -274,7 +274,9 @@ end)
 
 -- Show signature help on insert mode to see function's parameters
 map('i', '<C-k>', function()
-	vim.lsp.buf.signature_help()
+	vim.lsp.buf.signature_help({
+		border = "rounded"
+	})
 end, { desc = 'Signature Help' })
 
 vim.lsp.enable({ "lua_ls", "ts_ls", "gopls" })
