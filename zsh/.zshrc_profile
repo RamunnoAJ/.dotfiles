@@ -18,6 +18,7 @@ source ~/.zsh_plugins.sh
 chmod +x ~/.scripts/tmux-sessionizer.sh
 chmod +x ~/.scripts/tmux-session.sh
 chmod +x ~/.scripts/tmux-attach.sh
+chmod +x ~/.scripts/open-github.sh
 
 # aliases
 alias update-antibody='antibody bundle < $HOME/.zsh_plugins.txt > $HOME/.zsh_plugins.zsh'
