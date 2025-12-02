@@ -279,7 +279,7 @@ map('i', '<C-k>', function()
 	})
 end, { desc = 'Signature Help' })
 
-vim.lsp.enable({ "lua_ls", "ts_ls", "gopls" })
+vim.lsp.enable({ "lua_ls", "ts_ls", "gopls", "clangd" })
 
 -- colors
 require "rose-pine".setup({
