@@ -11,13 +11,25 @@ echo ">>> Starting Server Setup..."
 if command -v apt-get &> /dev/null; then
     echo ">>> Installing dependencies via apt..."
     sudo apt-get update
-    sudo apt-get install -y zsh tmux neovim git curl unzip ripgrep fd-find
+    sudo apt-get install -y zsh tmux git curl unzip ripgrep fd-find
 elif command -v yum &> /dev/null; then
     echo ">>> Installing dependencies via yum..."
-    sudo yum install -y zsh tmux neovim git curl unzip ripgrep fd-find
+    sudo yum install -y zsh tmux git curl unzip ripgrep fd-find
 else
-    echo ">>> Package manager not found. Please ensure zsh, tmux, neovim, git, curl are installed."
+    echo ">>> Package manager not found. Please ensure zsh, tmux, git, curl are installed."
 fi
+
+# 1.1 Install Latest Neovim (from source/release, to avoid old apt versions)
+echo ">>> Installing latest Neovim..."
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+sudo rm -rf /opt/nvim
+sudo tar -C /opt -xzf nvim-linux64.tar.gz
+# Create a symbolic link so 'nvim' is in the path
+if [ -L /usr/local/bin/nvim ]; then
+    sudo rm /usr/local/bin/nvim
+fi
+sudo ln -s /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim
+rm nvim-linux64.tar.gz
 
 # 2. Setup Zsh
 echo ">>> Setting up Zsh..."
