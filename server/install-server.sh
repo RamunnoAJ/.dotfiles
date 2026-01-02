@@ -11,12 +11,12 @@ echo ">>> Starting Server Setup..."
 if command -v apt-get &> /dev/null; then
     echo ">>> Installing dependencies via apt..."
     sudo apt-get update
-    sudo apt-get install -y zsh tmux git curl unzip ripgrep fd-find
+    sudo apt-get install -y zsh tmux git curl unzip ripgrep fd-find build-essential
 elif command -v yum &> /dev/null; then
     echo ">>> Installing dependencies via yum..."
-    sudo yum install -y zsh tmux git curl unzip ripgrep fd-find
+    sudo yum install -y zsh tmux git curl unzip ripgrep fd-find gcc gcc-c++ make
 else
-    echo ">>> Package manager not found. Please ensure zsh, tmux, git, curl are installed."
+    echo ">>> Package manager not found. Please ensure zsh, tmux, git, curl, and a C compiler are installed."
 fi
 
 # 1.1 Install Latest Neovim (from source/release, to avoid old apt versions)
