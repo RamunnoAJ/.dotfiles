@@ -14,7 +14,7 @@
 	helper = cache
 [core]
 	pager = cat -
-	editor = /usr/bin/nvim-linux-x86_64.appimage
+	editor = /usr/local/bin/nvim
 	excludesfile = /Users/charlie/.config/git/gitignore_global
 [diff]
     algoritm = patience

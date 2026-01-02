@@ -24,7 +24,7 @@ chmod +x ~/.scripts/open-github.sh
 alias update-antibody='antibody bundle < $HOME/.zsh_plugins.txt > $HOME/.zsh_plugins.zsh'
 alias ls-npm='npm list -g --depth=0'
 alias ls='ls -al --color'
-alias vim='/usr/bin/nvim-linux-x86_64.appimage'
+alias vim='/usr/local/bin/nvim'
 alias cat='bat'
 alias vimrc='vim ${HOME}/.dotfiles/nvim/.config/nvim/init.lua'
 alias zshrc='vim ${HOME}/.dotfiles/zsh/.zshrc_profile'
@@ -32,12 +32,19 @@ alias mysql='/opt/lampp/bin/mysql -u root'
 alias tcd='~/.scripts/tmux-sessionizer.sh'
 alias tls='tmux list-sessions'
 alias tas='~/.scripts/tmux-attach.sh'
+alias k='kubectl'
 
 # FZF
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/*'"
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --margin=1 --padding=1"
 
 export BAT_THEME="gruvbox-dark"
+export EDITOR="/usr/local/bin/nvim"
+
+# Open buffer line in editor
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
 
 # Nix
 if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi

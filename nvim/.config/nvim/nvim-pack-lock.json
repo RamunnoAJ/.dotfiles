@@ -1,0 +1,49 @@
+{
+  "plugins": {
+    "blink.cmp": {
+      "rev": "2665197779e3ba4db58a91dbffac0026b9fcc2e9",
+      "src": "https://github.com/Saghen/blink.cmp",
+      "version": "'1.*'"
+    },
+    "cmp-nvim-lsp": {
+      "rev": "bd5a7d6db125d4654b50eeae9f5217f24bb22fd3",
+      "src": "https://github.com/hrsh7th/cmp-nvim-lsp"
+    },
+    "conform.nvim": {
+      "rev": "973f3cb73887d510321653044791d7937c7ec0fa",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "fidget.nvim": {
+      "rev": "dafd592c7bdbb6cd6d17d3c9a1a8abf3930138c1",
+      "src": "https://github.com/j-hui/fidget.nvim"
+    },
+    "gitsigns.nvim": {
+      "rev": "ca8bf696be575efa925ef531c4efd897b5c3086b",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "mason.nvim": {
+      "rev": "7dc4facca9702f95353d5a1f87daf23d78e31c2a",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "neovim": {
+      "rev": "72befaffeac38db7bdd49e0549eaa2c4806dd878",
+      "src": "https://github.com/rose-pine/neovim"
+    },
+    "nvim-cmp": {
+      "rev": "b5311ab3ed9c846b585c0c15b7559be131ec4be9",
+      "src": "https://github.com/hrsh7th/nvim-cmp"
+    },
+    "nvim-treesitter": {
+      "rev": "42fc28ba918343ebfd5565147a42a26580579482",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "telescope.nvim": {
+      "rev": "b4da76be54691e854d3e0e02c36b0245f945c2c7",
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
+    }
+  }
+}
