@@ -34,288 +34,312 @@ vim.g.netrw_list_hide = ".*\\.swp$,.DS_Store,*/tmp/*,*.so,*.swp,*.zip,*.git,^\\.
 vim.g.netrw_browse_split = 0
 
 vim.diagnostic.config({
-	virtual_text = true,
-	signs = false,
-	underline = true,
-	update_in_insert = false,
-	severity_sort = true,
-	float = {
-		border = "rounded",
-		source = "if_many",
-		scope = "cursor",
-		focusable = true,
-		max_width = 80,
-		wrap = true,
-	}
+  virtual_text = true,
+  signs = false,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+  float = {
+    border = "rounded",
+    source = "if_many",
+    scope = "cursor",
+    focusable = true,
+    max_width = 80,
+    wrap = true,
+  },
 })
+
+local function prequire(mod)
+  local ok, m = pcall(require, mod)
+  if ok then return m end
+  return nil
+end
 
 vim.pack.add({
-	{ src = "https://github.com/rose-pine/neovim" },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-	{ src = "https://github.com/mason-org/mason.nvim" },
-	{ src = "https://github.com/nvim-lua/plenary.nvim" },
-	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
-	{ src = "https://github.com/j-hui/fidget.nvim" },
-	{ src = "https://github.com/stevearc/conform.nvim" },
-	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
-	{ src = "https://github.com/Saghen/blink.cmp",               version = "1.*" },
+  { src = "https://github.com/rose-pine/neovim" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+  { src = "https://github.com/mason-org/mason.nvim" },
+  { src = "https://github.com/nvim-lua/plenary.nvim" },
+  { src = "https://github.com/nvim-telescope/telescope.nvim" },
+  { src = "https://github.com/j-hui/fidget.nvim" },
+  { src = "https://github.com/stevearc/conform.nvim" },
+  { src = "https://github.com/lewis6991/gitsigns.nvim" },
+  { src = "https://github.com/Saghen/blink.cmp", version = "1.*" },
 })
 
-require "mason".setup()
-require "telescope".setup()
-require "fidget".setup({})
-require "nvim-treesitter.configs".setup({
-	modules = {},
-	sync_install = false,
-	ignore_install = {},
-	auto_install = true,
-	indent = { enable = true },
-	ensure_installed = { "typescript", "javascript" },
-	highlight = { enable = true }
-})
-require "conform".setup({
-	formatters_by_ft = {
-		javascript = { "prettierd" },
-		typescript = { "prettierd" },
-		javascriptreact = { "prettierd" },
-		typescriptreact = { "prettierd" },
-	},
-})
-require "gitsigns".setup({
-	signs = {
-		add = { text = "+" },
-		change = { text = "~" },
-		delete = { text = "_" },
-		topdelete = { text = "-" },
-		changedelete = { text = "~" }
-	},
-	signcolumn = true,
-	numhl = false,
-	linehl = false,
-	word_diff = false,
+-- Plugin setups (guarded)
+local mason = prequire("mason")
+if mason then mason.setup() end
 
-	on_attach = function(bufnr)
-		local gitsigns = require('gitsigns')
+local telescope = prequire("telescope")
+if telescope then telescope.setup() end
 
-		local function map(mode, l, r, opts)
-			opts = opts or {}
-			opts.buffer = bufnr
-			vim.keymap.set(mode, l, r, opts)
-		end
+local fidget = prequire("fidget")
+if fidget then fidget.setup({}) end
 
-		map('n', ']c', function()
-			if vim.wo.diff then
-				vim.cmd.normal({ ']c', bang = true })
-			else
-				gitsigns.nav_hunk('next')
-			end
-		end)
+local ts = prequire("nvim-treesitter.configs")
+if ts then
+  ts.setup({
+    modules = {},
+    sync_install = false,
+    ignore_install = {},
+    auto_install = true,
+    indent = { enable = true },
+    ensure_installed = { "typescript", "javascript" },
+    highlight = { enable = true },
+  })
+end
 
-		map('n', '[c', function()
-			if vim.wo.diff then
-				vim.cmd.normal({ '[c', bang = true })
-			else
-				gitsigns.nav_hunk('prev')
-			end
-		end)
-	end
+local conform = prequire("conform")
+if conform then
+  conform.setup({
+    formatters_by_ft = {
+      javascript = { "prettierd" },
+      typescript = { "prettierd" },
+      javascriptreact = { "prettierd" },
+      typescriptreact = { "prettierd" },
+    },
+  })
+end
 
-})
-require "blink.cmp".setup({
-	signature = { enabled = true },
-	fuzzy = { implementation = "lua" },
-	completion = {
-		documentation = { auto_show = true, auto_show_delay_ms = 500 },
-		menu = {
-			auto_show = true,
-			draw = {
-				treesitter = { "lsp" },
-				columns = { { "label", "label_description", gap = 1 } },
-			}
-		}
-	}
-})
+local gitsigns = prequire("gitsigns")
+if gitsigns then
+  gitsigns.setup({
+    signs = {
+      add = { text = "+" },
+      change = { text = "~" },
+      delete = { text = "_" },
+      topdelete = { text = "-" },
+      changedelete = { text = "~" },
+    },
+    signcolumn = true,
+    numhl = false,
+    linehl = false,
+    word_diff = false,
+    on_attach = function(bufnr)
+      local gs = require("gitsigns") -- safe: on_attach only runs if plugin loaded
 
+      local function map(mode, l, r, opts)
+        opts = opts or {}
+        opts.buffer = bufnr
+        vim.keymap.set(mode, l, r, opts)
+      end
+
+      map("n", "]c", function()
+        if vim.wo.diff then
+          vim.cmd.normal({ "]c", bang = true })
+        else
+          gs.nav_hunk("next")
+        end
+      end)
+
+      map("n", "[c", function()
+        if vim.wo.diff then
+          vim.cmd.normal({ "[c", bang = true })
+        else
+          gs.nav_hunk("prev")
+        end
+      end)
+    end,
+  })
+end
+
+local blink = prequire("blink.cmp")
+if blink then
+  blink.setup({
+    signature = { enabled = true },
+    fuzzy = { implementation = "lua" },
+    completion = {
+      documentation = { auto_show = true, auto_show_delay_ms = 500 },
+      menu = {
+        auto_show = true,
+        draw = {
+          treesitter = { "lsp" },
+          columns = { { "label", "label_description", gap = 1 } },
+        },
+      },
+    },
+  })
+end
+
+-- Core API shortcuts
 local map = vim.keymap.set
 local augroup = vim.api.nvim_create_augroup
-local RamunnoGroup = augroup('Ramunno', {})
+local RamunnoGroup = augroup("Ramunno", {})
 local autocmd = vim.api.nvim_create_autocmd
 
 autocmd("LspAttach", {
-	pattern = "*",
-	callback = function(args)
-		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		if not client then return end
+  pattern = "*",
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then return end
 
-		if client:supports_method("textDocument/formatting") then
-			autocmd("BufWritePre", {
-				buffer = args.buf,
-				callback = function()
-					local conform_formatting = {
-						javascript = true,
-						typescript = true,
-						typescriptreact = true,
-						javascriptreact = true,
-					}
+    if client:supports_method("textDocument/formatting") then
+      autocmd("BufWritePre", {
+        buffer = args.buf,
+        callback = function()
+          local conform_formatting = {
+            javascript = true,
+            typescript = true,
+            typescriptreact = true,
+            javascriptreact = true,
+          }
 
-					local ft = vim.bo[args.buf].filetype
-					if conform_formatting[ft] then
-						require "conform".format({ bufnr = args.buf })
-						return
-					end
+          local ft = vim.bo[args.buf].filetype
+          if conform_formatting[ft] then
+            local c = prequire("conform")
+            if c then c.format({ bufnr = args.buf }) end
+            return
+          end
 
-					vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
-				end,
-			})
-		end
-	end,
+          vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+        end,
+      })
+    end
+  end,
 })
 
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-autocmd('TextYankPost', {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = highlight_group,
-	pattern = '*',
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+autocmd("TextYankPost", {
+  callback = function() vim.highlight.on_yank() end,
+  group = highlight_group,
+  pattern = "*",
 })
 
 autocmd({ "FileType" }, {
-	pattern = "netrw",
-	group = RamunnoGroup,
-	desc = "Netrw specific mappings",
-
-	callback = function()
-		map("n", "<C-c>", ":Rex<CR>", { remap = true, buffer = true })
-		map("n", "h", "-", { remap = true, buffer = true })
-		map("n", "l", "<CR>", { remap = true, buffer = true })
-	end
+  pattern = "netrw",
+  group = RamunnoGroup,
+  desc = "Netrw specific mappings",
+  callback = function()
+    map("n", "<C-c>", ":Rex<CR>", { remap = true, buffer = true })
+    map("n", "h", "-", { remap = true, buffer = true })
+    map("n", "l", "<CR>", { remap = true, buffer = true })
+  end,
 })
 
 vim.g.mapleader = " "
-map('n', '<leader>o', ':source ~/.config/nvim/init.lua<CR>')
+map("n", "<leader>o", ":source ~/.config/nvim/init.lua<CR>")
 
 -- Move text with <up/down>
-map('n', '<M-j>', '<Esc>:m .+1<CR>==')
-map('n', '<M-k>', '<Esc>:m .-2<CR>==')
-map('v', '<M-j>', ":m '>+1<CR>gv=gv")
-map('v', '<M-k>', ":m '<-2<CR>gv=gv")
+map("n", "<M-j>", "<Esc>:m .+1<CR>==")
+map("n", "<M-k>", "<Esc>:m .-2<CR>==")
+map("v", "<M-j>", ":m '>+1<CR>gv=gv")
+map("v", "<M-k>", ":m '<-2<CR>gv=gv")
 
-map('i', '<C-c>', '<Esc>')
-map('n', 'J', 'mzJ`z', { silent = true }) -- Don't move the cursor when doing J
+map("i", "<C-c>", "<Esc>")
+map("n", "J", "mzJ`z", { silent = true }) -- Don't move the cursor when doing J
 
 -- Better paste
-map('v', 'p', '"_dp')
-map('v', 'P', '"_dP')
-map('n', ',p', '"0p')
-map('n', ',P', '"0P')
+map("v", "p", '"_dp')
+map("v", "P", '"_dP')
+map("n", ",p", '"0p')
+map("n", ",P", '"0P')
 
 -- Actions not yanking
-map('n', 'd', '"_d')
-map('v', 'd', '"_d')
-map('n', 'D', '"_D')
-map('v', 'D', '"_D')
-map('n', 'x', '"_x')
-map('v', 'x', '"_x')
-map('n', 'c', '"_c')
-map('v', 'c', '"_c')
-map('n', 'C', '"_C')
-map('v', 'C', '"_C')
+map("n", "d", '"_d')
+map("v", "d", '"_d')
+map("n", "D", '"_D')
+map("v", "D", '"_D')
+map("n", "x", '"_x')
+map("v", "x", '"_x')
+map("n", "c", '"_c')
+map("v", "c", '"_c')
+map("n", "C", '"_C')
+map("v", "C", '"_C')
 
 -- Navigate buffers
 map("n", "<S-l>", ":bnext<CR>")
 map("n", "<S-h>", ":bprevious<CR>")
 
 -- Better navigation with <C-d> and <C-u>
-map('n', '<C-d>', '<C-d>zz')
-map('n', '<C-u>', '<C-u>zz')
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
 
 -- Remap for dealing with word wrap
-map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Surround selection with brackets
-map('v', '(', '<esc>`>a)<esc>`<i(<esc>gv')
-map('v', '[', '<esc>`>a]<esc>`<i[<esc>gv')
-map('v', '{', '<esc>`>a}<esc>`<i{<esc>gv')
-map('v', "'", "<esc>`>a'<esc>`<i'<esc>gv")
-map('v', '"', '<esc>`>a"<esc>`<i"<esc>gv')
-map('v', '`', '<esc>`>a`<esc>`<i`<esc>gv')
+map("v", "(", "<esc>`>a)<esc>`<i(<esc>gv")
+map("v", "[", "<esc>`>a]<esc>`<i[<esc>gv")
+map("v", "{", "<esc>`>a}<esc>`<i{<esc>gv")
+map("v", "'", "<esc>`>a'<esc>`<i'<esc>gv")
+map("v", '"', '<esc>`>a"<esc>`<i"<esc>gv')
+map("v", "`", "<esc>`>a`<esc>`<i`<esc>gv")
 
 -- Keep selection after yanking
-map('x', 'y', 'ygv')
+map("x", "y", "ygv")
 
 -- Keep selection after Indenting
-map('v', '<', '<gv')
-map('v', '>', '>gv')
+map("v", "<", "<gv")
+map("v", ">", ">gv")
 
-map('n', '<leader>c', ':bw!<CR>', { silent = true })                        -- Close buffer
-map('n', '<leader>C', ':silent wall|%bd|e#|bd#|\'"<CR>', { silent = true }) -- Close all buffers except current
-map('n', '<Esc>', '<cmd>noh<CR>', { silent = true })                        -- Remove highlight search
-map('n', '<leader>e', '<cmd>:Ex<CR>')                                       -- Explore netrw
+map("n", "<leader>c", ":bw!<CR>", { silent = true })                        -- Close buffer
+map("n", "<leader>C", ':silent wall|%bd|e#|bd#|\'"<CR>', { silent = true }) -- Close all buffers except current
+map("n", "<Esc>", "<cmd>noh<CR>", { silent = true })                        -- Remove highlight search
+map("n", "<leader>e", "<cmd>:Ex<CR>")                                       -- Explore netrw
 
 vim.cmd("set iskeyword+=-")
 
-map('n', 'gd', vim.lsp.buf.definition)
-map('n', 'gD', vim.lsp.buf.declaration)
-map('n', 'gr', require('telescope.builtin').lsp_references)
-map('n', 'gi', vim.lsp.buf.implementation)
-map('n', 'gt', vim.lsp.buf.type_definition)
-map('n', 'K', function() vim.lsp.buf.hover({ border = "rounded" }) end)
-map('n', '<C-k>', function() vim.lsp.buf.signature_help({ border = "rounded" }) end)
-map('n', '<leader>r', vim.lsp.buf.rename)
-map('n', '<leader>s', vim.lsp.buf.code_action)
-map('n', '<leader>lf', vim.lsp.buf.format)
-map('n', '[d', function()
-	vim.diagnostic.jump({ count = -1 })
-end)
-map('n', ']d', function()
-	vim.diagnostic.jump({ count = 1 })
-end)
+-- LSP mappings (telescope guarded where needed)
+local tb = prequire("telescope.builtin")
 
-map('n', '<leader><leader>', function()
-	vim.diagnostic.open_float(nil, { focus = true })
-end)
+map("n", "gd", vim.lsp.buf.definition)
+map("n", "gD", vim.lsp.buf.declaration)
+if tb then map("n", "gr", tb.lsp_references) end
+map("n", "gi", vim.lsp.buf.implementation)
+map("n", "gt", vim.lsp.buf.type_definition)
+map("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end)
+map("n", "<C-k>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end)
+map("n", "<leader>r", vim.lsp.buf.rename)
+map("n", "<leader>s", vim.lsp.buf.code_action)
+map("n", "<leader>lf", vim.lsp.buf.format)
+
+map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end)
+map("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end)
+map("n", "<leader><leader>", function() vim.diagnostic.open_float(nil, { focus = true }) end)
 
 -- Telescope
-map('n', '<leader>f', ":lua require('telescope.builtin').find_files({hidden=true})<CR>")
-map('n', '<C-p>', function()
-	local ok = pcall(require("telescope.builtin").git_files)
-	if not ok then
-		require("telescope.builtin").find_files()
-	end
-end)
-map('n', '<leader>g', ":lua require('telescope.builtin').live_grep()<CR>")
-map('n', '<leader>d', ":lua require('telescope.builtin').diagnostics()<CR>")
+if tb then
+  map("n", "<leader>f", function() tb.find_files({ hidden = true }) end)
+  map("n", "<leader>g", tb.live_grep)
+  map("n", "<leader>d", tb.diagnostics)
+  map("n", "<C-p>", function()
+    local ok = pcall(tb.git_files)
+    if ok then return end
+    tb.find_files()
+  end)
+end
 
 -- Toggle signcolumn
-map('n', '<leader>z', function()
-	local signcolumn = vim.wo.signcolumn
-
-	if signcolumn == 'yes' then
-		vim.wo.signcolumn = 'yes:9'
-	else
-		vim.wo.signcolumn = 'yes'
-	end
+map("n", "<leader>z", function()
+  local signcolumn = vim.wo.signcolumn
+  if signcolumn == "yes" then
+    vim.wo.signcolumn = "yes:9"
+  else
+    vim.wo.signcolumn = "yes"
+  end
 end)
 
--- Show signature help on insert mode to see function's parameters
-map('i', '<C-k>', function()
-	vim.lsp.buf.signature_help({
-		border = "rounded"
-	})
-end, { desc = 'Signature Help' })
+-- Show signature help on insert mode
+map("i", "<C-k>", function()
+  vim.lsp.buf.signature_help({ border = "rounded" })
+end, { desc = "Signature Help" })
 
 vim.lsp.enable({ "lua_ls", "ts_ls", "gopls", "clangd" })
 
--- colors
-require "rose-pine".setup({
-	styles = {
-		bold = true,
-		italic = false,
-		transparency = true,
-	}
-})
-vim.cmd("colorscheme rose-pine")
-vim.cmd(":hi statusline guibg=NONE")
-vim.o.background = "dark"
+-- colors (guarded)
+local rose_pine = prequire("rose-pine")
+if rose_pine then
+  rose_pine.setup({
+    styles = {
+      bold = true,
+      italic = false,
+      transparency = true,
+    },
+  })
+  vim.cmd("colorscheme rose-pine")
+  vim.cmd("hi statusline guibg=NONE")
+  vim.o.background = "dark"
+end
+
