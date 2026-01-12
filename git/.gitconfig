@@ -10,8 +10,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[credential]
-	helper = cache
 [core]
 	pager = cat -
 	editor = /usr/local/bin/nvim
@@ -37,4 +35,11 @@
 [url "git@github.com:"]
     insteadOf = "gh:"
 [gpg]
+[credential]
+        helper = !'/usr/local/bin/devpod' agent git-credentials --port 12049
+[gpg "ssh"]
+	program = devpod-ssh-signature
+[gpg]
 	format = ssh
+[user]
+	signingkey = /home/pop/.ssh/id_ed25519.pub

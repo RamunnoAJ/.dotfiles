@@ -1,7 +1,17 @@
-# .dotfiles
+# .dotfiles (Host setup)
 
-1. Clone this repo
-2. Run the `install.sh` script
-3. Restart the computer
-4. Open the terminal
-5. Run the `source ~/.zshrc` script
+This repository configures the **host machine** using Nix + GNU Stow.
+It is NOT intended to be run inside devcontainers or DevPod workspaces.
+
+## Requirements
+- Ubuntu / Debian-based system
+- sudo access
+- curl, git
+
+## Installation
+
+1. Clone the repository into `$HOME`:
+
+```bash
+git clone <repo-url> ~/.dotfiles
+cd ~/.dotfiles

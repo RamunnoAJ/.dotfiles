@@ -1,78 +1,71 @@
-# run sudo update
-sudo apt update
+#!/usr/bin/env bash
+set -euo pipefail
 
-# install curl
-sudo apt install curl
-#install zsh
-sudo apt install zsh
-# install nix
-curl -L https://nixos.org/nix/install | sh
-# install nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
-# source nix
-. ~/.nix-profile/etc/profile.d/nix.sh
+# 1) Base mínima (solo curl + git para bootstrap)
+sudo apt-get update
+sudo apt-get install -y --no-install-recommends curl git ca-certificates
 
-# install packages
+# 2) Nix (si no está)
+if [ ! -d "$HOME/.nix-profile" ]; then
+  curl -L https://nixos.org/nix/install | sh
+fi
+
+# Cargar entorno nix en este script
+. "$HOME/.nix-profile/etc/profile.d/nix.sh"
+
+# 3) Paquetes
 nix-env -iA \
-	nixpkgs.zsh \
-	nixpkgs.oh-my-zsh \
-	nixpkgs.ansible \
-	nixpkgs.go \
-	nixpkgs.glow \
-	nixpkgs.neofetch \
-	nixpkgs.btop \
-	nixpkgs.xclip \
-	nixpkgs.antibody \
-	nixpkgs.git \
-	nixpkgs.neovim \
-	nixpkgs.tmux \
-	nixpkgs.stow \
-	nixpkgs.yarn \
-	nixpkgs.fzf \
-	nixpkgs.ripgrep \
-	nixpkgs.bat \
-	nixpkgs.direnv \
-	nixpkgs.nodenv \
-	nixpkgs.zoxide
+  nixpkgs.zsh \
+  nixpkgs.oh-my-zsh \
+  nixpkgs.ansible \
+  nixpkgs.go \
+  nixpkgs.neofetch \
+  nixpkgs.btop \
+  nixpkgs.xclip \
+  nixpkgs.antibody \
+  nixpkgs.neovim \
+  nixpkgs.tmux \
+  nixpkgs.stow \
+  nixpkgs.yarn \
+  nixpkgs.fzf \
+  nixpkgs.ripgrep \
+  nixpkgs.bat \
+  nixpkgs.direnv \
+  nixpkgs.zoxide
 
-# Creates directories if not exists
-mkdir -p ~/projects
-mkdir -p ~/work
-mkdir -p ~/study
-mkdir -p ~/personal
+# 4) Directorios
+mkdir -p "$HOME"/{projects,work,workspaces,study,personal} "$HOME/.config"
 
-# install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# 5) Stow (siempre explícito: target HOME, source repo)
+# Requiere ejecutar desde el repo o setear DOTFILES_DIR.
+stow -d "$DOTFILES_DIR" -t "$HOME" git zsh nvim tmux scripts
 
-# stow
-stow git
-stow zsh
-stow nvim
-stow tmux
-stow scripts
+# 6) TPM idempotente
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
 
-# move .zshrc.example to .zshrc
-mv ~/.zshrc.example ~/.zshrc
+# 7) Zsh como shell default (asegurar /etc/shells)
+ZSH_PATH="$(command -v zsh)"
+if ! grep -qx "$ZSH_PATH" /etc/shells; then
+  echo "$ZSH_PATH" | sudo tee -a /etc/shells >/dev/null
+fi
+sudo chsh -s "$ZSH_PATH" "$USER"
 
-# install tmux plugin manager
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# 8) Antibody bundle idempotente
+if [ -f "$HOME/.zsh_plugins.txt" ]; then
+  antibody bundle < "$HOME/.zsh_plugins.txt" > "$HOME/.zsh_plugins.sh"
+fi
 
-# source tmux.conf
-tmux source-file ~/.tmux.conf
+# 9) NVM (si querés seguir con nvm)
+if [ ! -d "$HOME/.nvm" ]; then
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+fi
+export NVM_DIR="$HOME/.nvm"
+# shellcheck disable=SC1091
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-# add zsh to valid login shells
-command -v zsh | sudo tee -a /etc/shells
-
-# use zsh as default shell
-sudo chsh -s $(which zsh) $USER
-
-# bundle zsh plugins
-antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
-
-# source zshrc
-source ~/.zshrc
-
-# install nvm latest version of node
 nvm install --lts
-nvm alias defaul node
+nvm alias default 'lts/*'
