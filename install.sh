@@ -7,6 +7,15 @@ DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 sudo apt-get update
 sudo apt-get install -y --no-install-recommends curl git ca-certificates
 
+# Neovim (latest release from GitHub)
+echo ">>> Installing latest Neovim from GitHub releases..."
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+sudo rm -rf /opt/nvim-linux-x86_64
+sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+[ -L /usr/local/bin/nvim ] && sudo rm /usr/local/bin/nvim
+sudo ln -sf /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
+rm nvim-linux-x86_64.tar.gz
+
 # 2) Nix (si no está)
 if [ ! -d "$HOME/.nix-profile" ]; then
   curl -L https://nixos.org/nix/install | sh
@@ -25,7 +34,6 @@ nix-env -iA \
   nixpkgs.btop \
   nixpkgs.xclip \
   nixpkgs.antibody \
-  nixpkgs.neovim \
   nixpkgs.tmux \
   nixpkgs.stow \
   nixpkgs.yarn \
