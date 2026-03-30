@@ -9,17 +9,11 @@
 # Export nvm completion settings for lukechilds/zsh-nvm plugin
 # Note: This must be exported before the plugin is bundled
 export NVM_DIR=${HOME}/.nvm
+export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
 
 # source plugins
 source ~/.zsh_plugins.sh
-
-# source scripts
-chmod +x ~/.scripts/template.sh
-chmod +x ~/.scripts/tmux-sessionizer.sh
-chmod +x ~/.scripts/tmux-session.sh
-chmod +x ~/.scripts/tmux-attach.sh
-chmod +x ~/.scripts/open-github.sh
 
 # aliases
 alias update-antibody='antibody bundle < $HOME/.zsh_plugins.txt > $HOME/.zsh_plugins.zsh'
@@ -42,20 +36,6 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
-# Nix
-if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi
-
-if [ -e /home/ramunno/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ramunno/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-if [ -e /home/agustin/.nix-profile/etc/profile.d/nix.sh ]; then . /home/agustin/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-if [ -d "/usr/local/go/bin" ] ; then
-    export PATH=$PATH:/usr/local/go/bin
-fi
 
 if [ -z "$TMUX" ]; then
   exec tmux new-session -A -s workspace

@@ -25,15 +25,6 @@ export LANG=en_US.UTF-8
 
 # For a full list of active aliases, run `alias`.
 
-if [ -e /home/ramunno/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ramunno/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-if [ -e /home/agustin/.nix-profile/etc/profile.d/nix.sh ]; then . /home/agustin/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-export PATH="$HOME/.nodenv/bin:$PATH"
-
-if [ -e /home/popos/.nix-profile/etc/profile.d/nix.sh ]; then . /home/popos/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-if [ -e /home/pop/.nix-profile/etc/profile.d/nix.sh ]; then . /home/pop/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
 export XDG_RUNTIME_DIR=/tmp
 
 # bun completions

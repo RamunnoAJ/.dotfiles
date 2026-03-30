@@ -5,7 +5,6 @@ robbyrussell/oh-my-zsh path:plugins/command-not-found
 robbyrussell/oh-my-zsh path:plugins/git
 robbyrussell/oh-my-zsh path:plugins/node
 robbyrussell/oh-my-zsh path:plugins/dotenv
-robbyrussell/oh-my-zsh path:plugins/nvm
 robbyrussell/oh-my-zsh path:plugins/npm
 
 zsh-users/zsh-autosuggestions
