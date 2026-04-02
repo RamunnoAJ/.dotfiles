@@ -38,7 +38,7 @@
       "src": "https://github.com/hrsh7th/nvim-cmp"
     },
     "nvim-treesitter": {
-      "rev": "42fc28ba918343ebfd5565147a42a26580579482",
+      "rev": "6878ae017d691a0df1c49d8a091c88a33e4c2d50",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "plenary.nvim": {
