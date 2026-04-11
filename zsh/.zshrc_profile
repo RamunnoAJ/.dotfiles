@@ -12,6 +12,10 @@ export NVM_DIR=${HOME}/.nvm
 export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
 
+# Eagerly add default node to PATH so child processes (e.g. Neovim LSP) can find node
+DEFAULT_NODE_DIR=$(find "${NVM_DIR}/versions/node" -maxdepth 1 -name 'v*' | sort -V | tail -1)
+[ -d "$DEFAULT_NODE_DIR/bin" ] && export PATH="${DEFAULT_NODE_DIR}/bin:${PATH}"
+
 # source plugins
 source ~/.zsh_plugins.sh
 

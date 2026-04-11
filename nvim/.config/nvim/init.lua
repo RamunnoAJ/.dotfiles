@@ -34,37 +34,37 @@ vim.g.netrw_list_hide = ".*\\.swp$,.DS_Store,*/tmp/*,*.so,*.swp,*.zip,*.git,^\\.
 vim.g.netrw_browse_split = 0
 
 vim.diagnostic.config({
-  virtual_text = true,
-  signs = false,
-  underline = true,
-  update_in_insert = false,
-  severity_sort = true,
-  float = {
-    border = "rounded",
-    source = "if_many",
-    scope = "cursor",
-    focusable = true,
-    max_width = 80,
-    wrap = true,
-  },
+	virtual_text = true,
+	signs = false,
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
+	float = {
+		border = "rounded",
+		source = "if_many",
+		scope = "cursor",
+		focusable = true,
+		max_width = 80,
+		wrap = true,
+	},
 })
 
 local function prequire(mod)
-  local ok, m = pcall(require, mod)
-  if ok then return m end
-  return nil
+	local ok, m = pcall(require, mod)
+	if ok then return m end
+	return nil
 end
 
 vim.pack.add({
-  { src = "https://github.com/rose-pine/neovim" },
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-  { src = "https://github.com/mason-org/mason.nvim" },
-  { src = "https://github.com/nvim-lua/plenary.nvim" },
-  { src = "https://github.com/nvim-telescope/telescope.nvim" },
-  { src = "https://github.com/j-hui/fidget.nvim" },
-  { src = "https://github.com/stevearc/conform.nvim" },
-  { src = "https://github.com/lewis6991/gitsigns.nvim" },
-  { src = "https://github.com/Saghen/blink.cmp", version = "1.*" },
+	{ src = "https://github.com/rose-pine/neovim" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
+	{ src = "https://github.com/j-hui/fidget.nvim" },
+	{ src = "https://github.com/stevearc/conform.nvim" },
+	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
+	{ src = "https://github.com/Saghen/blink.cmp",               version = "1.*" },
 })
 
 -- Plugin setups (guarded)
@@ -77,89 +77,114 @@ if telescope then telescope.setup() end
 local fidget = prequire("fidget")
 if fidget then fidget.setup({}) end
 
-local ts = prequire("nvim-treesitter.configs")
+local ts = prequire("nvim-treesitter")
 if ts then
-  ts.setup({
-    modules = {},
-    sync_install = false,
-    ignore_install = {},
-    auto_install = true,
-    indent = { enable = true },
-    ensure_installed = { "typescript", "javascript" },
-    highlight = { enable = true },
-  })
+	ts.setup({
+		install_dir = vim.fn.stdpath("data") .. "/site",
+	})
+
+	local ensure_installed = {
+		"typescript",
+		"javascript",
+		"tsx",
+		"lua",
+		"vim",
+		"vimdoc",
+		"query",
+		"markdown",
+		"markdown_inline",
+	}
+
+	local installed = ts.get_installed and ts.get_installed("parsers") or {}
+	local installed_set = {}
+	for _, name in ipairs(installed) do installed_set[name] = true end
+
+	local missing = {}
+	for _, name in ipairs(ensure_installed) do
+		if not installed_set[name] then table.insert(missing, name) end
+	end
+	if #missing > 0 then ts.install(missing) end
+
+	vim.api.nvim_create_autocmd("FileType", {
+		callback = function(args)
+			local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+			if lang and pcall(vim.treesitter.start, args.buf, lang) then
+				vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+			end
+		end,
+	})
 end
 
 local conform = prequire("conform")
 if conform then
-  conform.setup({
-    formatters_by_ft = {
-      javascript = { "prettierd" },
-      typescript = { "prettierd" },
-      javascriptreact = { "prettierd" },
-      typescriptreact = { "prettierd" },
-    },
-  })
+	conform.setup({
+		formatters_by_ft = {
+			javascript = { "prettierd" },
+			typescript = { "prettierd" },
+			javascriptreact = { "prettierd" },
+			typescriptreact = { "prettierd" },
+		},
+	})
 end
 
 local gitsigns = prequire("gitsigns")
 if gitsigns then
-  gitsigns.setup({
-    signs = {
-      add = { text = "+" },
-      change = { text = "~" },
-      delete = { text = "_" },
-      topdelete = { text = "-" },
-      changedelete = { text = "~" },
-    },
-    signcolumn = true,
-    numhl = false,
-    linehl = false,
-    word_diff = false,
-    on_attach = function(bufnr)
-      local gs = require("gitsigns") -- safe: on_attach only runs if plugin loaded
+	gitsigns.setup({
+		signs = {
+			add = { text = "+" },
+			change = { text = "~" },
+			delete = { text = "_" },
+			topdelete = { text = "-" },
+			changedelete = { text = "~" },
+		},
+		signcolumn = true,
+		numhl = false,
+		linehl = false,
+		word_diff = false,
+		on_attach = function(bufnr)
+			local gs = require("gitsigns") -- safe: on_attach only runs if plugin loaded
 
-      local function map(mode, l, r, opts)
-        opts = opts or {}
-        opts.buffer = bufnr
-        vim.keymap.set(mode, l, r, opts)
-      end
+			local function map(mode, l, r, opts)
+				opts = opts or {}
+				opts.buffer = bufnr
+				vim.keymap.set(mode, l, r, opts)
+			end
 
-      map("n", "]c", function()
-        if vim.wo.diff then
-          vim.cmd.normal({ "]c", bang = true })
-        else
-          gs.nav_hunk("next")
-        end
-      end)
+			map("n", "]c", function()
+				if vim.wo.diff then
+					vim.cmd.normal({ "]c", bang = true })
+				else
+					gs.nav_hunk("next")
+				end
+			end)
 
-      map("n", "[c", function()
-        if vim.wo.diff then
-          vim.cmd.normal({ "[c", bang = true })
-        else
-          gs.nav_hunk("prev")
-        end
-      end)
-    end,
-  })
+			map("n", "[c", function()
+				if vim.wo.diff then
+					vim.cmd.normal({ "[c", bang = true })
+				else
+					gs.nav_hunk("prev")
+				end
+			end)
+		end,
+	})
 end
 
 local blink = prequire("blink.cmp")
 if blink then
-  blink.setup({
-    signature = { enabled = true },
-    fuzzy = { implementation = "lua" },
-    completion = {
-      documentation = { auto_show = true, auto_show_delay_ms = 500 },
-      menu = {
-        auto_show = true,
-        draw = {
-          treesitter = { "lsp" },
-          columns = { { "label", "label_description", gap = 1 } },
-        },
-      },
-    },
-  })
+	blink.setup({
+		signature = { enabled = true },
+		fuzzy = { implementation = "lua" },
+		completion = {
+			documentation = { auto_show = true, auto_show_delay_ms = 500 },
+			menu = {
+				auto_show = true,
+				draw = {
+					treesitter = { "lsp" },
+					columns = { { "label", "label_description", gap = 1 } },
+				},
+			},
+		},
+	})
 end
 
 -- Core API shortcuts
@@ -169,52 +194,52 @@ local RamunnoGroup = augroup("Ramunno", {})
 local autocmd = vim.api.nvim_create_autocmd
 
 autocmd("LspAttach", {
-  pattern = "*",
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if not client then return end
+	pattern = "*",
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if not client then return end
 
-    if client:supports_method("textDocument/formatting") then
-      autocmd("BufWritePre", {
-        buffer = args.buf,
-        callback = function()
-          local conform_formatting = {
-            javascript = true,
-            typescript = true,
-            typescriptreact = true,
-            javascriptreact = true,
-          }
+		if client:supports_method("textDocument/formatting") then
+			autocmd("BufWritePre", {
+				buffer = args.buf,
+				callback = function()
+					local conform_formatting = {
+						javascript = true,
+						typescript = true,
+						typescriptreact = true,
+						javascriptreact = true,
+					}
 
-          local ft = vim.bo[args.buf].filetype
-          if conform_formatting[ft] then
-            local c = prequire("conform")
-            if c then c.format({ bufnr = args.buf }) end
-            return
-          end
+					local ft = vim.bo[args.buf].filetype
+					if conform_formatting[ft] then
+						local c = prequire("conform")
+						if c then c.format({ bufnr = args.buf }) end
+						return
+					end
 
-          vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
-        end,
-      })
-    end
-  end,
+					vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+				end,
+			})
+		end
+	end,
 })
 
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 autocmd("TextYankPost", {
-  callback = function() vim.highlight.on_yank() end,
-  group = highlight_group,
-  pattern = "*",
+	callback = function() vim.highlight.on_yank() end,
+	group = highlight_group,
+	pattern = "*",
 })
 
 autocmd({ "FileType" }, {
-  pattern = "netrw",
-  group = RamunnoGroup,
-  desc = "Netrw specific mappings",
-  callback = function()
-    map("n", "<C-c>", ":Rex<CR>", { remap = true, buffer = true })
-    map("n", "h", "-", { remap = true, buffer = true })
-    map("n", "l", "<CR>", { remap = true, buffer = true })
-  end,
+	pattern = "netrw",
+	group = RamunnoGroup,
+	desc = "Netrw specific mappings",
+	callback = function()
+		map("n", "<C-c>", ":Rex<CR>", { remap = true, buffer = true })
+		map("n", "h", "-", { remap = true, buffer = true })
+		map("n", "l", "<CR>", { remap = true, buffer = true })
+	end,
 })
 
 vim.g.mapleader = " "
@@ -301,29 +326,29 @@ map("n", "<leader><leader>", function() vim.diagnostic.open_float(nil, { focus =
 
 -- Telescope
 if tb then
-  map("n", "<leader>f", function() tb.find_files({ hidden = true }) end)
-  map("n", "<leader>g", tb.live_grep)
-  map("n", "<leader>d", tb.diagnostics)
-  map("n", "<C-p>", function()
-    local ok = pcall(tb.git_files)
-    if ok then return end
-    tb.find_files()
-  end)
+	map("n", "<leader>f", function() tb.find_files({ hidden = true }) end)
+	map("n", "<leader>g", tb.live_grep)
+	map("n", "<leader>d", tb.diagnostics)
+	map("n", "<C-p>", function()
+		local ok = pcall(tb.git_files)
+		if ok then return end
+		tb.find_files()
+	end)
 end
 
 -- Toggle signcolumn
 map("n", "<leader>z", function()
-  local signcolumn = vim.wo.signcolumn
-  if signcolumn == "yes" then
-    vim.wo.signcolumn = "yes:9"
-  else
-    vim.wo.signcolumn = "yes"
-  end
+	local signcolumn = vim.wo.signcolumn
+	if signcolumn == "yes" then
+		vim.wo.signcolumn = "yes:9"
+	else
+		vim.wo.signcolumn = "yes"
+	end
 end)
 
 -- Show signature help on insert mode
 map("i", "<C-k>", function()
-  vim.lsp.buf.signature_help({ border = "rounded" })
+	vim.lsp.buf.signature_help({ border = "rounded" })
 end, { desc = "Signature Help" })
 
 vim.lsp.enable({ "lua_ls", "ts_ls", "gopls", "clangd" })
@@ -331,15 +356,14 @@ vim.lsp.enable({ "lua_ls", "ts_ls", "gopls", "clangd" })
 -- colors (guarded)
 local rose_pine = prequire("rose-pine")
 if rose_pine then
-  rose_pine.setup({
-    styles = {
-      bold = true,
-      italic = false,
-      transparency = true,
-    },
-  })
-  vim.cmd("colorscheme rose-pine")
-  vim.cmd("hi statusline guibg=NONE")
-  vim.o.background = "dark"
+	rose_pine.setup({
+		styles = {
+			bold = true,
+			italic = false,
+			transparency = true,
+		},
+	})
+	vim.cmd("colorscheme rose-pine")
+	vim.cmd("hi statusline guibg=NONE")
+	vim.o.background = "dark"
 end
-
