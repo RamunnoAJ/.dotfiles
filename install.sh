@@ -5,7 +5,7 @@ DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 # 1) Base mínima (solo curl + git para bootstrap)
 sudo apt-get update
-sudo apt-get install -y --no-install-recommends curl git ca-certificates
+sudo apt-get install -y --no-install-recommends curl git ca-certificates xz-utils fontconfig
 
 # Neovim (latest release from GitHub)
 echo ">>> Installing latest Neovim from GitHub releases..."
@@ -45,6 +45,17 @@ nix-env -iA \
 
 # 4) Directorios
 mkdir -p "$HOME"/{projects,work,workspaces,study,personal} "$HOME/.config"
+
+# 4b) Nerd Font symbols (solo íconos, como fallback de la fuente de la terminal)
+FONT_DIR="$HOME/.local/share/fonts/NerdSymbols"
+if [ ! -f "$FONT_DIR/SymbolsNerdFontMono-Regular.ttf" ]; then
+  mkdir -p "$FONT_DIR"
+  curl -fsSL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/NerdFontsSymbolsOnly.tar.xz \
+    | tar -xJ -C "$FONT_DIR"
+fi
+mkdir -p "$HOME/.config/fontconfig/conf.d"
+cp "$FONT_DIR/10-nerd-font-symbols.conf" "$HOME/.config/fontconfig/conf.d/"
+fc-cache -f >/dev/null
 
 # 5) Stow (siempre explícito: target HOME, source repo)
 # Requiere ejecutar desde el repo o setear DOTFILES_DIR.
