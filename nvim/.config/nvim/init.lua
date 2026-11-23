@@ -65,6 +65,7 @@ vim.pack.add({
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/Saghen/blink.cmp",               version = "1.*" },
+	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 })
 
 -- Plugin setups (guarded)
@@ -280,6 +281,18 @@ map("n", "<S-h>", ":bprevious<CR>")
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 
+-- Move between nvim splits and tmux panes with <C-h/j/k/l>
+local tmux_dirs = { h = "L", j = "D", k = "U", l = "R" }
+for key, tmux_dir in pairs(tmux_dirs) do
+	map("n", "<C-" .. key .. ">", function()
+		local prev = vim.api.nvim_get_current_win()
+		vim.cmd.wincmd(key)
+		if prev == vim.api.nvim_get_current_win() and vim.env.TMUX then
+			vim.system({ "tmux", "select-pane", "-" .. tmux_dir })
+		end
+	end, { silent = true })
+end
+
 -- Remap for dealing with word wrap
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -315,7 +328,7 @@ if tb then map("n", "gr", tb.lsp_references) end
 map("n", "gi", vim.lsp.buf.implementation)
 map("n", "gt", vim.lsp.buf.type_definition)
 map("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end)
-map("n", "<C-k>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end)
+map("n", "<leader>k", function() vim.lsp.buf.signature_help({ border = "rounded" }) end)
 map("n", "<leader>r", vim.lsp.buf.rename)
 map("n", "<leader>s", vim.lsp.buf.code_action)
 map("n", "<leader>lf", vim.lsp.buf.format)
@@ -350,6 +363,36 @@ end)
 map("i", "<C-k>", function()
 	vim.lsp.buf.signature_help({ border = "rounded" })
 end, { desc = "Signature Help" })
+
+-- Markdown rendered inside nvim (<leader>mp toggles)
+local render_md = prequire("render-markdown")
+if render_md then
+	render_md.setup({
+		enabled = false,
+		sign = { enabled = false },
+		heading = {
+			width = "block",
+			right_pad = 1,
+		},
+		code = { language_icon = false, width = "block", min_width = 60, left_pad = 1, right_pad = 1 },
+		pipe_table = { preset = "round" },
+		latex = { enabled = false },
+		-- Wrap long lines while rendered (no horizontal scroll)
+		win_options = {
+			wrap = { default = vim.o.wrap, rendered = true },
+			linebreak = { default = vim.o.linebreak, rendered = true },
+			breakindent = { default = vim.o.breakindent, rendered = true },
+			signcolumn = { default = vim.o.signcolumn, rendered = "no" },
+			relativenumber = { default = vim.o.relativenumber, rendered = false },
+		},
+	})
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = "markdown",
+		callback = function(args)
+			map("n", "<leader>mp", "<cmd>RenderMarkdown buf_toggle<CR>", { buffer = args.buf, desc = "Markdown preview" })
+		end,
+	})
+end
 
 vim.lsp.enable({ "lua_ls", "ts_ls", "gopls", "clangd" })
 
